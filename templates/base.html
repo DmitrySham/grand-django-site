@@ -1,0 +1,307 @@
+{% load staticfiles product_template_helper %}
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<title>{% block title %}{% endblock %} | Гранд Чита</title>
+	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="{% static 'img/logos/logo-shortcut.png' %}" />	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- Bootstrap CSS-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+	
+	<!-- Font-Awesome -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">  
+
+	<!-- Icomoon -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/icomoon.css' %}"> 
+
+	<!-- Slider -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/swiper.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/slider.css' %}">
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}">	
+
+    <!-- Color Switcher -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/switcher.css' %}">	
+
+	<!-- Owl Carousel  -->
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">    
+	
+	<!-- Main Styles -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" id="colors">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+	<!-- Fonts Google -->
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+	{% block extra_css %}{% endblock %}
+</head>
+<body>
+
+
+
+<!-- Preloader Start-->
+<div id="preloader">
+	<div class="row loader">
+		<div class="loader-icon"></div>
+	</div>
+</div>
+<!-- Preloader End -->
+
+
+
+<!-- Top-Bar START -->
+<div id="top-bar" class="hidden-sm-down">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9 col-12">
+				<div class="top-bar-welcome">
+				<ul>
+					<li>Добро пожаловать!</li>
+				</ul>
+				</div>
+				<div class="top-bar-info">
+					<ul>
+						{% if site_settings and site_settings.header_phone %}
+							<li><i class="fa fa-phone"></i>{{ site_settings.header_phone|safe }}<li>
+						{% endif %}
+						{% if site_settings and site_settings.header_email %}
+							<li><i class="fa fa-envelope"></i><a href="mailto:{{ site_settings.header_email }}">{{ site_settings.header_email }}</a><li>
+						{% endif %}
+					</ul>						
+				</div>				
+			</div>
+			{% if site_settings and site_settings.socialprofilelinks_set.count > 0 %}
+				<div class="col-md-3 col-12">
+					<ul class="social-icons hidden-md-down">
+						{% for item in site_settings.socialprofilelinks_set.all %}
+							<li><a href="{{ item.url }}" target="_blank"><i class="{{ item.icon }}"></i></a></li>
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</div>	
+<!-- Top-Bar END -->
+
+
+
+<!-- Navbar START -->
+<header>
+	<nav id="navigation4" class="container navigation">
+		<div class="nav-header">
+			<a class="nav-brand" href="{% url 'index' %}">
+				<img src="{% static 'img/logos/logo.png' %}" class="main-logo" alt="logo" id="main_logo">
+			</a>
+			<div class="nav-toggle"></div>
+		</div>
+		<div class="nav-menus-wrapper">
+			<ul class="nav-menu align-to-right">
+				<li><a href="index.html">Главная</a>
+				</li>
+				<li><a href="educationalCenter.html">Учебный Центр</a>
+				</li>
+				<li><a href="{% url 'production:one_c_list' %}">1С</a>
+				</li>
+				<li><a href="kassaOnline.html">Онлайн-Кассы</a>
+				</li>
+				<li><a href="kontur.html">Контур</a>
+				</li>
+				<li><a href="electronicSignatures.html">Эл.подписи</a>
+				</li>
+				<li><a href="grandSmeta.html">ГрандСмета</a>
+				</li>
+				<li><a href="aboutUs.html">О нас</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</header>
+<!-- Navbar END -->
+
+
+
+
+{% block content %}{% endblock %}
+
+
+
+
+<!-- Footer START -->
+<footer>
+	<div class="container">
+		<div class="row">
+			<!-- Column 1 Start -->
+			<div class="col-md-4 col-sm-6 col-12">
+				<h3>О Нас</h3>
+				<div class="mt-25">
+					<img src="{% static 'img/logos/logo-footer.png' %}" alt="footer-logo">
+					{% if site_settings and site_settings.footer_description %}
+						<div class="mt-25">
+							{{ site_settings.footer_description|split_lines|safe }}
+						</div>
+					{% endif %}
+
+					{% if site_settings and site_settings.socialprofilelinks_set.count > 0 %}
+						<div class="footer-social-icons mt-25">
+							<ul>
+								{% for item in site_settings.socialprofilelinks_set.all %}
+									<li><a href="{{ item.url }}" target="_blank"><i class="{{ item.icon }}"></i></a></li>
+								{% endfor %}
+							</ul>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+			<!-- Column 1 End -->
+
+			<!-- Column 2 Start -->
+			<div class="col-md-3 col-sm-6 col-12">
+				<h3>Ссылки</h3>
+				{% if site_settings and site_settings.footermenulinks_set.count > 0 %}
+					<ul class="footer-list">
+						{% for item in site_settings.footermenulinks_set.all %}
+							<li><a href="{{ item.link }}"{% if item.on_blank %} target="_blank"{% endif %}>{{ item.title }}</a></li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			</div>
+			<!-- Column 2 End -->
+
+			<!-- Column 3 Start -->
+			<div class="col-md-3 col-sm-6 col-12">
+				<h3>Свежие Новости</h3>
+				<div class="mt-25">
+					<!-- Post Start -->
+					<div class="footer-recent-post clearfix">
+						<div class="footer-recent-post-thumb">
+							<img src="http://via.placeholder.com/65x65" alt="img">
+						</div>
+						<div class="footer-recent-post-content">
+							<span>February 7, 2018</span>
+							<a href="#">Advices for young designers</a>
+						</div>
+					</div>	
+					<!-- Post End -->		
+					<!-- Post Start -->
+					<div class="footer-recent-post clearfix">
+						<div class="footer-recent-post-thumb">
+							<img src="http://via.placeholder.com/65x65" alt="img">
+						</div>
+						<div class="footer-recent-post-content">
+							<span>February 7, 2018</span>
+							<a href="#">What Planning Process Needs?</a>
+						</div>
+					</div>	
+					<!-- Post End -->		
+					<!-- Post Start -->
+					<div class="footer-recent-post clearfix">
+						<div class="footer-recent-post-thumb">
+							<img src="http://via.placeholder.com/65x65" alt="img">
+						</div>
+						<div class="footer-recent-post-content">
+							<span>February 7, 2018</span>
+							<a href="#">Lorem ipsum dolor sit amet.</a>
+						</div>
+					</div>	
+					<!-- Post End -->														
+				</div>
+			</div>
+			<!-- Column 3 End -->	
+
+			<!-- Column 4 Start -->
+			<div class="col-md-2 col-sm-6 col-12">
+				<h3>Тэги</h3>
+				<div class="footer-tags mt-25">
+					<a href="#">Business</a>
+					<a href="#">Conusltant</a>
+					<a href="#">Coach</a>
+					<a href="#">UX</a>
+					<a href="#">API</a>
+					<a href="#">Reputation</a>
+					<a href="#">Research</a>
+					<a href="#">Sale</a>
+					<a href="#">Service</a>
+					<a href="#">UI</a>
+					<a href="#">Web</a>
+					<a href="#">WebDesign</a>
+				</div>
+			</div>
+			<!-- Column 4 End -->		
+		</div>
+
+		<!-- Footer Bar Start -->
+		<div class="footer-bar">
+			<p><span class="primary-color">Grand75</span> © 2019. Все права защищены. <small style="color: rgba(255, 255, 255, 0.3);">Версия сайта: {{ site_version }}</small></p>
+		</div>
+		<!-- Footer Bar End -->		
+	</div>
+</footer>
+<!-- Footer END -->
+
+
+
+
+<!-- Scroll to top button Start -->
+<a href="#" class="scroll-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>	
+<!-- Scroll to top button End -->
+
+
+
+
+
+<!-- Jquery -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+
+<!--Popper JS-->
+<script src="{% static 'js/popper.min.js' %}"></script>
+
+<!--Popper JS-->
+<script src="{% static 'js/popper.min.js' %}"></script>
+
+<!-- Bootstrap JS-->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>	
+
+<!-- Owl Carousel-->
+<script src="{% static 'js/owl.carousel.js' %}"></script>
+
+<!-- Navbar JS -->
+<script src="{% static 'js/navigation.js' %}"></script>
+<script src="{% static 'js/navigation.fixed.js' %}"></script>
+
+<!-- Wow JS -->
+<script src="{% static 'js/wow.min.js' %}"></script>
+
+<!-- Countup -->
+<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'js/waypoints.min.js' %}"></script>
+
+<!-- Tabs -->
+<script src="{% static 'js/tabs.min.js' %}"></script>
+
+<!-- Yotube Video Player -->
+<script src="{% static 'js/jquery.mb.YTPlayer.min.js' %}"></script>
+
+<!-- Swiper Slider -->
+<script src="{% static 'js/swiper.min.js' %}"></script>
+
+<!-- Isotop -->
+<script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+
+<!-- Switcher JS -->
+<script src="{% static 'js/switcher.js' %}"></script>
+
+<!-- Modernizr -->
+<script src="{% static 'js/modernizr.js' %}"></script>
+
+<!-- Google Map -->
+<script src="{% static 'js/map.js' %}"></script>
+
+<!-- Main JS -->
+<script src="{% static 'js/main.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

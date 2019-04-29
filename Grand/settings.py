@@ -44,7 +44,8 @@ INSTALLED_APPS = [
 
     # Project Applications
     'account',
-
+    'core',
+    'production',
 
     # Dependencies
 ]
@@ -73,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.generate_view_params',
             ],
         },
     },
@@ -114,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
 
@@ -147,6 +149,11 @@ STATICFILES_FINDERS = (
 # Extending custom user for authorization
 
 AUTH_USER_MODEL = 'account.Account'
+
+
+JET_SIDE_MENU_COMPACT = True
+
+SITE_VERSION = '0.0.1'
 
 """
 Внимание! Очень важно импортировать параметры с файла parameters.py в последнюю очередь!

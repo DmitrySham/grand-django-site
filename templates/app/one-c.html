@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% load staticfiles product_template_helper %}
+
+{% block title %}1C{% endblock %}
+
+{% block content %}
+	<!-- Page Title START -->
+	<div class="page-title-section" style="background-image: url(http://via.placeholder.com/1730x300);">
+		<div class="container">
+			<h1>Продукция 1С</h1>
+			<ul>
+				<li><a href="{% url 'index' %}">Главная</a></li>
+				<li><a href="{% url 'production:one_c_list' %}">1С</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- Page Title END -->
+
+
+	<!-- Shop Grid START -->
+	<div class="section-block">
+		<div class="container">
+			<div class="section-heading">
+				<h5>1С</h5>
+				<div class="section-heading-line-left"></div>
+			</div>
+			<div class="row mt-30">
+				{% for item in objects %}
+					<!-- Product Start -->
+					<div class="col-md-4 col-sm-6 col-12">
+						<div class="classic-shop">
+							<div class="classic-shop-img">
+								<img src="{{ item.thumbnail.url }}" alt="{{ item.title }}">
+								<div class="shop-box-overlay">
+									<div class="row">
+										<div class="col-md-12 col-sm-12 col-12">
+											<a href="{% url 'production:one_c_single' id=item.id %}">
+												<div class="shop-to-card">
+													<h4><span class="fa fa-eye"></span>Подробнее</h4>
+												</div>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="classic-shop-text">
+								<h4><a href="{% url 'production:one_c_single' id=item.id %}">{{ item.title }}</a></h4>
+								{{ item.short_description|split_lines|safe }}
+								<h5>{{ item.price }}</h5>
+							</div>
+						</div>
+					</div>
+					<!-- Product End -->
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<!-- Shop Grid END -->
+
+
+
+{% endblock %}

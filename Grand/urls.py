@@ -16,12 +16,17 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from core import views as core_views
 
 from Grand import settings
 
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
+
+    path('production/', include(('production.urls', 'production'))),
+
+    path('', core_views.index, name='index')
 ]
 
 
