@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load staticfiles product_template_helper %}
+
+{% block content %}
+
+	<!-- Page Title START -->
+	<div class="page-title-section" style="background-image: url(http://via.placeholder.com/1730x300);">
+		<div class="container">
+			<h1>Продукция 1С</h1>
+			<ul>
+				<li><a href="{% url 'index' %}">Главная</a></li>
+				<li><a href="{% url 'production:online_cashbox_list' %}">Онлайн-Кассы</a></li>
+				<li><a href="{% url 'production:online_cashbox_single' id=online_cashbox.id %}">Название продуции</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- Page Title END -->
+
+
+	<!-- Shop Single START -->
+	<div class="section-block">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-sm-6 col-12">
+					<!-- Product Images & Alternates -->
+					<div class="product-images">
+						<!-- Begin Product Images Slider -->
+						<div class="main-img-slider">
+							<figure>
+								<a href="{{ online_cashbox.thumbnail.url }}" data-size="1400x1400">
+									<img src="{{ online_cashbox.thumbnail.url }}" alt="{{ online_cashbox.title }}" />
+								</a>
+							</figure>
+						</div>
+						<!-- End Product Images Slider -->
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6 col-12">
+					<div class="single-product">
+						<h2>{{ online_cashbox.title|safe }}</h2>
+
+						<!-- Price Start -->
+						<div class="single-product-price">
+							<h4>{{ online_cashbox.price_box|parse_json|get_first_item:'value' }}</h4>
+						</div>
+						<!-- Price End -->
+
+						{% for item in online_cashbox.price_box|parse_json %}
+							<div class="form-check">
+								<p>
+									<label class="form-check-label">
+										<input type="radio" class="form-check-input"{% if forloop.counter0 == 0 %} checked{% endif %} name="optradio"> {{ item.key }}
+									</label>
+								</p>
+							</div>
+						{% endfor %}
+
+						{{ online_cashbox.short_description|split_lines|safe }}
+
+
+						<div class="product-share mt-20">
+							<span>Share: </span>
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-twitter"></i></a>
+							<a href="#"><i class="fa fa-google-plus"></i></a>
+							<a href="#"><i class="fa fa-pinterest"></i></a>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container mt-50">
+			<div class="section-heading ">
+				<div class="section-heading-line"></div>
+				{{ online_cashbox.full_description|split_lines|safe }}
+			</div>
+		</div>
+	</div>
+	<!-- Shop Single END -->
+
+
+{% endblock %}

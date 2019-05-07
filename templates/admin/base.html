@@ -1,0 +1,14 @@
+{% extends 'admin/base.html' %}
+
+{% block extrahead %}{% endblock %}
+
+
+{% block footer %}
+	{{ block.super }}
+
+	<script>
+		$(document).ready(() => {
+		    console.log('Hey there! Jquery exists');
+		});
+	</script>
+{% endblock %}
