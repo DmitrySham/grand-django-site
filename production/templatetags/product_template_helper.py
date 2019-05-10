@@ -9,7 +9,7 @@ register = template.Library()
 @register.filter
 def split_lines(value):
     if '\n' not in value:
-        return value
+        return '<p>%s</p>' % value
 
     regex = re.compile(r'\n')
     divided_lines = re.split(regex, re.sub(r'\r', '', value))
