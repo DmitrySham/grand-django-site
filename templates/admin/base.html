@@ -1,14 +1,178 @@
 {% extends 'admin/base.html' %}
 
-{% block extrahead %}{% endblock %}
+{% load staticfiles %}
+
+{% block extrahead %}
+	<style>
+		.button {
+			cursor: pointer;
+		}
+
+		.field-result-wrapper {
+			margin-top: 20px;
+		}
+	</style>
+{% endblock %}
 
 
 {% block footer %}
 	{{ block.super }}
 
+	<script src="{% static 'js/jquery.min.js' %}"></script>
 	<script>
+		window.dictFieldPrefixIndex = 0;
 		$(document).ready(() => {
-		    console.log('Hey there! Jquery exists');
+		    let dictField = new DictField({
+				field: '#id_price_box'
+			});
+		    dictField.init();
+
+		    console.log(dictField);
 		});
+
+		function DictField(options) {
+		    window.dictFieldPrefixIndex++;
+		    options = options || {};
+		    options.field = options.field || '#id_price_box';
+
+		    this.value = [];
+
+		    this.idHelper = 0;
+
+		    this.init = () => {
+		        this.field = $(options.field);
+
+		        if (this.field) {
+		            this.wrapper = $(this.field.parent().parent());
+
+		            this.field.css('display', 'none');
+
+		            this.wrapper.append(`<div><div class="field-wrapper"><input type="text" class="vTextField" placeholder="key" id="dict-field-key-${window.dictFieldPrefixIndex}" /><input type="text" class="vTextField" placeholder="value" id="dict-field-value-${window.dictFieldPrefixIndex}" /><button class="button" id="dict-field-add-button-${window.dictFieldPrefixIndex}" type="button">Добавить</button></div><div class="field-result-wrapper"><table><thead><tr><th>Ключ</th><th>Значение</th><th></th></tr></thead><tbody id="dict-field-result-wrapper-${window.dictFieldPrefixIndex}"></tbody></table></div></div>`);
+
+		            this.keyField = $('#dict-field-key-' + window.dictFieldPrefixIndex);
+		            this.valueField = $('#dict-field-value-' + window.dictFieldPrefixIndex);
+		            this.addButton = $('#dict-field-add-button-' + window.dictFieldPrefixIndex);
+		            this.tableWrapper = $('#dict-field-result-wrapper-' + window.dictFieldPrefixIndex);
+
+		            this.getInitialData();
+
+		            this.addButton.on('click', e => {
+		                if (this.keyField.val() !== '' && this.valueField !== '') {
+		                    this.addItem({
+								key: this.keyField.val(),
+								value: this.valueField.val(),
+								id: this.idHelper
+							});
+
+		                    this.idHelper++;
+
+		                    this.keyField.val('');
+		                    this.valueField.val('');
+						} else {
+		                    alert('Что бы добавить элемент вам нужно заполнить "ключ" и значение');
+						}
+					});
+
+		            this.keyField.on('keyup input', e => {
+		                if (e.keyCode === 13) {
+		                    e.preventDefault();
+						}
+					});
+
+		            this.valueField.on('keyup input', e => {
+		                if (e.keyCode === 13) {
+		                    e.preventDefault();
+						}
+					});
+				}
+			};
+
+		    this.getRowTemplate = item => {
+		        let keyId = `dict-field-key-editable-${window.dictFieldPrefixIndex}-${item.id}`;
+		        let valueId = `dict-field-value-editable-${window.dictFieldPrefixIndex}-${item.id}`;
+		        let removeButton = `dict-field-remove-button-${window.dictFieldPrefixIndex}-${item.id}`;
+
+		        return {
+		            template: `<tr data-id="${item.id}"><td><input type="text" class="vTextField" value="${item.key}" id="${keyId}" data-id="${item.id}" /></td><td><input type="text" class="vTextField" value="${item.value}" id="${valueId}" data-id=${item.id} /></td><td><button class="button" type="button" data-id="${item.id}" id="${removeButton}">Удалить</button></td></tr>`,
+					queries: {
+		                key: keyId,
+						value: valueId,
+						removeButton: removeButton
+					}
+				};
+			};
+
+		    this.getInitialData = () => {
+		        try {
+		            this.value = JSON.parse(this.field.val());
+				} catch {
+		            this.value = [];
+				}
+
+				for (let i = 0; i < this.value.length; ++i) {
+				    this.addItem(this.value[i], false);
+
+				    if (i === this.value.length - 1) {
+				        this.idHelper = this.value[i].id + 1;
+					}
+				}
+			};
+
+		    this.addItem = (item, commit = true) => {
+		        let itemTemplate = this.getRowTemplate(item);
+				this.tableWrapper.append(itemTemplate.template);
+
+				$('#' + itemTemplate.queries.key).on('input change', e => {
+				    let id = parseInt($(e.target).attr('data-id'));
+
+					this.value = this.value.map(item => {
+						if (item.id === id) {
+							return {
+								...item,
+								key: e.target.value
+							};
+						}
+						return item;
+					});
+
+					this.field.val(JSON.stringify(this.value));
+				});
+
+				$('#' + itemTemplate.queries.value).on('input change', e => {
+					let id = parseInt($(e.target).attr('data-id'));
+
+					this.value = this.value.map(item => {
+						if (item.id === id) {
+							return {
+								...item,
+								value: e.target.value
+							};
+						}
+						return item;
+					});
+
+					this.field.val(JSON.stringify(this.value));
+				});
+
+				$('#' + itemTemplate.queries.removeButton).on('click', e => {
+					let id = parseInt($(e.target).attr('data-id'));
+
+					this.value = this.value.filter(item => item.id !== id);
+
+					$(this.tableWrapper.find(`tr[data-id="${id}"]`)).fadeOut(() => {
+						$(this.tableWrapper.find(`tr[data-id="${id}"]`)).remove();
+					});
+
+					this.field.val(JSON.stringify(this.value));
+				});
+
+		        if (commit) {
+		            this.value.push(item);
+		            this.field.val(JSON.stringify(this.value));
+				}
+			};
+
+		    return this;
+		}
 	</script>
 {% endblock %}

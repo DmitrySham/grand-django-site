@@ -153,7 +153,7 @@ AUTH_USER_MODEL = 'account.Account'
 
 JET_SIDE_MENU_COMPACT = True
 
-SITE_VERSION = '0.0.1'
+SITE_VERSION = '0.0.2'
 
 """
 Внимание! Очень важно импортировать параметры с файла parameters.py в последнюю очередь!

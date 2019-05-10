@@ -68,7 +68,7 @@
 							<li><i class="fa fa-phone"></i>{{ site_settings.header_phone|safe }}<li>
 						{% endif %}
 						{% if site_settings and site_settings.header_email %}
-							<li><i class="fa fa-envelope"></i><a href="mailto:{{ site_settings.header_email }}">{{ site_settings.header_email }}</a><li>
+							<li><i class="fa fa-envelope"></i><a href="mailto:{{ site_settings.header_email }}" style="color: #fff;">{{ site_settings.header_email }}</a><li>
 						{% endif %}
 					</ul>						
 				</div>				
@@ -101,10 +101,10 @@
 		<div class="nav-menus-wrapper">
 			<ul class="nav-menu align-to-right">
 				<li>
-					<a href="index.html">Главная</a>
+					<a href="{% url 'index' %}">Главная</a>
 				</li>
 				<li>
-					<a href="educationalCenter.html">Учебный Центр</a>
+					<a href="#">Учебный Центр</a>
 				</li>
 				<li>
 					<a href="{% url 'production:one_c_list' %}">1С</a>
@@ -113,16 +113,16 @@
 					<a href="{% url 'production:online_cashbox_list' %}">Онлайн-Кассы</a>
 				</li>
 				<li>
-					<a href="kontur.html">Контур</a>
+					<a href="#">Контур</a>
 				</li>
 				<li>
-					<a href="electronicSignatures.html">Эл.подписи</a>
+					<a href="#">Эл.подписи</a>
 				</li>
 				<li>
-					<a href="grandSmeta.html">ГрандСмета</a>
+					<a href="#">ГрандСмета</a>
 				</li>
 				<li>
-					<a href="aboutUs.html">О нас</a>
+					<a href="#">О нас</a>
 				</li>
 			</ul>
 		</div>
@@ -310,6 +310,8 @@
 
 <!-- Main JS -->
 <script src="{% static 'js/main.js' %}"></script>
+
 {% block extra_js %}{% endblock %}
+
 </body>
 </html>

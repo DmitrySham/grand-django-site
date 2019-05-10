@@ -2,16 +2,55 @@
 
 {% load staticfiles product_template_helper %}
 
+{% block title %}{{ online_cashbox.title }}{% endblock %}
+
+{% block extra_css %}
+	<style>
+		.price-box {
+			margin-top: 40px;
+		}
+
+		.price-box ul {
+			margin: 0;
+			padding: 0;
+		}
+
+		.price-box ul li {
+			display: block;
+			padding: 5px 10px;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			border: 1px solid #f7c605;
+			cursor: pointer;
+			color: #111;
+			background: transparent;
+			margin-bottom: 10px;
+
+			-webkit-transition: background-color 0.5s, color 0.5s;
+			-moz-transition: background-color 0.5s, color 0.5s;
+			-ms-transition: background-color 0.5s, color 0.5s;
+			-o-transition: background-color 0.5s, color 0.5s;
+			transition: background-color 0.5s, color 0.5s;
+		}
+
+		.price-box ul li:hover,
+		.price-box ul li.active{
+			background: #f7c605;
+		}
+	</style>
+{% endblock %}
+
 {% block content %}
 
 	<!-- Page Title START -->
 	<div class="page-title-section" style="background-image: url(http://via.placeholder.com/1730x300);">
 		<div class="container">
-			<h1>Продукция 1С</h1>
+			<h1>{{ online_cashbox.title }}</h1>
 			<ul>
 				<li><a href="{% url 'index' %}">Главная</a></li>
 				<li><a href="{% url 'production:online_cashbox_list' %}">Онлайн-Кассы</a></li>
-				<li><a href="{% url 'production:online_cashbox_single' id=online_cashbox.id %}">Название продуции</a></li>
+				<li><a href="{% url 'production:online_cashbox_single' id=online_cashbox.id %}">{{ online_cashbox.title }}</a></li>
 			</ul>
 		</div>
 	</div>
@@ -42,31 +81,26 @@
 
 						<!-- Price Start -->
 						<div class="single-product-price">
-							<h4>{{ online_cashbox.price_box|parse_json|get_first_item:'value' }}</h4>
+							<h4 id="price-tag">{{ online_cashbox.price_box|parse_json|get_first_item:'value' }}</h4>
 						</div>
 						<!-- Price End -->
 
-						{% for item in online_cashbox.price_box|parse_json %}
-							<div class="form-check">
-								<p>
-									<label class="form-check-label">
-										<input type="radio" class="form-check-input"{% if forloop.counter0 == 0 %} checked{% endif %} name="optradio"> {{ item.key }}
-									</label>
-								</p>
-							</div>
-						{% endfor %}
+						<div class="price-box">
+							<ul id="price-box">
+								{% for item in online_cashbox.price_box|parse_json %}
+									<li{% if forloop.counter0 == 0 %} class="active"{% endif %} data-value="{{ item.value }}" data-id="{{ item.id }}">{{ item.key }}</li>
+								{% endfor %}
+							</ul>
+						</div>
 
 						{{ online_cashbox.short_description|split_lines|safe }}
 
-
 						<div class="product-share mt-20">
-							<span>Share: </span>
-							<a href="#"><i class="fa fa-facebook"></i></a>
-							<a href="#"><i class="fa fa-twitter"></i></a>
-							<a href="#"><i class="fa fa-google-plus"></i></a>
-							<a href="#"><i class="fa fa-pinterest"></i></a>
+							<span>Поделится: </span>
+							{% for item in online_cashbox.share_links.all %}
+								<a href="{{ item.url }}"><i class="fa {{ item.icon }}"></i></a>
+							{% endfor %}
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -82,4 +116,15 @@
 	<!-- Shop Single END -->
 
 
+{% endblock %}
+
+
+{% block extra_js %}
+	<script src="{% static 'js/price-box.js' %}"></script>
+	<script>
+		$(document).ready(() => {
+			let priceBox = new PriceBox();
+			priceBox.init();
+		});
+	</script>
 {% endblock %}
