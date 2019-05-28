@@ -6,8 +6,12 @@
 {% block title %}Учебный центр{% endblock %}
 
 {% block extra_css %}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 	<style>
-		.primary-button { cursor: pointer; }
+		.primary-button {
+			cursor: pointer;
+		}
+
 		.primary-button.disabled {
 			background-color: #6c757d;
 			border-color: #6c757d;
@@ -40,7 +44,7 @@
 						<div class="section-heading">
 							<h5>{{ course.title }}</h5>
 							<h5>{% if course.get_actual_date_action %}{{ course.get_actual_date_action.cost }}{% else %}Уточните у оператора{% endif %}</h5>
-							<button class="primary-button button-md disabled" id="open-apply-form-button">Записаться</button>
+							<button class="primary-button button-md{% if not course.get_actual_date_action %} disabled{% endif %}" id="open-apply-form-button">{% if course.get_actual_date_action %}Записаться{% else %}Запись временно не доступна{% endif %}</button>
 						</div>
 						<div class="section-heading-line-left"></div>
 						<div class="text-content-big mt-20">
@@ -52,10 +56,18 @@
 								<p>Прод-ть: {{ course.get_actual_date_action.duration }}</p>
 								<p>Оплата: {{ course.get_actual_date_action.cost }}</p>
 							{% else %}
-								<p>Дата: <small><b>Не доступно</b></small></p>
-								<p>Время: <small><b>Не доступно</b></small></p>
-								<p>Прод-ть: <small><b>Не доступно</b></small></p>
-								<p>Оплата: <small><b>Не доступно</b></small></p>
+								<p>Дата:
+									<small><b>Не доступно</b></small>
+								</p>
+								<p>Время:
+									<small><b>Не доступно</b></small>
+								</p>
+								<p>Прод-ть:
+									<small><b>Не доступно</b></small>
+								</p>
+								<p>Оплата:
+									<small><b>Не доступно</b></small>
+								</p>
 							{% endif %}
 						</div>
 					</div>
@@ -85,6 +97,7 @@
 				<div class="modal-body">
 					<!-- Form Start -->
 					<form class="contact-form row" id="apply-form">
+						{% render_field apply_form.course %}
 						<div class="col-md-12 col-sm-12 col-12">
 							{% render_field apply_form.name placeholder='Ваше ФИО' %}
 						</div>
@@ -99,19 +112,19 @@
 
 						<div class="col-md-12 col-sm-12 col-12">
 							{#<input type="text" name="education" placeholder="Ваше образование">#}
-							{% render_field apply_form.education %}
+							{% render_field apply_form.education placeholder='Образование' %}
 						</div>
 
 						<div class="col-md-12">
 							{#<textarea name="message" placeholder="Сообщение"></textarea>#}
-							{% render_field apply_form.message %}
+							{% render_field apply_form.message placeholder='Сообщение' %}
 						</div>
 					</form>
 					<!-- Form End -->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-					<button type="button" class="btn btn-primary">Записаться</button>
+					<button type="button" class="btn btn-primary" id="submit-apply-form-button">Записаться</button>
 				</div>
 			</div>
 		</div>
@@ -119,30 +132,118 @@
 {% endblock %}
 
 {% block extra_js %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 	<script>
-		$(document).ready(() => {
-		    let openApplyModalButton = $('#open-apply-form-button');
-		    let applyModal = $('#apply-to-course-modal');
-		    let form = $('#apply-form');
+        const getCookie = name => {
 
-		    openApplyModalButton.on('click', e => {
-		        e.preventDefault();
+            let matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined
+        };
+		let isRequesting = false;
 
-		        if (!openApplyModalButton.hasClass('disabled')) {
-		            applyModal.modal('show');
-				}
+		const _alert = (title, content, status) => {
+		    $.alert({
+				title: `<h4>${title}</h4>`,
+				content: content,
+				type: status,
+				columnClass: 'col-md-6 col-md-offset-3 col-lg-3 col-lg-offset-3 col-sm-12',
+				theme: 'material'
 			});
+		};
 
+        $(document).ready(() => {
+            let openApplyModalButton = $('#open-apply-form-button');
+            let applyModal = $('#apply-to-course-modal');
+            let form = $('#apply-form');
+            let submitButton = $('#submit-apply-form-button');
 
-		    form.on('submit', e => {
-		        e.preventDefault();
+            openApplyModalButton.on('click', e => {
+                e.preventDefault();
 
-		        let data = {
+                if (!openApplyModalButton.hasClass('disabled')) {
+                    applyModal.modal('show');
+                }
+            });
 
+            const submitApplyForm = () => {
+                isRequesting = true;
+
+                let data = {
+                    csrfmiddlewaretoken: getCookie('csrftoken')
+                };
+
+                let fields = form.find('input, textarea');
+
+                const enableAllFieldsAndSubmitButton = () => {
+                    for (let i = 0; i < fields.length; ++i) {
+						let _field = $(fields[i]);
+
+						_field.removeClass('disabled');
+					}
+					submitButton.removeClass('disabled');
 				};
 
+                for (let i = 0; i < fields.length; ++i) {
+                    let _field = $(fields[i]);
 
-			});
-		});
+                    data[_field.attr('name')] = _field.val();
+                    _field.addClass('disabled', true);
+				}
+				submitButton.addClass('disabled', true);
+
+                $.ajax({
+					url: document.location.href,
+					method: 'POST',
+					dataType: 'JSON',
+					data: data,
+					success: response => {
+					    isRequesting = false;
+					    enableAllFieldsAndSubmitButton();
+					    if (response.success) {
+					        $.confirm({
+								title: '<h4>Успех!</h4>',
+								content: `<p>${response.message}</p>`,
+								type: 'green',
+								columnClass: 'col-md-6 col-md-offset-3 col-lg-6 col-md-offset-3 col-sm-12',
+								buttons: {
+								    ok: {
+								        text: 'Хорошо',
+										btnClass: 'btn-primary',
+										action: () => {
+								            applyModal.modal('hide');
+										}
+									}
+								}
+							});
+						} else {
+					        _alert(
+					            '<h4>Ошибка!</h4>',
+								`<p>${response.message}</p>`,
+								'red'
+							);
+						}
+					},
+					error: (request, errThrown, errObject) => {
+					    isRequesting = false;
+					    enableAllFieldsAndSubmitButton();
+					    _alert('Неизвестная ошибка!', '<p>Произошла неизвестная ошибка! Пожалуйста попробуйте еще раз.</p><p>Если проблема не исчезла попробуйте попытку позже. Просим прощения за доставленные неудобства!</p>', 'red')
+					}
+				});
+            };
+
+            form.on('submit', e => {
+                e.preventDefault();
+
+                if (!isRequesting) submitApplyForm();
+            });
+
+            submitButton.on('click', e => {
+                e.preventDefault();
+
+                if (!isRequesting) submitApplyForm();
+            });
+        });
 	</script>
 {% endblock %}

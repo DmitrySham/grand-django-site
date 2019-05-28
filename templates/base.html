@@ -183,39 +183,19 @@
 			<div class="col-md-3 col-sm-6 col-12">
 				<h3>Свежие Новости</h3>
 				<div class="mt-25">
-					<!-- Post Start -->
-					<div class="footer-recent-post clearfix">
-						<div class="footer-recent-post-thumb">
-							<img src="http://via.placeholder.com/65x65" alt="img">
+					{% for post in last_posts %}
+						<!-- Post Start -->
+						<div class="footer-recent-post clearfix">
+							<div class="footer-recent-post-thumb">
+								<img src="{% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}http://via.placeholder.com/65x65{% endif %}" alt="img">
+							</div>
+							<div class="footer-recent-post-content">
+								<span>{{ post.created_at|date }} {{ post.created_at|time }}</span>
+								<a href="{% url 'blog:single' slug=post.slug %}">{{ post.title|slice:"0:20" }}...</a>
+							</div>
 						</div>
-						<div class="footer-recent-post-content">
-							<span>February 7, 2018</span>
-							<a href="#">Advices for young designers</a>
-						</div>
-					</div>	
-					<!-- Post End -->		
-					<!-- Post Start -->
-					<div class="footer-recent-post clearfix">
-						<div class="footer-recent-post-thumb">
-							<img src="http://via.placeholder.com/65x65" alt="img">
-						</div>
-						<div class="footer-recent-post-content">
-							<span>February 7, 2018</span>
-							<a href="#">What Planning Process Needs?</a>
-						</div>
-					</div>	
-					<!-- Post End -->		
-					<!-- Post Start -->
-					<div class="footer-recent-post clearfix">
-						<div class="footer-recent-post-thumb">
-							<img src="http://via.placeholder.com/65x65" alt="img">
-						</div>
-						<div class="footer-recent-post-content">
-							<span>February 7, 2018</span>
-							<a href="#">Lorem ipsum dolor sit amet.</a>
-						</div>
-					</div>	
-					<!-- Post End -->														
+						<!-- Post End -->
+					{% endfor %}
 				</div>
 			</div>
 			<!-- Column 3 End -->	

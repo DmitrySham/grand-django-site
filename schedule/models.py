@@ -10,7 +10,7 @@ from django.utils.safestring import mark_safe
 class Course(models.Model):
     class Meta:
         verbose_name = 'Курс'
-        verbose_name_plural = 'Учебный центр'
+        verbose_name_plural = 'Курсы'
         ordering = ('order_index',)
 
     order_index = models.PositiveIntegerField(default=0, verbose_name='Порядок')
@@ -59,7 +59,7 @@ class CourseActionDateObject(models.Model):
     max_people_in_course = models.PositiveIntegerField(default=0, verbose_name='Максимальное количество мест на обучение')
 
     def get_free_place_count(self):
-        return str(self.max_people_in_course - self.applyrequest_set.count())
+        return str(self.max_people_in_course - self.applyrequest_set.filter(is_approved=True).count())
 
     get_free_place_count.short_description = 'Кол-во св-х мест'
     get_free_place_count.help_text = '(Макс. кол-во св-х мест) - (Кол-во <b>Подтвержденных</b> запросов на запись) = (Кол-во св-х мест)'
@@ -69,12 +69,14 @@ class CourseActionDateObject(models.Model):
             return mark_safe('<strong>Просмотр записей пока не доступно</strong>')
 
         content_type = ContentType.objects.get_for_model(self.__class__)
-        return mark_safe('<a href="%s">Посмотреть записавшихся</a>' % reverse_lazy("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.id,)))
+        return mark_safe('<a href="%s#/tab/inline_0/">Посмотреть записавшихся</a>' % reverse_lazy("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.id,)))
 
     get_absolute_url.short_description = 'Записавшиеся'
 
     def __str__(self):
-        return 'Дата начала обучения %s' % self.course.title
+        return 'Дата начала обучения "%(title)s"' % {
+            'title': self.course.__str__()
+        }
 
 
 class ApplyRequest(models.Model):
@@ -98,3 +100,19 @@ class ApplyRequest(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_course_date_action_link(self):
+        content_type = ContentType.objects.get_for_model(self.course.__class__)
+        return mark_safe('<a href="%(url)s">%(title)s</a>' % {
+            'url': reverse_lazy("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.course.id,)),
+            'title': self.course.course.get_truncated_title()
+        })
+
+    get_course_date_action_link.short_description = 'Курс'
+
+    def get_course_link(self):
+        content_type = ContentType.objects.get_for_model(self.course.course.__class__)
+        return mark_safe('<a href="%(url)s">%(title)s</a>' % {
+            'url': reverse_lazy("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.course.course.id,)),
+            'title': self.course.course.get_truncated_title()
+        })

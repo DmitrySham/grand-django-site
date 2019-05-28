@@ -26,6 +26,7 @@ urlpatterns = [
     path('production/', include(('production.urls', 'production'))),
     path('core/', include(('core.urls', 'core'))),
     path('schedule/', include(('schedule.urls', 'schedule'))),
+    path('news/', include(('blog.urls', 'blog'))),
 
     path('', core_views.index, name='index')
 ]

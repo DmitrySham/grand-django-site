@@ -11,3 +11,7 @@ class ApplyRequestForm(forms.ModelForm):
         super(ApplyRequestForm, self).__init__(*args, **kwargs)
 
         self.fields['message'].required = False
+
+        self.fields['course'].widget = forms.HiddenInput(attrs={
+            'value': self.initial['course'].id if self.initial['course'] else ''
+        })

@@ -1,11 +1,14 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, Http404
+
+from blog.models import Post
 from .models import GrandSmeta
 
 # Create your views here.
 
 
 def index(request):
+    posts = Post.objects.filter(is_active=True)
     return render(request, 'app/index.html', locals())
 
 

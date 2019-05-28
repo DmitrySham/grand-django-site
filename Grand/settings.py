@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'core',
     'production',
     'schedule',
+    'blog',
 
     # Dependencies
     'adminsortable2',

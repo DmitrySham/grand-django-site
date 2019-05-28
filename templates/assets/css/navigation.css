@@ -44,6 +44,7 @@
   position: fixed !important;
   -webkit-animation: fade .50s;
   animation: fade .50s;
+  z-index: 1;
 }
 
 @keyframes fade {

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load staticfiles %}
+{% load staticfiles product_template_helper %}
 
 {% block title %}Главная{% endblock %}
 
@@ -238,87 +238,38 @@
 		</div>
 		<div class="section-block">
 			<div class="container">
-				<div class="blog-list-simple">
-					<div class="row">
-						<div class="col-md-5 col-sm-5 col-12">
-							<div class="blog-list-simple-img">
-								<img src="http://via.placeholder.com/445x255" alt="img">
-								<div class="data-box-simple">
-									<h4>10</h4>
-									<p>Апреля</p>
+				{% for item in last_posts %}
+					<div class="blog-list-simple">
+						<div class="row">
+							<div class="col-md-5 col-sm-5 col-12">
+								<div class="blog-list-simple-img">
+									<img src="{% if item.thumbnail %}{{ item.thumbnail.url }}{% else %}http://via.placeholder.com/445x255{% endif %}" alt="img">
+									<div class="data-box-simple">
+										<h4>{{ item.created_at|date:"d" }}</h4>
+										<p>{{ item.created_at|date:"M" }}</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-md-7 col-sm-7 col-12">
-							<div class="blog-list-simple-text">
-								<span>Тема</span>
-								<h4>Заголовок</h4>
-								<ul>
-								 	<li><i class="fa fa-list-ul"></i>Тема</li>
-									<li><i class="fa fa-calendar"></i>Дата</li>
-								</ul>
-								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
-								<div class="mt-20 left-holder">
-									<a href="#" class="primary-button button-sm">Узнать больше</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="blog-list-simple">
-					<div class="row">
-						<div class="col-md-5 col-sm-5 col-12">
-							<div class="blog-list-simple-img">
-								<img src="http://via.placeholder.com/445x255" alt="img">
-								<div class="data-box-simple">
-									<h4>10</h4>
-									<p>Апреля</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-7 col-sm-7 col-12">
-							<div class="blog-list-simple-text">
-								<span>Тема</span>
-								<h4>Заголовок</h4>
-								<ul>
-								 	<li><i class="fa fa-list-ul"></i>Тема</li>
-									<li><i class="fa fa-calendar"></i>Дата</li>
-								</ul>
-								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
-								<div class="mt-20 left-holder">
-									<a href="#" class="primary-button button-sm">Узнать больше</a>
+							<div class="col-md-7 col-sm-7 col-12">
+								<div class="blog-list-simple-text">
+									{#<span>Тема</span>#}
+									<h4>{{ item.title }}</h4>
+									<ul>
+										<li><i class="fa fa-calendar"></i>{{ item.created_at|date }} {{ item.created_at|time }}</li>
+									</ul>
+									{% if item.short_description %}
+										{{ item.short_description|split_lines|safe }}
+									{% else %}
+										{{ item.content|slice:"0:130"|split_lines|safe }}
+									{% endif %}
+									<div class="mt-20 left-holder">
+										<a href="{% url 'blog:single' slug=item.slug %}" class="primary-button button-sm">Узнать больше</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="blog-list-simple">
-					<div class="row">
-						<div class="col-md-5 col-sm-5 col-12">
-							<div class="blog-list-simple-img">
-								<img src="http://via.placeholder.com/445x255" alt="img">
-								<div class="data-box-simple">
-									<h4>10</h4>
-									<p>Апреля</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-7 col-sm-7 col-12">
-							<div class="blog-list-simple-text">
-								<span>Тема</span>
-								<h4>Заголовок</h4>
-								<ul>
-								 	<li><i class="fa fa-list-ul"></i>Тема</li>
-									<li><i class="fa fa-calendar"></i>Дата</li>
-								</ul>
-								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
-								<div class="mt-20 left-holder">
-									<a href="#" class="primary-button button-sm">Узнать больше</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				{% endfor %}
 			</div>
 		</div>
 	</div>
