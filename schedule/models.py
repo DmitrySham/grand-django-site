@@ -1,0 +1,100 @@
+from django.contrib.contenttypes.models import ContentType
+from django.db import models
+from django.template.defaultfilters import truncatechars
+from django.urls import reverse_lazy
+from django.utils.safestring import mark_safe
+
+# Create your models here.
+
+
+class Course(models.Model):
+    class Meta:
+        verbose_name = 'Курс'
+        verbose_name_plural = 'Учебный центр'
+        ordering = ('order_index',)
+
+    order_index = models.PositiveIntegerField(default=0, verbose_name='Порядок')
+    is_active = models.BooleanField(default=True, verbose_name='Активно?')
+    thumbnail = models.FileField(upload_to='schedule-objects/', verbose_name='Изображение', help_text='Предпочитаемые размеры: 540x380')
+    title = models.CharField(max_length=255, verbose_name='Название')
+    slug = models.CharField(max_length=255, verbose_name='SLUG', unique=True, help_text='URL endpoint name')
+    short_description = models.TextField(verbose_name='Краткое описание', null=True, blank=True)
+    full_description = models.TextField(verbose_name='Полное описание')
+
+    cost = models.CharField(max_length=255, verbose_name='Стоимость курса', null=True)
+    schedule = models.CharField(max_length=255, verbose_name='Расписание занятий', help_text='Это расписание будет отображаться на странице расписани', null=True)
+
+    def get_actual_date_action(self):
+        return self.courseactiondateobject_set.filter(is_active=True, is_actual=True).first()
+
+    def __str__(self):
+        return truncatechars(self.title, 40)
+
+    def get_truncated_title(self):
+        return self.__str__()
+
+    get_truncated_title.short_description = 'Название'
+
+    def get_already_applied_students_count(self):
+        action_object = self.courseactiondateobject_set.filter(is_active=True, is_actual=True).first()
+
+        if action_object:
+            return action_object.applyrequest_set.count()
+
+        return 0
+
+    get_already_applied_students_count.short_description = 'Кол-во зап-ся на этот курс'
+
+
+class CourseActionDateObject(models.Model):
+    class Meta:
+        verbose_name_plural = 'Информация о курсе'
+        verbose_name = 'Информация'
+
+    course = models.ForeignKey(to='Course', on_delete=models.CASCADE, verbose_name='Курс')
+    is_active = models.BooleanField(default=True, verbose_name='Активна?', help_text='Уберите этот флажок и эта дата станет не активная. Сайт будет брать дату начала обучения и кол-во свободных мест из <b>первого актуального</b> объекта даты среди всех <b>активных</b>')
+    is_actual = models.BooleanField(default=True, verbose_name='Актуально?', help_text='Уберите этот флажок и записи на эту дату прекратятся')
+    action_date = models.DateTimeField(verbose_name='Дата начала курса')
+    duration = models.CharField(max_length=255, verbose_name='Продолжительность')
+    max_people_in_course = models.PositiveIntegerField(default=0, verbose_name='Максимальное количество мест на обучение')
+
+    def get_free_place_count(self):
+        return str(self.max_people_in_course - self.applyrequest_set.count())
+
+    get_free_place_count.short_description = 'Кол-во св-х мест'
+    get_free_place_count.help_text = '(Макс. кол-во св-х мест) - (Кол-во <b>Подтвержденных</b> запросов на запись) = (Кол-во св-х мест)'
+
+    def get_absolute_url(self):
+        if not self.id:
+            return mark_safe('<strong>Просмотр записей пока не доступно</strong>')
+
+        content_type = ContentType.objects.get_for_model(self.__class__)
+        return mark_safe('<a href="%s">Посмотреть записавшихся</a>' % reverse_lazy("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.id,)))
+
+    get_absolute_url.short_description = 'Записавшиеся'
+
+    def __str__(self):
+        return 'Дата начала обучения %s' % self.course.title
+
+
+class ApplyRequest(models.Model):
+    class Meta:
+        verbose_name = 'Запрос'
+        verbose_name_plural = 'Запросы на запись'
+
+    is_read = models.BooleanField(default=False, verbose_name='Прочитано?')
+    is_reacted = models.BooleanField(default=False, verbose_name='Отреагировано?')
+    is_approved = models.BooleanField(default=False, verbose_name='Подтвержденно?')
+
+    name = models.CharField(max_length=255, verbose_name='ФИО')
+    email = models.EmailField(verbose_name='Электронная почта')
+    education = models.CharField(max_length=255, verbose_name='Оброзование')
+    message = models.TextField(verbose_name='Сообщение')
+    phone = models.CharField(verbose_name='Телефон', null=True, max_length=255)
+
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    course = models.ForeignKey(to=CourseActionDateObject, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Курс')
+
+    def __str__(self):
+        return self.name

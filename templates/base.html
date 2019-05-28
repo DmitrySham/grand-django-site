@@ -70,7 +70,7 @@
 						{% if site_settings and site_settings.header_email %}
 							<li><i class="fa fa-envelope"></i><a href="mailto:{{ site_settings.header_email }}" style="color: #fff;">{{ site_settings.header_email }}</a><li>
 						{% endif %}
-					</ul>						
+					</ul>
 				</div>				
 			</div>
 			{% if site_settings and site_settings.socialprofilelinks_set.count > 0 %}
@@ -104,7 +104,10 @@
 					<a href="{% url 'index' %}">Главная</a>
 				</li>
 				<li>
-					<a href="#">Учебный Центр</a>
+					<a href="#">Новости</a>
+				</li>
+				<li>
+					<a href="{% url 'schedule:list' %}">Учебный Центр</a>
 				</li>
 				<li>
 					<a href="{% url 'production:one_c_list' %}">1С</a>
@@ -113,13 +116,10 @@
 					<a href="{% url 'production:online_cashbox_list' %}">Онлайн-Кассы</a>
 				</li>
 				<li>
-					<a href="#">Контур</a>
-				</li>
-				<li>
 					<a href="#">Эл.подписи</a>
 				</li>
 				<li>
-					<a href="#">ГрандСмета</a>
+					<a href="{% url 'core:grand_smeta_list' %}">ГрандСмета</a>
 				</li>
 				<li>
 					<a href="#">О нас</a>

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% load staticfiles product_template_helper %}
+
+{% block title %}Учебный центр{% endblock %}
+
+{% block content %}
+	<!-- Page Title START -->
+	<div class="page-title-section" style="background-image: url(http://via.placeholder.com/1730x300);">
+		<div class="container">
+			<h1>Образовательные программы</h1>
+			<ul>
+				<li><a href="{% url 'index' %}">Главная</a></li>
+				<li><a href="{% url 'schedule:list' %}">Образовательные программы</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- Page Title END -->
+
+
+
+	<div class="section-block">
+		<div class="container">
+			<div class="section-heading">
+				<h5>Образовательные программы</h5>
+				<h4><a href="{% url 'schedule:base_view' %}"><u><i>Расписание занятий</i></u></a></h4>
+				<div class="section-heading-line-left"></div>
+			</div>
+			<div class="row mt-30">
+
+				{% for item in courses %}
+					<!-- Product Start -->
+					<a href="{% url 'schedule:single' slug=item.slug %}">
+						<div class="col-md-3 col-sm-6 col-12">
+							<div class="classic-shop">
+								<div class="classic-shop-img">
+									<img src="{{ item.thumbnail.url }}" alt="img">
+									<div class="shop-box-overlay">
+										<div class="row">
+											<div class="col-md-12 col-sm-12 col-12">
+												<a href="{% url 'schedule:single' slug=item.slug %}">
+													<div class="shop-to-card">
+														<h4><span class="fa fa-eye"></span>Подробнее</h4>
+													</div>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="classic-shop-text p-4">
+									<h6><a href="{% url 'schedule:single' slug=item.slug %}">{{ item.title }}</a></h6>
+								</div>
+
+
+								<div class="panel-group text-center" id="accordion2" role="tablist" aria-multiselectable="true">
+
+									<div class="panel panel-grey accordion">
+										<div class="panel-heading accordion-heading" role="tab" id="acc1">
+											<h4 class="panel-title accordion-title">
+												<a role="button" data-toggle="collapse" data-parent="#accordion2" href="#ac_col1" aria-expanded="true" aria-controls="ac_col1">
+													Расписание
+												</a>
+											</h4>
+										</div>
+										<div id="ac_col1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="acc1">
+											<div class="panel-body accordion-body text-center">
+												{% if item.get_actual_date_action %}
+													<p>Дата: {{ item.get_actual_date_action.action_date|date }}</p>
+													<p>Время: {{ item.get_actual_date_action.action_date|time }}</p>
+													<p>Прод-ть: {{ item.get_actual_date_action.duration }}</p>
+													<p>Оплата: {{ item.get_actual_date_action.cost }}</p>
+												{% else %}
+													<p>Дата: <small><b>Не доступно</b></small></p>
+													<p>Время: <small><b>Не доступно</b></small></p>
+													<p>Прод-ть: <small><b>Не доступно</b></small></p>
+													<p>Оплата: <small><b>Не доступно</b></small></p>
+												{% endif %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+					<!-- Product End -->
+				{% endfor %}
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

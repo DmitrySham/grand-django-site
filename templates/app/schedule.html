@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load staticfiles product_template_helper %}
+
+{% block title %}Расписание занятий{% endblock %}
+
+{% block content %}
+	<div class="section-block" style="color: #111;">
+		<div class="section-heading">
+			<h1 class="text-center">Расписание</h1>
+			<div class="section-heading-line"></div>
+		</div>
+
+
+		<div class="container border mt-50 text-center">
+			<div class="row">
+
+				<div class="col-md-3 col-sm-3 col-6 border pb-1 pt-1"><b>Дата</b></div>
+				<div class="col-md-3 col-sm-3 col-6 border pb-1 pt-1"><b>Расписание</b></div>
+				<div class="col-md-3 col-sm-3 col-6 border pb-1 pt-1"><b>Прод-ть</b></div>
+				<div class="col-md-3 col-sm-3 col-6 border pb-1 pt-1"><b>Цена</b></div>
+			</div>
+		</div>
+
+		{% for item in courses %}
+			<div class="container border mt-10 text-center">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-12 pb-3 pt-3  border"><big><a href="{% url 'schedule:single' slug=item.slug %}">{{ item.title }}</a></big></div>
+					<div class="col-md-3 col-sm-3 col-6 border pb-1 pt-1">{{ item.get_actual_date_action.action_date|date }} {{ item.get_actual_date_action.action_date|time }}</div>
+					<div class="col-md-3 col-sm-3 col-6 border pb-1 pt-1">{{ item.schedule }}</div>
+					<div class="col-md-3 col-sm-3 col-6 border pb-1 pt-1">{{ item.get_actual_date_action.duration }}</div>
+					<div class="col-md-3 col-sm-3 col-6 border pb-1 pt-1">{{ item.cost }} руб.</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

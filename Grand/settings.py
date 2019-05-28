@@ -46,8 +46,11 @@ INSTALLED_APPS = [
     'account',
     'core',
     'production',
+    'schedule',
 
     # Dependencies
+    'adminsortable2',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -153,7 +156,15 @@ AUTH_USER_MODEL = 'account.Account'
 
 JET_SIDE_MENU_COMPACT = True
 
-SITE_VERSION = '0.0.2'
+SITE_VERSION = '0.1.0'
+
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'mitapp.email.sender@gmail.com'
+EMAIL_HOST_PASSWORD = 'vpjpn98F'
+EMAIL_PORT = 587
+
 
 """
 Внимание! Очень важно импортировать параметры с файла parameters.py в последнюю очередь!

@@ -1,0 +1,41 @@
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>Запрос на запись</title>
+	</head>
+
+	<body>
+		<h1>Есть заполнившие форму на сайте!</h1>
+
+		<p>Кто-то заполнил форму на сайте и хочет записаться на курс "{{ course }}"</p>
+		<p>Данные студента:</p>
+
+		<table border="0" cellspacing="0" cellpadding="20" style="width: 100%; position: relative;">
+			<tr>
+				<td style="width: 20%">ФИО:</td>
+				<td>{{ name }}</td>
+			</tr>
+			<tr>
+				<td style="width: 20%;">E-Mail:</td>
+				<td><a href="mailto:{{ mail }}">{{ mail }}</a></td>
+			</tr>
+			<tr>
+				<td style="width: 20%;">Телефон:</td>
+				<td><a href="tel:{{ phone }}">{{ phone }}</a></td>
+			</tr>
+			<tr>
+				<td style="width: 20%;">Образование:</td>
+				<td>{{ education }}</td>
+			</tr>
+			{% if message %}
+				<tr>
+					<td style="width: 20%;">Сообщение от студента</td>
+					<td>{{ message }}</td>
+				</tr>
+			{% endif %}
+			<tr>
+				<td colspan="2">Дата: {{ created_at|date }} {{ created_at|time }}. <a href="{{ link }}">Посмотреть эту заявку в админке</a></td>
+			</tr>
+		</table>
+	</body>
+</html>

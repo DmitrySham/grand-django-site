@@ -56,6 +56,8 @@ class SiteSettings(models.Model):
         help_text='Эта почта будет выводиться в верхней части сайта'
     )
 
+    grand_smeta_text = models.TextField(verbose_name='Текст в Гранд Смета', null=True, blank=True)
+
     def __str__(self):
         return 'Настройки сайта'
 
@@ -107,3 +109,21 @@ class FooterMenuLinks(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class GrandSmeta(models.Model):
+    class Meta:
+        verbose_name_plural = 'Гранд Смета'
+        verbose_name = 'Гранд Смету'
+
+    is_active = models.BooleanField(default=True, verbose_name='Активна?')
+    thumbnail = models.FileField(upload_to='grand-smeta/', verbose_name='Изображение', help_text='Предпочтительные размеры: 540x380')
+    title = models.CharField(max_length=255, verbose_name='Название')
+    slug = models.CharField(max_length=255, verbose_name='SLUG', unique=True, help_text='URL Endpoint name')
+    short_description = models.TextField(verbose_name='Короткое описание', null=True, blank=False)
+    description = models.TextField(verbose_name='Полное описание')
+    price = models.CharField(verbose_name='Цена', max_length=255)
+
+    def __str__(self):
+        return self.title
+

@@ -7,7 +7,7 @@ from .models import *
 
 
 def one_c_list(request):
-    objects = OneC.objects.all()
+    objects = OneC.objects.filter(is_active=True)
 
     return render(request, 'app/one-c.html', locals())
 
@@ -22,7 +22,7 @@ def one_c_single(request, id):
 
 
 def online_cashbox_list(request):
-    objects = OnlineCashbox.objects.all()
+    objects = OnlineCashbox.objects.filter(is_active=True)
 
     return render(request, 'app/online-cashbox.html', locals())
 

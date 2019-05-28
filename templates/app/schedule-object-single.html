@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% load staticfiles product_template_helper widget_tweaks %}
+
+
+{% block title %}Учебный центр{% endblock %}
+
+{% block extra_css %}
+	<style>
+		.primary-button { cursor: pointer; }
+		.primary-button.disabled {
+			background-color: #6c757d;
+			border-color: #6c757d;
+			color: #ffffff;
+			cursor: not-allowed;
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+	<!-- Page Title START -->
+	<div class="page-title-section" style="background-image: url(http://via.placeholder.com/1730x300);">
+		<div class="container">
+			<h1>Название Образовательные программы</h1>
+			<ul>
+				<li><a href="{% url 'index' %}">Главная</a></li>
+				<li><a href="{% url 'schedule:list' %}">Образовательные программы</a></li>
+				<li><a href="{% url 'schedule:single' slug=course.slug %}">{{ course.title }}</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- Page Title END -->
+
+
+	<div class="section-block-grey">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-sm-6 col-12">
+					<div class="pr-30-md">
+						<div class="section-heading">
+							<h5>{{ course.title }}</h5>
+							<h5>{% if course.get_actual_date_action %}{{ course.get_actual_date_action.cost }}{% else %}Уточните у оператора{% endif %}</h5>
+							<button class="primary-button button-md disabled" id="open-apply-form-button">Записаться</button>
+						</div>
+						<div class="section-heading-line-left"></div>
+						<div class="text-content-big mt-20">
+							{{ course.short_description|split_lines|safe }}
+							<!-- Подставляется из основного расписание  shedule.html-->
+							{% if course.get_actual_date_action %}
+								<p>Дата: {{ course.get_actual_date_action.action_date|date }}</p>
+								<p>Время: {{ course.get_actual_date_action.action_date|time }}</p>
+								<p>Прод-ть: {{ course.get_actual_date_action.duration }}</p>
+								<p>Оплата: {{ course.get_actual_date_action.cost }}</p>
+							{% else %}
+								<p>Дата: <small><b>Не доступно</b></small></p>
+								<p>Время: <small><b>Не доступно</b></small></p>
+								<p>Прод-ть: <small><b>Не доступно</b></small></p>
+								<p>Оплата: <small><b>Не доступно</b></small></p>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6 col-12">
+					<img src="{{ course.thumbnail.url }}" class="rounded-border shadow-primary" alt="{{ course.title }}">
+				</div>
+			</div>
+		</div>
+		<div class="container mt-50">
+			<div class="section-heading-line"></div>
+			{{ course.full_description|split_lines|safe }}
+		</div>
+	</div>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="apply-to-course-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Запись на курс "{{ course.title }}"</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!-- Form Start -->
+					<form class="contact-form row" id="apply-form">
+						<div class="col-md-12 col-sm-12 col-12">
+							{% render_field apply_form.name placeholder='Ваше ФИО' %}
+						</div>
+
+						<div class="col-md-12">
+							{% render_field apply_form.email placeholder='Электронная почта' %}
+						</div>
+
+						<div class="col-md-12">
+							{% render_field apply_form.phone placeholder='Телефон' %}
+						</div>
+
+						<div class="col-md-12 col-sm-12 col-12">
+							{#<input type="text" name="education" placeholder="Ваше образование">#}
+							{% render_field apply_form.education %}
+						</div>
+
+						<div class="col-md-12">
+							{#<textarea name="message" placeholder="Сообщение"></textarea>#}
+							{% render_field apply_form.message %}
+						</div>
+					</form>
+					<!-- Form End -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+					<button type="button" class="btn btn-primary">Записаться</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_js %}
+	<script>
+		$(document).ready(() => {
+		    let openApplyModalButton = $('#open-apply-form-button');
+		    let applyModal = $('#apply-to-course-modal');
+		    let form = $('#apply-form');
+
+		    openApplyModalButton.on('click', e => {
+		        e.preventDefault();
+
+		        if (!openApplyModalButton.hasClass('disabled')) {
+		            applyModal.modal('show');
+				}
+			});
+
+
+		    form.on('submit', e => {
+		        e.preventDefault();
+
+		        let data = {
+
+				};
+
+
+			});
+		});
+	</script>
+{% endblock %}

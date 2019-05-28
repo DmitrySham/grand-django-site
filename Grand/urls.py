@@ -23,8 +23,9 @@ from Grand import settings
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
-
     path('production/', include(('production.urls', 'production'))),
+    path('core/', include(('core.urls', 'core'))),
+    path('schedule/', include(('schedule.urls', 'schedule'))),
 
     path('', core_views.index, name='index')
 ]

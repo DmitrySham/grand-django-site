@@ -2,6 +2,8 @@
 
 {% load staticfiles product_template_helper %}
 
+{% block title %}Онлайн Кассы{% endblock %}
+
 {% block content %}
 
 	<!-- Page Title START -->
@@ -74,9 +76,9 @@
 										</div>
 									</div>
 								</div>
-								<div class="classic-shop-text">
+								<div class="classic-shop-text p-3">
 									<h4><a href="{% url 'production:online_cashbox_single' id=item.id %}">{{ item.title }}</a></h4>
-									{{ item.short_description|split_lines|safe }}
+									{{ item.short_description|slice:"0:130"|split_lines|safe }}
 									<h5>{{ item.price_box|parse_json|get_first_item:'value' }}</h5>
 								</div>
 							</div>

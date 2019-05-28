@@ -35,3 +35,11 @@ class SiteSettingsAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return self.model.objects.count() < 1
+
+
+@admin.register(GrandSmeta)
+class GrandSmeta(admin.ModelAdmin):
+    list_display = ['title', 'price']
+    search_fields = ['title', 'description', 'full_description']
+
+    prepopulated_fields = {'slug': ('title',)}

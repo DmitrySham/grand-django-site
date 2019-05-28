@@ -1,5 +1,7 @@
 Django==2.2
+django-admin-sortable2==0.7.1
 django-jet==1.0.8
+django-widget-tweaks==1.4.3
 psycopg2-binary==2.8.2
 pytz==2019.1
 sqlparse==0.3.0
