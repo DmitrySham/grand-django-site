@@ -1,0 +1,37 @@
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>Обратная связь | Гранд Чита</title>
+	</head>
+
+	<body>
+		<h1>Есть заполнившие форму на сайте!</h1>
+
+		<p>Кто-то заполнил форму на сайте и хочет Связаться с вами</p>
+		<p>Данные посетителя:</p>
+
+		<table border="0" cellspacing="0" cellpadding="20" style="width: 100%; position: relative;">
+			<tr>
+				<td style="width: 20%">ФИО:</td>
+				<td>{{ name }}</td>
+			</tr>
+			<tr>
+				<td style="width: 20%;">E-Mail:</td>
+				<td><a href="mailto:{{ email }}">{{ email }}</a></td>
+			</tr>
+			<tr>
+				<td style="width: 20%;">Тема:</td>
+				<td>{{ subject }}</td>
+			</tr>
+			{% if message %}
+				<tr>
+					<td style="width: 20%;">Сообщение</td>
+					<td>{{ message }}</td>
+				</tr>
+			{% endif %}
+			<tr>
+				<td colspan="2">Дата: {{ created_at|date }} {{ created_at|time }}. <a href="{{ link }}">Посмотреть эту заявку в админке</a></td>
+			</tr>
+		</table>
+	</body>
+</html>

@@ -46,7 +46,7 @@
 									</div>
 
 									<div class="col-md-7 col-sm-7 col-8 latest-posts-text pl-0">
-										<a href="{% url 'blog:single' slug=item.slug %}">{{ item.title|slice:"0:20" }}</a>
+										<a href="{% url 'blog:single' slug=item.slug %}">{{ item.title|truncate_chars:50 }}</a>
 										<span>{{ item.created_at|date }} {{ item.created_at|time }}</span>
 									</div>
 								</div>

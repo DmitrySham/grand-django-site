@@ -10,78 +10,33 @@
 <!-- Slider START -->
 <div class="swiper-main-slider-fade swiper-container">
 	<div class="swiper-wrapper">
-	<!-- Slide 1 Start -->
-		<div class="swiper-slide" style="background-image:url(http://via.placeholder.com/1520x450);">
-			<!-- <div class="medium-overlay"></div> -->
-			<div class="container">
-                <div class="slider-content left-holder">
-                    <h2 class="animated fadeInDown">
-                    	Учебный <br>Центр.
-                    </h2>
-                    <div class="row">
-                    	<div class="col-md-6 col-sm-12 col-12">
-		                    <p class="animated fadeInDown">
-		                    	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		                    	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		                    	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
-		                    </p>
-                    	</div>
-                    </div>
-                    <div class="animated fadeInUp mt-30">
-                        <a href="#contact" class="dark-button button-md">Узнать больше</a>
-                    </div>
-                </div>
-			</div>
-		</div>
-		<!-- Slide 1 End -->
 
-		<!-- Slide 2 Start -->
-		<div class="swiper-slide" style="background-image:url(http://via.placeholder.com/1520x450);">
-			<div class="container">
-                <div class="slider-content left-holder">
-                    <h2 class="animated fadeInDown">
-                    	1С.
-                    </h2>
-                    <div class="row">
-                    	<div class="col-md-6 col-sm-12 col-12">
-		                    <p class="animated fadeInDown">
-		                    	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		                    	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		                    	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
-		                    </p>
-                    	</div>
-                    </div>
-                    <div class="animated fadeInUp mt-25">
-                        <a href="#contact" class="dark-button button-md">Узнать больше</a>
-                    </div>
-                </div>
+		{% for slide in slides %}
+			<!-- Slide 1 Start -->
+			<div class="swiper-slide" style="background-image:url({% if slide.thumbnail %}{{ slide.thumbnail.url }}{% else %}http://via.placeholder.com/1520x450{% endif %});">
+				<!-- <div class="medium-overlay"></div> -->
+				<div class="container">
+					<div class="slider-content left-holder">
+						<h2 class="animated fadeInDown">
+							{{ slide.title|safe }}
+						</h2>
+						<div class="row">
+							<div class="col-md-6 col-sm-12 col-12">
+								<p class="animated fadeInDown">
+									{{ slide.description }}
+								</p>
+							</div>
+						</div>
+						{% if slide.link %}
+							<div class="animated fadeInUp mt-30">
+								<a href="{{ slide.link }}" class="dark-button button-md">Узнать больше</a>
+							</div>
+						{% endif %}
+					</div>
+				</div>
 			</div>
-		</div>
-		<!-- Slide 2 End -->
-
-		<!-- Slide 3 Start -->
-		<div class="swiper-slide" style="background-image:url(http://via.placeholder.com/1520x450);">
-			<div class="container">
-                <div class="slider-content left-holder">
-                    <h2 class="animated fadeInDown">
-                    	Гранд <br> Смета.
-                    </h2>
-                    <div class="row">
-                    	<div class="col-md-6 col-sm-12 col-12">
-		                    <p class="animated fadeInDown">
-		                    	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		                    	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		                    	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
-		                    </p>
-                    	</div>
-                    </div>
-                    <div class="animated fadeInUp mt-30">
-                        <a href="#contact" class="dark-button button-md">Узнать больше</a>
-                    </div>
-                </div>
-			</div>
-		</div>
-		<!-- Slide 3 End -->
+			<!-- Slide 1 End -->
+		{% endfor %}
 	</div>
 	<!-- Add Arrows -->
 	<div class="swiper-button-next"></div>

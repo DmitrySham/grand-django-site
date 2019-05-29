@@ -6,7 +6,7 @@
 
 {% block content %}
 	<!-- Page Title START -->
-	<div class="page-title-section" style="background-image: url(http://via.placeholder.com/1730x300);">
+	<div class="page-title-section" style="background-image: url({% if site_settings and site_settings.schedule_header_image %}{{ site_settings.schedule_header_image.url }}{% else %}http://via.placeholder.com/1730x300{% endif %});">
 		<div class="container">
 			<h1>Образовательные программы</h1>
 			<ul>
@@ -48,21 +48,21 @@
 									</div>
 								</div>
 								<div class="classic-shop-text p-4">
-									<h6><a href="{% url 'schedule:single' slug=item.slug %}">{{ item.title }}</a></h6>
+									<h6><a href="{% url 'schedule:single' slug=item.slug %}">{{ item.title|truncate_chars:50 }}</a></h6>
 								</div>
 
 
-								<div class="panel-group text-center" id="accordion2" role="tablist" aria-multiselectable="true">
+								<div class="panel-group text-center" id="accordion{{ forloop.counter }}" role="tablist" aria-multiselectable="true">
 
 									<div class="panel panel-grey accordion">
-										<div class="panel-heading accordion-heading" role="tab" id="acc1">
+										<div class="panel-heading accordion-heading" role="tab" id="acc{{ forloop.counter }}">
 											<h4 class="panel-title accordion-title">
-												<a role="button" data-toggle="collapse" data-parent="#accordion2" href="#ac_col1" aria-expanded="true" aria-controls="ac_col1">
+												<a role="button" data-toggle="collapse" data-parent="#accordion{{ forloop.counter }}" href="#ac_col{{ forloop.counter }}" aria-expanded="true" aria-controls="ac_col1">
 													Расписание
 												</a>
 											</h4>
 										</div>
-										<div id="ac_col1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="acc1">
+										<div id="ac_col{{ forloop.counter }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="acc{{ forloop.counter }}">
 											<div class="panel-body accordion-body text-center">
 												{% if item.get_actual_date_action %}
 													<p>Дата: {{ item.get_actual_date_action.action_date|date }}</p>

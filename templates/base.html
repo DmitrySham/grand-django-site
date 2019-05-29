@@ -104,7 +104,7 @@
 					<a href="{% url 'index' %}">Главная</a>
 				</li>
 				<li>
-					<a href="#">Новости</a>
+					<a href="{% url 'blog:list' %}">Новости</a>
 				</li>
 				<li>
 					<a href="{% url 'schedule:list' %}">Учебный Центр</a>
@@ -116,13 +116,13 @@
 					<a href="{% url 'production:online_cashbox_list' %}">Онлайн-Кассы</a>
 				</li>
 				<li>
-					<a href="#">Эл.подписи</a>
+					<a href="{% url 'production:electronic_signature_list' %}">Эл.подписи</a>
 				</li>
 				<li>
 					<a href="{% url 'core:grand_smeta_list' %}">ГрандСмета</a>
 				</li>
 				<li>
-					<a href="#">О нас</a>
+					<a href="{% url 'core:contacts' %}">Контакты</a>
 				</li>
 			</ul>
 		</div>
@@ -290,6 +290,16 @@
 
 <!-- Main JS -->
 <script src="{% static 'js/main.js' %}"></script>
+
+<script>
+	const getCookie = name => {
+
+            let matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined
+        };
+</script>
 
 {% block extra_js %}{% endblock %}
 

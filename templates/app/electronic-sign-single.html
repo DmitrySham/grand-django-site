@@ -2,7 +2,8 @@
 
 {% load staticfiles product_template_helper %}
 
-{% block title %}{{ online_cashbox.title }}{% endblock %}
+
+{% block title %}{{ electronic_signature.title }}{% endblock %}
 
 {% block extra_css %}
 	<style>
@@ -42,15 +43,14 @@
 {% endblock %}
 
 {% block content %}
-
 	<!-- Page Title START -->
-	<div class="page-title-section" style="background-image: url(http://via.placeholder.com/1730x300);">
+	<div class="page-title-section" style="background-image: url({% if site_settings and site_settings.electronic_signature_header_image %}{{ site_settings.electronic_signature_header_image.url }}{% else %}http://via.placeholder.com/1730x300{% endif %});">
 		<div class="container">
-			<h1>{{ online_cashbox.title }}</h1>
+			<h1>Электронные подписи</h1>
 			<ul>
 				<li><a href="{% url 'index' %}">Главная</a></li>
-				<li><a href="{% url 'production:online_cashbox_list' %}">Онлайн-Кассы</a></li>
-				<li><a href="{% url 'production:online_cashbox_single' id=online_cashbox.id %}">{{ online_cashbox.title }}</a></li>
+				<li><a href="{% url 'production:electronic_signature_list' %}">Электронные подписи</a></li>
+				<li><a href="{% url 'production:electronic_signature_single' slug=electronic_signature.slug %}">{{ electronic_signature.title }}</a></li>
 			</ul>
 		</div>
 	</div>
@@ -67,8 +67,8 @@
 						<!-- Begin Product Images Slider -->
 						<div class="main-img-slider">
 							<figure>
-								<a href="{{ online_cashbox.thumbnail.url }}" data-size="1400x1400">
-									<img src="{{ online_cashbox.thumbnail.url }}" alt="{{ online_cashbox.title }}" />
+								<a href="#" data-size="1400x1400">
+									<img src="{% if electronic_signature.thumbnail %}{{ electronic_signature.thumbnail.url }}{% else %}http://via.placeholder.com/540x540{% endif %}" alt="{{ electronic_signature.title }}" />
 								</a>
 							</figure>
 						</div>
@@ -77,30 +77,32 @@
 				</div>
 				<div class="col-md-6 col-sm-6 col-12">
 					<div class="single-product">
-						<h2>{{ online_cashbox.title|safe }}</h2>
+						<h2>{{ electronic_signature.title }}</h2>
 
 						<!-- Price Start -->
 						<div class="single-product-price">
-							<h4 id="price-tag">{{ online_cashbox.price_box|parse_json|get_first_item:'value' }}</h4>
+							<h4 id="price-tag">{{ electronic_signature.price_box|parse_json|get_first_item:"value" }}</h4>
 						</div>
 						<!-- Price End -->
 
 						<div class="price-box">
 							<ul id="price-box">
-								{% for item in online_cashbox.price_box|parse_json %}
+								{% for item in electronic_signature.price_box|parse_json %}
 									<li{% if forloop.counter0 == 0 %} class="active"{% endif %} data-value="{{ item.value }}" data-id="{{ item.id }}">{{ item.key }}</li>
 								{% endfor %}
 							</ul>
 						</div>
 
-						{{ online_cashbox.short_description|split_lines|safe }}
+						{{ electronic_signature.short_description|split_lines|safe }}
+
 
 						<div class="product-share mt-20">
-							<span>Поделится: </span>
-							{% for item in online_cashbox.share_links.all %}
-								<a href="{% normalize_social_link item.url request title=electronic_signature.title description=electronic_signature.short_description image=electronic_signature.thumbnail %}"><i class="fa fa-{{ item.icon }}"></i></a>
+							<span>Поделиться: </span>
+							{% for item in electronic_signature.share_links.all %}
+								<a href="{% normalize_social_link item.url request title=electronic_signature.title description=electronic_signature.short_description image=electronic_signature.thumbnail %}" target="_blank"><i class="fa fa-{{ item.icon }}"></i></a>
 							{% endfor %}
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -109,7 +111,7 @@
 		<div class="container mt-50">
 			<div class="section-heading ">
 				<div class="section-heading-line"></div>
-				{{ online_cashbox.full_description|split_lines|safe }}
+				{{ electronic_signature.full_description|split_lines|safe }}
 			</div>
 		</div>
 	</div>
@@ -117,7 +119,6 @@
 
 
 {% endblock %}
-
 
 {% block extra_js %}
 	<script src="{% static 'js/price-box.js' %}"></script>

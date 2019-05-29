@@ -49,6 +49,19 @@ class OnlineCashbox(models.Model):
         return self.title
 
 
+class OnlineCashBoxPartner(models.Model):
+    class Meta:
+        verbose_name_plural = 'Слайдер на странице Онлайн кассы'
+        verbose_name = 'Слайдер на странице Онлайн кассы'
+
+    is_active = models.BooleanField(default=True, verbose_name='Активно?')
+    title = models.CharField(max_length=255, verbose_name='Название')
+    thumbnail = models.FileField(upload_to='online-cash-box/thumbnails/', verbose_name='Изображение')
+
+    def __str__(self):
+        return self.title
+
+
 class ShareLinks(models.Model):
     class Meta:
         verbose_name = 'Поделиться'
@@ -64,9 +77,27 @@ class ShareLinks(models.Model):
     icon = models.CharField(
         max_length=50,
         verbose_name='Иконка',
-        help_text='Сюда вписывается название класса иконки из Font Awesome. Предосмотр: <i class="fa" id="id_icon_preview"></i>'
+        help_text='Сюда вписывается название класса иконки из <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank">Font Awesome</a>. Предосмотр: <i class="fa id_icon_preview"></i>'
     )
 
     def __str__(self):
         return self.title
 
+
+class ElectronicSignature(models.Model):
+    class Meta:
+        verbose_name_plural = 'Электронные подписи'
+        verbose_name = 'Эл. подпись'
+
+    is_active = models.BooleanField(default=True, verbose_name='Активный?')
+    thumbnail = models.FileField(upload_to='production/electronic-signature/', verbose_name='Изображение', null=True)
+    title = models.CharField(max_length=255, verbose_name='Название')
+    slug = models.CharField(max_length=255, verbose_name='SLUG', unique=True)
+    short_description = models.TextField(verbose_name='Краткое описание', null=True, blank=True)
+    full_description = models.TextField(verbose_name='Полное описание')
+    price_box = models.TextField(verbose_name='Цены', default=json.dumps(list()))
+
+    share_links = models.ManyToManyField(to='ShareLinks', blank=True, verbose_name='Share ссылки')
+
+    def __str__(self):
+        return self.title

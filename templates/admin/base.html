@@ -3,6 +3,7 @@
 {% load staticfiles %}
 
 {% block extrahead %}
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style>
 		.button {
 			cursor: pointer;
@@ -27,7 +28,15 @@
 			});
 		    dictField.init();
 
-		    console.log(dictField);
+			let iconPreview = new IconPreviewer({
+				selector: '.id_icon_preview'
+			});
+			iconPreview.init();
+
+			let phoneDictField = new DictField({
+				field: '#id_phones'
+			});
+			phoneDictField.init();
 		});
 
 		function DictField(options) {
@@ -174,5 +183,27 @@
 
 		    return this;
 		}
+
+		function IconPreviewer(options) {
+			options = options || {};
+			options.selector = options.selector || '.icon-previewer';
+
+			this.elements = $(options.selector);
+			this.classes = [options.selector.replace('.', ''), 'fa'];
+
+			this.init = () => {
+			    this.elements.each((i, obj) => {
+			        $(obj).attr('style', 'font-size: 24px;');
+			        let input = $($($(obj).parent().parent()).find('input'));
+
+			        input.on('input', e => {
+
+			            $(obj).attr('class', `${this.classes.join(' ')} fa-${e.target.value}`);
+					});
+				});
+			};
+
+		    return this;
+        }
 	</script>
 {% endblock %}

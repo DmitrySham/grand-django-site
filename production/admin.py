@@ -16,3 +16,23 @@ class OnlineCashboxAdmin(admin.ModelAdmin):
     list_display = ['title', 'is_active']
     list_filter = ['is_active']
     search_fields = ['title', 'short_description', 'full_description']
+
+
+@admin.register(ElectronicSignature)
+class ElectronicSignatureAdmin(admin.ModelAdmin):
+    list_display = ['title', 'is_active']
+    list_filter = ['is_active']
+    search_fields = ['title', 'short_description', 'full_description']
+
+    prepopulated_fields = {'slug': ('title',)}
+
+
+@admin.register(ShareLinks)
+class ShareLinkAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(OnlineCashBoxPartner)
+class CashboxPartner(admin.ModelAdmin):
+    list_display = ['title', 'is_active']
+    list_filter = ['is_active']

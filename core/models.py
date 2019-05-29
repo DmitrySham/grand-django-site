@@ -1,3 +1,5 @@
+import json
+
 from django.db import models
 
 # Create your models here.
@@ -57,6 +59,13 @@ class SiteSettings(models.Model):
     )
 
     grand_smeta_text = models.TextField(verbose_name='Текст в Гранд Смета', null=True, blank=True)
+    grand_smeta_header_image = models.FileField(verbose_name='Изображение на странице "Гранд Смета"', null=True, blank=True, upload_to='grand-smeta/headers/')
+    index_page_text = models.TextField(verbose_name='Текст на главной странице', null=True, blank=True)
+    news_header_image = models.FileField(verbose_name='Изображение на странице новостей', null=True, blank=True, upload_to='blog/headers/')
+    schedule_header_image = models.FileField(verbose_name='Изображение на странице "Учебный центр"', null=True, blank=True, upload_to='schedule/headers/')
+    one_c_header_image = models.FileField(verbose_name='Изображение на странице "1C"', null=True, blank=True, upload_to='1c/headers/')
+    online_cash_box_header_image = models.FileField(verbose_name='Изображение на странице "Онлайн Кассы"', null=True, blank=True, upload_to='online-cahs-box/headers/')
+    electronic_signature_header_image = models.FileField(verbose_name='Изображение на странице "Электронные подписи"', null=True, blank=True, upload_to='electronic-signature/headers/')
 
     def __str__(self):
         return 'Настройки сайта'
@@ -127,3 +136,36 @@ class GrandSmeta(models.Model):
     def __str__(self):
         return self.title
 
+
+class Contacts(models.Model):
+    class Meta:
+        verbose_name = 'Контакты'
+        verbose_name_plural = 'Контакты'
+
+    thumbnail = models.FileField(upload_to='contacts/header/', verbose_name='Изображение на странице контактов', null=True, blank=True)
+    phones = models.TextField(default=json.dumps(list()), verbose_name='Телефоны', blank=True)
+    emails = models.ManyToManyField(to='AdminEmails', blank=True, verbose_name='E-Mail\'ы')
+    address = models.TextField(verbose_name='Адрес', null=True, blank=True)
+    work_schedule = models.TextField(verbose_name='Режим работы', null=True, blank=True)
+
+    def __str__(self):
+        return 'Настройки контактов'
+
+
+class Feedback(models.Model):
+    class Meta:
+        verbose_name = 'Обратная связь'
+        verbose_name_plural = 'Обратная связь'
+
+    is_read = models.BooleanField(default=False, verbose_name='Прочитано?')
+    is_reacted = models.BooleanField(default=False, verbose_name='Отреагировали?')
+
+    name = models.CharField(max_length=255, verbose_name='Имя')
+    email = models.EmailField(verbose_name='Почта')
+    subject = models.CharField(max_length=255, verbose_name='Тема')
+    message = models.TextField(verbose_name='Сообщение', null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    def __str__(self):
+        return self.name

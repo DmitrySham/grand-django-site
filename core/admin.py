@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.core.exceptions import ObjectDoesNotExist
+
 from .models import *
 
 
@@ -43,3 +45,32 @@ class GrandSmeta(admin.ModelAdmin):
     search_fields = ['title', 'description', 'full_description']
 
     prepopulated_fields = {'slug': ('title',)}
+
+
+@admin.register(Contacts)
+class ContactsAdmin(admin.ModelAdmin):
+
+    def has_add_permission(self, request):
+        return self.model.objects.count() < 1
+
+
+@admin.register(Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ['name', 'subject', 'is_read', 'is_reacted', 'created_at']
+    list_filter = ['is_read', 'is_reacted', 'created_at']
+
+    readonly_fields = ['is_read', 'created_at', 'name', 'subject', 'email', 'message']
+
+    def has_add_permission(self, request):
+        return False
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        try:
+            feedback_object = Feedback.objects.get(id=object_id)
+            if not feedback_object.is_read:
+                feedback_object.is_read = True
+                feedback_object.save()
+        except ObjectDoesNotExist:
+            pass
+
+        return super(FeedbackAdmin, self).change_view(request, object_id, form_url=form_url, extra_context=extra_context)

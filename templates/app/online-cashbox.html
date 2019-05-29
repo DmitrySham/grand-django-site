@@ -7,7 +7,7 @@
 {% block content %}
 
 	<!-- Page Title START -->
-	<div class="page-title-section" style="background-image: url(http://via.placeholder.com/1730x300);">
+	<div class="page-title-section" style="background-image: url({% if site_settings and site_settings.online_cash_box_header_image %}{{ site_settings.online_cash_box_header_image.url }}{% else %}http://via.placeholder.com/1730x300{% endif %});">
 		<div class="container">
 			<h1>Онлайн-Кассы</h1>
 			<ul>
@@ -22,29 +22,11 @@
 	<div class="section-clients border-top">
 		<div class="container">
 			<div class="owl-carousel owl-theme clients" id="clients">
-				<div class="item">
-					<img src="http://via.placeholder.com/155x65" alt="partner-image">
-				</div>
-
-				<div class="item">
-					<img src="http://via.placeholder.com/155x65" alt="partner-image">
-				</div>
-
-				<div class="item">
-					<img src="http://via.placeholder.com/155x65" alt="partner-image">
-				</div>
-
-				<div class="item">
-					<img src="http://via.placeholder.com/155x65" alt="partner-image">
-				</div>
-
-				<div class="item">
-					<img src="http://via.placeholder.com/155x65" alt="partner-image">
-				</div>
-
-				<div class="item">
-					<img src="http://via.placeholder.com/155x65" alt="partner-image">
-				</div>
+				{% for item in partners %}
+					<div class="item">
+						<img src="{{ item.thumbnail.url }}" alt="{{ item.title }}">
+					</div>
+				{% endfor %}
 			</div>
 		</div>
 		<!-- Clients Carousel END -->
@@ -77,8 +59,8 @@
 									</div>
 								</div>
 								<div class="classic-shop-text p-3">
-									<h4><a href="{% url 'production:online_cashbox_single' id=item.id %}">{{ item.title }}</a></h4>
-									{{ item.short_description|slice:"0:130"|split_lines|safe }}
+									<h4><a href="{% url 'production:online_cashbox_single' id=item.id %}">{{ item.title|truncate_chars:50 }}</a></h4>
+									{{ item.short_description|truncate_chars:130|split_lines|safe }}
 									<h5>{{ item.price_box|parse_json|get_first_item:'value' }}</h5>
 								</div>
 							</div>

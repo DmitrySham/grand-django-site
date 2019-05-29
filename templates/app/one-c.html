@@ -6,7 +6,7 @@
 
 {% block content %}
 	<!-- Page Title START -->
-	<div class="page-title-section" style="background-image: url(http://via.placeholder.com/1730x300);">
+	<div class="page-title-section" style="background-image: url({% if site_settings and site_settings.one_c_header_image %}{{ site_settings.one_c_header_image.url }}{% else %}http://via.placeholder.com/1730x300{% endif %});">
 		<div class="container">
 			<h1>Продукция 1С</h1>
 			<ul>
@@ -45,8 +45,8 @@
 								</div>
 							</div>
 							<div class="classic-shop-text">
-								<h4><a href="{% url 'production:one_c_single' id=item.id %}">{{ item.title }}</a></h4>
-								{{ item.short_description|split_lines|safe }}
+								<h4><a href="{% url 'production:one_c_single' id=item.id %}">{{ item.title|truncate_chars:50 }}</a></h4>
+								{{ item.short_description|truncate_chars:130|split_lines|safe }}
 								<h5>{{ item.price }}</h5>
 							</div>
 						</div>
