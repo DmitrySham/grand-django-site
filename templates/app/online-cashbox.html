@@ -61,7 +61,7 @@
 								<div class="classic-shop-text p-3">
 									<h4><a href="{% url 'production:online_cashbox_single' id=item.id %}">{{ item.title|truncate_chars:50 }}</a></h4>
 									{{ item.short_description|truncate_chars:130|split_lines|safe }}
-									<h5>{{ item.price_box|parse_json|get_first_item:'value' }}</h5>
+									{#<h5>{{ item.price_box|parse_json|get_first_item:'value' }}</h5>#}
 								</div>
 							</div>
 						</div>

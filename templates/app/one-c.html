@@ -47,7 +47,7 @@
 							<div class="classic-shop-text">
 								<h4><a href="{% url 'production:one_c_single' id=item.id %}">{{ item.title|truncate_chars:50 }}</a></h4>
 								{{ item.short_description|truncate_chars:130|split_lines|safe }}
-								<h5>{{ item.price }}</h5>
+								{#<h5>{{ item.price }}</h5>#}
 							</div>
 						</div>
 					</div>

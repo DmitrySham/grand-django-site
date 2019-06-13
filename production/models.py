@@ -19,6 +19,12 @@ class OneC(models.Model):
         verbose_name='Изображение',
         help_text='Предпочитаемые размеры 540x540'
     )
+    cover_image = models.FileField(
+        upload_to='production/one-c/cover-images/',
+        verbose_name='Обложка',
+        null=True,
+        blank=True
+    )
     price = models.CharField(max_length=255, verbose_name='Цена')
 
     def __str__(self):
@@ -41,6 +47,11 @@ class OnlineCashbox(models.Model):
         upload_to='production/online-cashbox/',
         verbose_name='Изображение',
         help_text='Предпочитаемые размеры 540x540'
+    )
+    cover_image = models.FileField(
+        upload_to='production/online-cashbox/cover-images/',
+        verbose_name='Обложка',
+        null=True, blank=True
     )
 
     share_links = models.ManyToManyField(to='ShareLinks', blank=True, verbose_name='Share ссылки')

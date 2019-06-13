@@ -15,7 +15,10 @@ class Course(models.Model):
 
     order_index = models.PositiveIntegerField(default=0, verbose_name='Порядок')
     is_active = models.BooleanField(default=True, verbose_name='Активно?')
+
     thumbnail = models.FileField(upload_to='schedule-objects/', verbose_name='Изображение', help_text='Предпочитаемые размеры: 540x380')
+    cover_image = models.FileField(upload_to='schedule-objects/cover-images/', verbose_name='Обложка', null=True, blank=True)
+
     title = models.CharField(max_length=255, verbose_name='Название')
     slug = models.CharField(max_length=255, verbose_name='SLUG', unique=True, help_text='URL endpoint name')
     short_description = models.TextField(verbose_name='Краткое описание', null=True, blank=True)

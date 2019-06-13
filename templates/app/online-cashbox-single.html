@@ -44,7 +44,7 @@
 {% block content %}
 
 	<!-- Page Title START -->
-	<div class="page-title-section" style="background-image: url(http://via.placeholder.com/1730x300);">
+	<div class="page-title-section" style="background-image: url({% if online_cashbox.cover_image %}{{ online_cashbox.cover_image.url }}{% else %}http://via.placeholder.com/1730x300{% endif %});">
 		<div class="container">
 			<h1>{{ online_cashbox.title }}</h1>
 			<ul>
