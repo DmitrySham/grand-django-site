@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class ProductionConfig(AppConfig):
     name = 'production'
-    verbose_name = 'Продкуция (Услуги)'
+    verbose_name = 'Продукция (Услуги)'

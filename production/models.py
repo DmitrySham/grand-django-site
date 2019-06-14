@@ -9,7 +9,9 @@ class OneC(models.Model):
     class Meta:
         verbose_name = '1С'
         verbose_name_plural = '1С'
+        ordering = ('order_index',)
 
+    order_index = models.PositiveIntegerField(default=0, verbose_name='Порядковый номер')
     is_active = models.BooleanField(default=True, verbose_name='Активно?')
     title = models.CharField(max_length=255, verbose_name='Название 1С услуги')
     short_description = models.TextField(verbose_name='Краткое описание')
@@ -19,7 +21,14 @@ class OneC(models.Model):
         verbose_name='Изображение',
         help_text='Предпочитаемые размеры 540x540'
     )
+    cover_image = models.FileField(
+        upload_to='production/one-c/cover-images/',
+        verbose_name='Обложка',
+        null=True,
+        blank=True
+    )
     price = models.CharField(max_length=255, verbose_name='Цена')
+    price_box = models.TextField(verbose_name='Расценка', default=json.dumps(list()))
 
     def __str__(self):
         return self.title
@@ -29,7 +38,9 @@ class OnlineCashbox(models.Model):
     class Meta:
         verbose_name_plural = 'Онлайн кассы'
         verbose_name = 'Онлайн касса'
+        ordering = ('order_index',)
 
+    order_index = models.PositiveIntegerField(default=0, verbose_name='Порядковый номер')
     is_active = models.BooleanField(default=True, verbose_name='Активный')
     title = models.CharField(max_length=255, verbose_name='Название')
     short_description = models.TextField(verbose_name='Короткое описание', null=True, blank=True)
@@ -41,6 +52,11 @@ class OnlineCashbox(models.Model):
         upload_to='production/online-cashbox/',
         verbose_name='Изображение',
         help_text='Предпочитаемые размеры 540x540'
+    )
+    cover_image = models.FileField(
+        upload_to='production/online-cashbox/cover-images/',
+        verbose_name='Обложка',
+        null=True, blank=True
     )
 
     share_links = models.ManyToManyField(to='ShareLinks', blank=True, verbose_name='Share ссылки')

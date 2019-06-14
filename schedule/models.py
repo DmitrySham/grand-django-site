@@ -15,7 +15,10 @@ class Course(models.Model):
 
     order_index = models.PositiveIntegerField(default=0, verbose_name='Порядок')
     is_active = models.BooleanField(default=True, verbose_name='Активно?')
+
     thumbnail = models.FileField(upload_to='schedule-objects/', verbose_name='Изображение', help_text='Предпочитаемые размеры: 540x380')
+    cover_image = models.FileField(upload_to='schedule-objects/cover-images/', verbose_name='Обложка', null=True, blank=True)
+
     title = models.CharField(max_length=255, verbose_name='Название')
     slug = models.CharField(max_length=255, verbose_name='SLUG', unique=True, help_text='URL endpoint name')
     short_description = models.TextField(verbose_name='Краткое описание', null=True, blank=True)
@@ -88,9 +91,12 @@ class ApplyRequest(models.Model):
     is_reacted = models.BooleanField(default=False, verbose_name='Отреагировано?')
     is_approved = models.BooleanField(default=False, verbose_name='Подтвержденно?')
 
-    name = models.CharField(max_length=255, verbose_name='ФИО')
+    # name = models.CharField(max_length=255, verbose_name='ФИО')
+    first_name = models.CharField(max_length=255, verbose_name='Имя', null=True, blank=True)
+    last_name = models.CharField(max_length=255, verbose_name='Фамилия', null=True, blank=True)
+    middle_name = models.CharField(max_length=255, verbose_name='Отчество', null=True, blank=True)
     email = models.EmailField(verbose_name='Электронная почта')
-    education = models.CharField(max_length=255, verbose_name='Оброзование')
+    education = models.ForeignKey(to='Educations', on_delete=models.SET_NULL, null=True, max_length=255, verbose_name='Оброзование')
     message = models.TextField(verbose_name='Сообщение')
     phone = models.CharField(verbose_name='Телефон', null=True, max_length=255)
 
@@ -99,7 +105,7 @@ class ApplyRequest(models.Model):
     course = models.ForeignKey(to=CourseActionDateObject, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Курс')
 
     def __str__(self):
-        return self.name
+        return self.first_name + ' ' + self.last_name
 
     def get_course_date_action_link(self):
         content_type = ContentType.objects.get_for_model(self.course.__class__)
@@ -116,3 +122,14 @@ class ApplyRequest(models.Model):
             'url': reverse_lazy("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.course.course.id,)),
             'title': self.course.course.get_truncated_title()
         })
+
+
+class Educations(models.Model):
+    class Meta:
+        verbose_name_plural = 'Образования(Словарь)'
+        verbose_name = 'Образование'
+
+    title = models.CharField(max_length=255, verbose_name='Название')
+
+    def __str__(self):
+        return self.title
