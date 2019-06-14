@@ -67,6 +67,15 @@ class SiteSettings(models.Model):
     online_cash_box_header_image = models.FileField(verbose_name='Изображение на странице "Онлайн Кассы"', null=True, blank=True, upload_to='online-cahs-box/headers/')
     electronic_signature_header_image = models.FileField(verbose_name='Изображение на странице "Электронные подписи"', null=True, blank=True, upload_to='electronic-signature/headers/')
 
+    # home page:
+    why_choose_us = models.TextField(verbose_name='Почему выбирают нас?', null=True, blank=True)
+    schedule = models.TextField(verbose_name='Текст учебного центра', null=True, blank=True)
+    schedule_thumbnail = models.FileField(verbose_name='Изображение учебного центра', null=True, blank=True)
+    grand_service = models.TextField(verbose_name='Текст Гранд Сервиса', null=True, blank=True)
+    grand_service_thumbnail = models.FileField(verbose_name='Изображение гранд сервиса', null=True, blank=True)
+    grand_smeta = models.TextField(verbose_name='Текст Гранд Смета', null=True, blank=True)
+    grand_smeta_thumbnail = models.FileField(verbose_name='Изображение Гранд смета', null=True, blank=True)
+
     def __str__(self):
         return 'Настройки сайта'
 
@@ -161,6 +170,9 @@ class Feedback(models.Model):
     is_reacted = models.BooleanField(default=False, verbose_name='Отреагировали?')
 
     name = models.CharField(max_length=255, verbose_name='Имя')
+    first_name = models.CharField(max_length=255, verbose_name='Имя', null=True, blank=True)
+    last_name = models.CharField(max_length=255, verbose_name='Фамилия', null=True, blank=True)
+    middle_name = models.CharField(max_length=255, verbose_name='Отчество', null=True, blank=True)
     email = models.EmailField(verbose_name='Почта')
     subject = models.CharField(max_length=255, verbose_name='Тема')
     message = models.TextField(verbose_name='Сообщение', null=True, blank=True)

@@ -29,27 +29,29 @@
 				{% for item in objects %}
 					<!-- Product Start -->
 					<div class="col-md-4 col-sm-6 col-12">
-						<div class="classic-shop">
-							<div class="classic-shop-img">
-								<img src="{{ item.thumbnail.url }}" alt="{{ item.title }}">
-								<div class="shop-box-overlay">
-									<div class="row">
-										<div class="col-md-12 col-sm-12 col-12">
-											<a href="{% url 'production:one_c_single' id=item.id %}">
-												<div class="shop-to-card">
-													<h4><span class="fa fa-eye"></span>Подробнее</h4>
-												</div>
-											</a>
+						<a href="{% url 'production:one_c_single' id=item.id %}">
+							<div class="classic-shop">
+								<div class="classic-shop-img">
+									<img src="{{ item.thumbnail.url }}" alt="{{ item.title }}">
+									<div class="shop-box-overlay">
+										<div class="row">
+											<div class="col-md-12 col-sm-12 col-12">
+												<a href="{% url 'production:one_c_single' id=item.id %}">
+													<div class="shop-to-card">
+														<h4><span class="fa fa-eye"></span>Подробнее</h4>
+													</div>
+												</a>
+											</div>
 										</div>
 									</div>
 								</div>
+								<div class="classic-shop-text">
+									<h4><a href="{% url 'production:one_c_single' id=item.id %}">{{ item.title|truncate_chars:50 }}</a></h4>
+									{{ item.short_description|truncate_chars:130|split_lines|safe }}
+									{#<h5>{{ item.price }}</h5>#}
+								</div>
 							</div>
-							<div class="classic-shop-text">
-								<h4><a href="{% url 'production:one_c_single' id=item.id %}">{{ item.title|truncate_chars:50 }}</a></h4>
-								{{ item.short_description|truncate_chars:130|split_lines|safe }}
-								{#<h5>{{ item.price }}</h5>#}
-							</div>
-						</div>
+						</a>
 					</div>
 					<!-- Product End -->
 				{% endfor %}

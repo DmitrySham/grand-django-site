@@ -17,7 +17,7 @@ class CourseActionDateObjectInline(admin.StackedInline):
 class ApplyRequestInline(admin.StackedInline):
     model = ApplyRequest
 
-    fields = ['is_approved', 'name', 'email', 'phone', 'education', 'message', 'get_course_link']
+    fields = ['is_approved', 'first_name', 'last_name', 'middle_name', 'email', 'phone', 'education', 'message', 'get_course_link']
     readonly_fields = fields
 
     def has_add_permission(self, request, obj=None):
@@ -46,10 +46,10 @@ class CourseAdmin(SortableAdminMixin, admin.ModelAdmin):
 
 @admin.register(ApplyRequest)
 class ApplyRequestAdmin(admin.ModelAdmin):
-    list_display = ['name', 'get_course_title', 'created_at', 'is_read', 'is_reacted', 'is_approved']
+    list_display = ['first_name', 'get_course_title', 'created_at', 'is_read', 'is_reacted', 'is_approved']
     list_filter = ['is_read', 'is_reacted', 'is_approved', 'created_at']
 
-    readonly_fields = ['name', 'email', 'phone', 'education', 'message', 'get_course_date_action_link', 'is_read']
+    readonly_fields = ['first_name', 'last_name', 'middle_name', 'email', 'phone', 'education', 'message', 'get_course_date_action_link', 'is_read']
 
     def get_course_title(self, obj):
         return obj.course.course.get_truncated_title()
@@ -66,3 +66,8 @@ class ApplyRequestAdmin(admin.ModelAdmin):
         except ObjectDoesNotExist:
             pass
         return super(ApplyRequestAdmin, self).change_view(request, object_id, form_url=form_url, extra_context=extra_context)
+
+
+@admin.register(Educations)
+class EducationAdmin(admin.ModelAdmin):
+    pass

@@ -18,6 +18,24 @@
 			color: #ffffff;
 			cursor: not-allowed;
 		}
+		.contact-form select {
+			font-weight: 500 !important;
+			border-radius: 5px;
+			font-size: 13px;
+			border: 1px solid #f6f7f8;
+			background: #f6f7f8;
+			color: #777 !important;
+			outline: none;
+			width: 100%;
+			padding: 14px;
+			margin: 10px 0;
+			-webkit-transition-duration: 0.4s;
+			transition-duration: 0.4s;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			cursor: pointer;
+		}
 	</style>
 {% endblock %}
 
@@ -99,7 +117,15 @@
 					<form class="contact-form row" id="apply-form">
 						{% render_field apply_form.course %}
 						<div class="col-md-12 col-sm-12 col-12">
-							{% render_field apply_form.name placeholder='Ваше ФИО' %}
+							{% render_field apply_form.last_name placeholder='Ваше Фамилия' %}
+						</div>
+
+						<div class="col-md-12 col-sm-12 col-12">
+							{% render_field apply_form.first_name placeholder='Ваше Имя' %}
+						</div>
+
+						<div class="col-md-12 col-sm-12 col-12">
+							{% render_field apply_form.middle_name placeholder='Ваше Отчество' %}
 						</div>
 
 						<div class="col-md-12">
@@ -167,7 +193,7 @@
                     csrfmiddlewaretoken: getCookie('csrftoken')
                 };
 
-                let fields = form.find('input, textarea');
+                let fields = form.find('input, textarea, select');
 
                 const enableAllFieldsAndSubmitButton = () => {
                     for (let i = 0; i < fields.length; ++i) {
@@ -186,6 +212,14 @@
 				}
 				submitButton.addClass('disabled', true);
 
+                const cleanForm = () => {
+					for (let i = 0; i < fields.length; ++i) {
+						let _field = $(fields[i]);
+
+						_field.val('');
+					}
+				};
+
                 $.ajax({
 					url: document.location.href,
 					method: 'POST',
@@ -194,6 +228,7 @@
 					success: response => {
 					    isRequesting = false;
 					    enableAllFieldsAndSubmitButton();
+
 					    if (response.success) {
 					        $.confirm({
 								title: '<h4>Успех!</h4>',
@@ -206,6 +241,7 @@
 										btnClass: 'btn-primary',
 										action: () => {
 								            applyModal.modal('hide');
+								            cleanForm();
 										}
 									}
 								}
