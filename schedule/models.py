@@ -27,6 +27,8 @@ class Course(models.Model):
     cost = models.CharField(max_length=255, verbose_name='Стоимость курса', null=True)
     schedule = models.CharField(max_length=255, verbose_name='Расписание занятий', help_text='Это расписание будет отображаться на странице расписани', null=True)
 
+    share_links = models.ManyToManyField(to='production.ShareLinks', blank=True, verbose_name='Ссылки поделиться')
+
     def get_actual_date_action(self):
         return self.courseactiondateobject_set.filter(is_active=True, is_actual=True).first()
 

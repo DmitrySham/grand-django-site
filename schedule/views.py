@@ -38,9 +38,9 @@ def course_single(request, slug):
             return JsonResponse(dict(success=False, message='Не удалось записаться! Не осталось свободных мест!'))
 
         apply_form = ApplyRequestForm(request.POST, initial=dict(course=course.get_actual_date_action()))
-        print(request.POST)
+        # print(request.POST)
         if apply_form.is_valid():
-            print(apply_form.cleaned_data['education'])
+            # print(apply_form.cleaned_data['education'])
             apply_credentials = dict(
                 first_name=apply_form.cleaned_data['first_name'],
                 last_name=apply_form.cleaned_data['last_name'],

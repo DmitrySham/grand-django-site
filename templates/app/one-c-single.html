@@ -42,18 +42,18 @@
 {% endblock %}
 
 {% block content %}
-	<!-- Page Title START -->
-	<div class="page-title-section" style="background-image: url({% if one_c_object.cover_image %}{{ one_c_object.cover_image.url }}{% else %}http://via.placeholder.com/1730x300{% endif %});">
-		<div class="container">
-			<h1>{{ one_c_object.title }}</h1>
-			<ul>
-				<li><a href="{% url 'index' %}">Главная</a></li>
-				<li><a href="{% url 'production:one_c_list' %}">1С</a></li>
-				<li><a href="{% url 'production:one_c_single' id=one_c_object.id %}">{{ one_c_object.title }}</a></li>
-			</ul>
-		</div>
-	</div>
-	<!-- Page Title END -->
+{#	<!-- Page Title START -->#}
+{#	<div class="page-title-section" style="background-image: url({% if one_c_object.cover_image %}{{ one_c_object.cover_image.url }}{% else %}http://via.placeholder.com/1730x300{% endif %});">#}
+{#		<div class="container">#}
+{#			<h1>{{ one_c_object.title }}</h1>#}
+{#			<ul>#}
+{#				<li><a href="{% url 'index' %}">Главная</a></li>#}
+{#				<li><a href="{% url 'production:one_c_list' %}">1С</a></li>#}
+{#				<li><a href="{% url 'production:one_c_single' id=one_c_object.id %}">{{ one_c_object.title }}</a></li>#}
+{#			</ul>#}
+{#		</div>#}
+{#	</div>#}
+{#	<!-- Page Title END -->#}
 
 
 	<!-- Shop Single START -->
@@ -95,11 +95,10 @@
 						{{ one_c_object.short_description|split_lines|safe }}
 
 						<div class="product-share mt-20">
-							<span>Share: </span>
-							<a href="#"><i class="fa fa-facebook"></i></a>
-							<a href="#"><i class="fa fa-twitter"></i></a>
-							<a href="#"><i class="fa fa-google-plus"></i></a>
-							<a href="#"><i class="fa fa-pinterest"></i></a>
+							<span>Поделиться: </span>
+							{% for item in one_c_object.share_links.all %}
+								<a href="{% normalize_social_link item.url request title=one_c_object.title description=one_c_object.short_description image=one_c_object.thumbnail %}" target="_blank"><i class="fa fa-{{ item.icon }}"></i></a>
+							{% endfor %}
 						</div>
 					</div>
 				</div>

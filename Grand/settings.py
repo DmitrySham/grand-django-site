@@ -157,7 +157,7 @@ AUTH_USER_MODEL = 'account.Account'
 
 JET_SIDE_MENU_COMPACT = True
 
-SITE_VERSION = '0.2.0'
+SITE_VERSION = '0.2.1'
 
 EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = True

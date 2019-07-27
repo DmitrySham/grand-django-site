@@ -37,3 +37,8 @@ class ShareLinkAdmin(admin.ModelAdmin):
 class CashboxPartner(admin.ModelAdmin):
     list_display = ['title', 'is_active']
     list_filter = ['is_active']
+
+
+@admin.register(OnlineCashboxCategory)
+class CashboxCategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
+    pass

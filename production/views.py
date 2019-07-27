@@ -2,6 +2,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import render
 from .models import *
+from .utils import get_item_index
+
 
 # Create your views here.
 
@@ -22,7 +24,24 @@ def one_c_single(request, id):
 
 
 def online_cashbox_list(request):
-    objects = OnlineCashbox.objects.filter(is_active=True)
+    categories = OnlineCashboxCategory.objects.all()
+    prepared_categories = list()
+
+    for category in categories:
+        prepared_categories.append(dict(
+            category=category,
+            objects=OnlineCashbox.objects.filter(is_active=True, category_id=category.id)
+        ))
+
+    others = OnlineCashbox.objects.filter(is_active=True, category__isnull=True)
+
+    if others.count() > 0:
+        prepared_categories.append(dict(
+            category=dict(title='Другие'),
+            objects=others
+        ))
+
+    # objects =
     partners = OnlineCashBoxPartner.objects.filter(is_active=True)
 
     return render(request, 'app/online-cashbox.html', locals())

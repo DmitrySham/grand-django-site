@@ -29,6 +29,20 @@ class OneC(models.Model):
     )
     price = models.CharField(max_length=255, verbose_name='Цена')
     price_box = models.TextField(verbose_name='Расценка', default=json.dumps(list()))
+    share_links = models.ManyToManyField(to='ShareLinks', verbose_name='Ссылки поделиться', blank=True)
+
+    def __str__(self):
+        return self.title
+
+
+class OnlineCashboxCategory(models.Model):
+    class Meta:
+        verbose_name_plural = 'Категории онлайн касс'
+        verbose_name = 'Категорию'
+        ordering = ('order_index',)
+
+    order_index = models.PositiveIntegerField(default=0, verbose_name='Порядковый номер')
+    title = models.CharField(max_length=255, verbose_name='Название')
 
     def __str__(self):
         return self.title
@@ -60,6 +74,8 @@ class OnlineCashbox(models.Model):
     )
 
     share_links = models.ManyToManyField(to='ShareLinks', blank=True, verbose_name='Share ссылки')
+
+    category = models.ForeignKey(to='OnlineCashboxCategory', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Категория')
 
     def __str__(self):
         return self.title
