@@ -5,6 +5,9 @@
 {% block title %}{{ one_c_object.title }}{% endblock %}
 
 {% block extra_css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/lightgallery.min.css' %}">
 	<style>
 		.price-box {
 			margin-top: 40px;
@@ -38,23 +41,26 @@
 		.price-box ul li.active{
 			background: #f7c605;
 		}
+
+		.main-img-slider {
+			width: 100%;
+			height: auto;
+			position: relative;
+			cursor: pointer;
+		}
+
+		.main-img-slider figure {
+			width: 100%;
+			height: auto;
+		}
+
+		.main-img-slider figure img {
+			width: 100%;
+		}
 	</style>
 {% endblock %}
 
 {% block content %}
-{#	<!-- Page Title START -->#}
-{#	<div class="page-title-section" style="background-image: url({% if one_c_object.cover_image %}{{ one_c_object.cover_image.url }}{% else %}http://via.placeholder.com/1730x300{% endif %});">#}
-{#		<div class="container">#}
-{#			<h1>{{ one_c_object.title }}</h1>#}
-{#			<ul>#}
-{#				<li><a href="{% url 'index' %}">Главная</a></li>#}
-{#				<li><a href="{% url 'production:one_c_list' %}">1С</a></li>#}
-{#				<li><a href="{% url 'production:one_c_single' id=one_c_object.id %}">{{ one_c_object.title }}</a></li>#}
-{#			</ul>#}
-{#		</div>#}
-{#	</div>#}
-{#	<!-- Page Title END -->#}
-
 
 	<!-- Shop Single START -->
 	<div class="section-block">
@@ -64,13 +70,21 @@
 					<!-- Product Images & Alternates -->
 					<div class="product-images">
 						<!-- Begin Product Images Slider -->
-						<div class="main-img-slider">
-							<figure>
-								<a href="{{ one_c_object.thumbnail.url }}" data-size="1400x1400">
+						<div id="slick-target">
+							<div class="main-img-slider" data-src="{{ one_c_object.thumbnail.url }}">
+								<figure>
 									<img src="{{ one_c_object.thumbnail.url }}" alt="{{ one_c_object.title }}" />
-								</a>
-							</figure>
+								</figure>
+							</div>
+							{% for slide in one_c_object.onecimage_set.all %}
+								<div class="main-img-slider" data-src="{{ slide.image.url }}">
+									<figure>
+										<img src="{{ slide.image.url }}" alt="{{ slide.image.name }}" />
+									</figure>
+								</div>
+							{% endfor %}
 						</div>
+
 						<!-- End Product Images Slider -->
 					</div>
 				</div>
@@ -120,11 +134,28 @@
 
 
 {% block extra_js %}
+	<script src="{% static 'js/lightgallery.min.js' %}"></script>
+	<script src="{% static 'slick/slick.min.js' %}"></script>
 	<script src="{% static 'js/price-box.js' %}"></script>
 	<script>
 		$(document).ready(() => {
 			let priceBox = new PriceBox();
 			priceBox.init();
+
+
+			let slickGallerySlider = $('#slick-target');
+
+			slickGallerySlider.slick({
+				dots: true,
+				arrows: true,
+				autoplay: true,
+				adaptiveHeight: true,
+				infinite: true
+			});
+
+			slickGallerySlider.lightGallery({
+				selector: '.main-img-slider'
+			});
 		});
 	</script>
 {% endblock %}

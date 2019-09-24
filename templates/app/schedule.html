@@ -4,6 +4,14 @@
 
 {% block title %}Расписание занятий{% endblock %}
 
+{% block extra_css %}
+	<style>
+		.schedule-item {
+			text-decoration: dotted;
+		}
+	</style>
+{% endblock %}
+
 {% block content %}
 	<div class="section-block" style="color: #111;">
 		<div class="section-heading">
@@ -26,11 +34,22 @@
 			<div class="container border mt-10 text-center">
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-12 pb-3 pt-3  border"><big><a href="{% url 'schedule:single' slug=item.slug %}">{{ item.title }}</a></big></div>
-					<div class="col-md-3 col-sm-3 col-6 border pb-1 pt-1">{{ item.get_actual_date_action.action_date|date }} {{ item.get_actual_date_action.action_date|time }}</div>
-					<div class="col-md-3 col-sm-3 col-6 border pb-1 pt-1">{{ item.schedule }}</div>
-					<div class="col-md-3 col-sm-3 col-6 border pb-1 pt-1">{{ item.get_actual_date_action.duration }}</div>
+				</div>
+				{% for schedule in item.schedule_set.all %}
+					<div class="row">
+					<div class="col-md-3 col-sm-3 col-6 border pb-1 pt-1">{{ schedule.start_date }}</div>
+					<div class="col-md-3 col-sm-3 col-6 border pb-1 pt-1">
+						<div class="schedule-item">
+							<i class="fa fa-clock-o"></i> {{ schedule.start_hour|time }} - {{ schedule.finish_hour|time }}
+						</div>
+						<div class="schedule-item">
+							<i class="fa fa-calendar-o"></i> {{ schedule.days }}
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-3 col-6 border pb-1 pt-1">{{ schedule.duration }}</div>
 					<div class="col-md-3 col-sm-3 col-6 border pb-1 pt-1">{{ item.cost }} руб.</div>
 				</div>
+				{% endfor %}
 			</div>
 		{% endfor %}
 	</div>

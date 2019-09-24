@@ -68,25 +68,17 @@
 						<div class="text-content-big mt-20">
 							{{ course.short_description|split_lines|safe }}
 							<!-- Подставляется из основного расписание  shedule.html-->
-							{% if course.get_actual_date_action %}
-								<p>Дата: {{ course.get_actual_date_action.action_date|date }}</p>
-								<p>Время: {{ course.get_actual_date_action.action_date|time }}</p>
-								<p>Прод-ть: {{ course.get_actual_date_action.duration }}</p>
-								<p>Оплата: {{ course.get_actual_date_action.cost }}</p>
-							{% else %}
-								<p>Дата:
-									<small><b>Не доступно</b></small>
-								</p>
-								<p>Время:
-									<small><b>Не доступно</b></small>
-								</p>
-								<p>Прод-ть:
-									<small><b>Не доступно</b></small>
-								</p>
-								<p>Оплата:
-									<small><b>Не доступно</b></small>
-								</p>
-							{% endif %}
+
+							{% for schedule in course.schedule_set.all %}
+								<div class="border p-3 mb-3">
+									<h5 class="mb-3">Курс #{{ forloop.counter }}</h5>
+
+									<p>Дата: {{ schedule.start_date|safe }}</p>
+									<p>Время: {{ schedule.start_hour|time }} - {{ schedule.finish_hour|time }} ({{ schedule.days }})</p>
+									<p>Прод-ть: {{ schedule.duration }}</p>
+									<p>Оплата: {{ course.cost }}</p>
+								</div>
+							{% endfor %}
 						</div>
 					</div>
 				</div>

@@ -5,6 +5,9 @@
 {% block title %}{{ online_cashbox.title }}{% endblock %}
 
 {% block extra_css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/lightgallery.min.css' %}">
 	<style>
 		.price-box {
 			margin-top: 40px;
@@ -35,27 +38,30 @@
 		}
 
 		.price-box ul li:hover,
-		.price-box ul li.active{
+		.price-box ul li.active {
 			background: #f7c605;
+		}
+
+
+		.main-img-slider {
+			width: 100%;
+			height: auto;
+			position: relative;
+			cursor: pointer;
+		}
+
+		.main-img-slider figure {
+			width: 100%;
+			height: auto;
+		}
+
+		.main-img-slider figure img {
+			width: 100%;
 		}
 	</style>
 {% endblock %}
 
 {% block content %}
-
-{#	<!-- Page Title START -->#}
-{#	<div class="page-title-section" style="background-image: url({% if online_cashbox.cover_image %}{{ online_cashbox.cover_image.url }}{% else %}http://via.placeholder.com/1730x300{% endif %});">#}
-{#		<div class="container">#}
-{#			<h1>{{ online_cashbox.title }}</h1>#}
-{#			<ul>#}
-{#				<li><a href="{% url 'index' %}">Главная</a></li>#}
-{#				<li><a href="{% url 'production:online_cashbox_list' %}">Онлайн-Кассы</a></li>#}
-{#				<li><a href="{% url 'production:online_cashbox_single' id=online_cashbox.id %}">{{ online_cashbox.title }}</a></li>#}
-{#			</ul>#}
-{#		</div>#}
-{#	</div>#}
-{#	<!-- Page Title END -->#}
-
 
 	<!-- Shop Single START -->
 	<div class="section-block">
@@ -65,13 +71,22 @@
 					<!-- Product Images & Alternates -->
 					<div class="product-images">
 						<!-- Begin Product Images Slider -->
-						<div class="main-img-slider">
-							<figure>
-								<a href="{{ online_cashbox.thumbnail.url }}" data-size="1400x1400">
+
+						<div id="slick-target">
+							<div class="main-img-slider" data-src="{{ online_cashbox.thumbnail.url }}">
+								<figure>
 									<img src="{{ online_cashbox.thumbnail.url }}" alt="{{ online_cashbox.title }}" />
-								</a>
-							</figure>
+								</figure>
+							</div>
+							{% for slide in online_cashbox.onlinecashboximage_set.all %}
+								<div class="main-img-slider" data-src="{{ slide.image.url }}">
+									<figure>
+										<img src="{{ slide.image.url }}" alt="{{ slide.image.name }}" />
+									</figure>
+								</div>
+							{% endfor %}
 						</div>
+
 						<!-- End Product Images Slider -->
 					</div>
 				</div>
@@ -120,11 +135,27 @@
 
 
 {% block extra_js %}
+	<script src="{% static 'js/lightgallery.min.js' %}"></script>
+	<script src="{% static 'slick/slick.min.js' %}"></script>
 	<script src="{% static 'js/price-box.js' %}"></script>
 	<script>
 		$(document).ready(() => {
 			let priceBox = new PriceBox();
 			priceBox.init();
+
+			let slickGallerySlider = $('#slick-target');
+
+			slickGallerySlider.slick({
+				dots: true,
+				arrows: true,
+				autoplay: true,
+				adaptiveHeight: true,
+				infinite: true
+			});
+
+			slickGallerySlider.lightGallery({
+				selector: '.main-img-slider'
+			});
 		});
 	</script>
 {% endblock %}

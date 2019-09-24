@@ -35,17 +35,17 @@
 		<div class="section-block">
 			<div class="container">
 				<div class="section-heading">
-					<h5>Онлайн-Кассы</h5>
+					<h3>Онлайн-Кассы</h3>
 					<div class="section-heading-line-left"></div>
 				</div>
 				<div class="mt-30">
 					{% for category in prepared_categories %}
-						<h6>{{ category.category.title }}</h6>
+						<h4>{{ category.category.title }}</h4>
 
 						<div class="row">
 							{% for item in category.objects %}
 								<!-- Product Start -->
-								<div class="col-md-4 col-sm-6 col-12">
+								<div class="col-md-3 col-sm-6 col-12">
 									<a href="{% url 'production:online_cashbox_single' id=item.id %}">
 										<div class="classic-shop">
 											<div class="classic-shop-img">

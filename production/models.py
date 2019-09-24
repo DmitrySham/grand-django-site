@@ -1,4 +1,5 @@
 import json
+import os
 
 from django.db import models
 
@@ -33,6 +34,27 @@ class OneC(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class OneCImage(models.Model):
+    class Meta:
+        verbose_name = 'Изображения 1C'
+        verbose_name_plural = 'Изображения 1C'
+
+    image = models.FileField(verbose_name='Изображение', upload_to='one-c/single/sliders')
+    one_c = models.ForeignKey(to=OneC, on_delete=models.CASCADE, verbose_name='1С')
+
+    def __str__(self):
+        return str(self.image.name)
+
+    def delete(self, using=None, keep_parents=False):
+        super(OneCImage, self).delete(using=using, keep_parents=keep_parents)
+
+        try:
+            os.remove(self.image.path)
+        except Exception as e:
+            print(e.__cause__)
+            pass
 
 
 class OnlineCashboxCategory(models.Model):
@@ -79,6 +101,28 @@ class OnlineCashbox(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class OnlineCashboxImage(models.Model):
+    class Meta:
+        verbose_name = 'Изображения онлайн касс'
+        verbose_name_plural = 'Изображения онлайн касс'
+
+    image = models.FileField(verbose_name='Изображение', upload_to='online-cashbox/single/sliders/')
+    cashbox = models.ForeignKey(to=OnlineCashbox, on_delete=models.CASCADE, verbose_name='Касса')
+
+    def __str__(self):
+        return str(self.image.name)
+
+    def delete(self, using=None, keep_parents=False):
+        print(self.image.path)
+        try:
+            os.remove(self.image.path)
+        except Exception as e:
+            print(e.__cause__)
+            pass
+
+        super(OnlineCashboxImage, self).delete(using=using, keep_parents=keep_parents)
 
 
 class OnlineCashBoxPartner(models.Model):
