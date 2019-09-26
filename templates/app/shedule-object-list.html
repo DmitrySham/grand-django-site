@@ -70,9 +70,9 @@
 													<p>Продолжительность: {{ schedule.duration }}</p>
 													{% if schedule.have_own_cost %}
 														{% if schedule.cost %}
-															<p>{{ schedule.cost }}</p>
+															<p>Оплата: {{ schedule.cost }}</p>
 														{% else %}
-															<p>-</p>
+															<p>Оплата: -</p>
 														{% endif %}
 													{% else %}
 														<p>Оплата: {{ item.cost }}</p>
