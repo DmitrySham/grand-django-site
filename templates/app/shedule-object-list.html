@@ -68,7 +68,7 @@
 													<p>Дата: {{ schedule.start_date|safe }}</p>
 													<p>Время: {{ schedule.start_hour|time }} - {{ schedule.finish_hour|time }} ({{ schedule.days }})</p>
 													<p>Продолжительность: {{ schedule.duration }}</p>
-													{% if schedule.has_own_cost %}
+													{% if schedule.have_own_cost %}
 														{% if schedule.cost %}
 															<p>{{ schedule.cost }}</p>
 														{% else %}
