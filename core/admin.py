@@ -33,6 +33,56 @@ class FooterMenuLinksStackedInline(admin.StackedInline):
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
 
+    fieldsets = (
+        (None, {'fields': (
+            'footer_description',
+            'header_phone',
+            'header_email',
+        )}),
+
+        ('Страница: Главная', {'fields': (
+            'index_page_text',
+
+            'why_choose_us',
+            'schedule',
+            'schedule_thumbnail',
+            'schedule_list_items',
+
+            'grand_service',
+            'grand_service_thumbnail',
+            'grand_service_list_items',
+
+            'grand_smeta',
+            'grand_smeta_thumbnail',
+            'grand_smeta_list_items',
+        )}),
+
+        ('Страница: Гранд Смета', {'fields': (
+            'grand_smeta_text',
+            'grand_smeta_header_image'
+        )}),
+
+        ('Страница: Новости', {'fields': (
+            'news_header_image',
+        )}),
+
+        ('Страница: Учебный центр', {'fields': (
+            'schedule_header_image',
+        )}),
+
+        ('Страница: 1С', {'fields': (
+            'one_c_header_image',
+        )}),
+
+        ('Страница: Онлайн кассы', {'fields': (
+            'online_cash_box_header_image',
+        )}),
+
+        ('Страница: Элек. подписи', {'fields': (
+            'electronic_signature_header_image',
+        )}),
+    )
+
     inlines = (SocialProfileLinksStackedInline, FooterMenuLinksStackedInline)
 
     def has_add_permission(self, request):

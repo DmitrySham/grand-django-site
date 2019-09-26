@@ -88,13 +88,15 @@
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 						{% endif %}
 					</div>
-					<div class="mt-20">
-						<ul class="primary-list">
-							<li><i class="fa fa-caret-right"></i>Immigration consultant, Information technology consulting</li>
-							<li><i class="fa fa-caret-right"></i>Consultant pharmacist Creative consultant</li>
-							<li><i class="fa fa-caret-right"></i>Employment consultant Environmental consultant</li>
-						</ul>
-					</div>
+					{% if site_settings and site_settings.schedule_list_items %}
+						<div class="mt-20">
+							<ul class="primary-list">
+								{% for item in site_settings.schedule_list_items|parse_json %}
+									<li><i class="fa fa-caret-right"></i> {{ item.text }}</li>
+								{% endfor %}
+							</ul>
+						</div>
+					{% endif %}
 					<div class="mt-25">
 						<a href="{% url 'schedule:list' %}" class="primary-button button-sm mb-15-xs">Подробнее</a>
 					</div>
@@ -130,14 +132,15 @@
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 						{% endif %}
 					</div>
-					<div class="mt-20">
-						<ul class="primary-list">
-							<li><i class="fa fa-caret-right"></i><a href="#">1С: Установка, Настройка, Обслуживание</a></li>
-							<li><i class="fa fa-caret-right"></i><a href="#">Онлайн-Кассы</a></li>
-							<li><i class="fa fa-caret-right"></i><a href="#">Контур</a></li>
-							<li><i class="fa fa-caret-right"></i><a href="#">Электронные подписи</a></li>
-						</ul>
-					</div>
+					{% if site_settings and site_settings.grand_service_list_items %}
+						<div class="mt-20">
+							<ul class="primary-list">
+								{% for item in site_settings.grand_service_list_items|parse_json %}
+									<li><i class="fa fa-caret-right"></i> {{ item.text }}</li>
+								{% endfor %}
+							</ul>
+						</div>
+					{% endif %}
 				</div>
 			</div>
 			<div class="col-md-6 col-sm-6 col-12">
@@ -169,14 +172,15 @@
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 						{% endif %}
 					</div>
-					<div class="mt-20">
-						<ul class="primary-list">
-							<li><i class="fa fa-caret-right"></i><a href="#"></a></li>
-							<li><i class="fa fa-caret-right"></i><a href="#"></a></li>
-							<li><i class="fa fa-caret-right"></i><a href="#"></a></li>
-							<li><i class="fa fa-caret-right"></i><a href="#"></a></li>
-						</ul>
-					</div>
+					{% if site_settings and site_settings.grand_smeta_list_items %}
+						<div class="mt-20">
+							<ul class="primary-list">
+								{% for item in site_settings.grand_smeta_list_items|parse_json %}
+									<li><i class="fa fa-caret-right"></i> {{ item.text }}</li>
+								{% endfor %}
+							</ul>
+						</div>
+					{% endif %}
 					<div class="mt-25">
 						<a href="{% url 'core:grand_smeta_list' %}" class="primary-button button-sm mb-15-xs">Подробнее</a>
 					</div>

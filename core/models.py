@@ -60,7 +60,6 @@ class SiteSettings(models.Model):
 
     grand_smeta_text = models.TextField(verbose_name='Текст в Гранд Смета', null=True, blank=True)
     grand_smeta_header_image = models.FileField(verbose_name='Изображение на странице "Гранд Смета"', null=True, blank=True, upload_to='grand-smeta/headers/')
-    index_page_text = models.TextField(verbose_name='Текст на главной странице', null=True, blank=True)
     news_header_image = models.FileField(verbose_name='Изображение на странице новостей', null=True, blank=True, upload_to='blog/headers/')
     schedule_header_image = models.FileField(verbose_name='Изображение на странице "Учебный центр"', null=True, blank=True, upload_to='schedule/headers/')
     one_c_header_image = models.FileField(verbose_name='Изображение на странице "1C"', null=True, blank=True, upload_to='1c/headers/')
@@ -68,13 +67,20 @@ class SiteSettings(models.Model):
     electronic_signature_header_image = models.FileField(verbose_name='Изображение на странице "Электронные подписи"', null=True, blank=True, upload_to='electronic-signature/headers/')
 
     # home page:
+    index_page_text = models.TextField(verbose_name='Текст на главной странице', null=True, blank=True)
     why_choose_us = models.TextField(verbose_name='Почему выбирают нас?', null=True, blank=True)
+
     schedule = models.TextField(verbose_name='Текст учебного центра', null=True, blank=True)
     schedule_thumbnail = models.FileField(verbose_name='Изображение учебного центра', null=True, blank=True)
+    schedule_list_items = models.TextField(verbose_name='Маркированный список учебного центра', default=json.dumps(list()), blank=True)
+
     grand_service = models.TextField(verbose_name='Текст Гранд Сервиса', null=True, blank=True)
     grand_service_thumbnail = models.FileField(verbose_name='Изображение гранд сервиса', null=True, blank=True)
+    grand_service_list_items = models.TextField(verbose_name='Маркированный список гранд сервиса', default=json.dumps(list()), blank=True)
+
     grand_smeta = models.TextField(verbose_name='Текст Гранд Смета', null=True, blank=True)
     grand_smeta_thumbnail = models.FileField(verbose_name='Изображение Гранд смета', null=True, blank=True)
+    grand_smeta_list_items = models.TextField(verbose_name='Маркированный список Гранд Смета', default=json.dumps(list()), blank=True)
 
     def __str__(self):
         return 'Настройки сайта'

@@ -61,7 +61,7 @@
 					<div class="pr-30-md">
 						<div class="section-heading">
 							<h5>{{ course.title }}</h5>
-							<h5>{% if course.get_actual_date_action %}{{ course.get_actual_date_action.cost }}{% else %}Цену уточните у оператора{% endif %}</h5>
+							<h5>{% if course.cost %}{{ course.cost }}{% else %}Цену уточните у оператора{% endif %}</h5>
 {#							<button class="primary-button button-md{% if not course.get_actual_date_action %} disabled{% endif %}" id="open-apply-form-button">{% if course.get_actual_date_action %}Записаться{% else %}Запись временно не доступна{% endif %}</button>#}
 						</div>
 						<div class="section-heading-line-left"></div>
@@ -75,8 +75,12 @@
 
 									<p>Дата: {{ schedule.start_date|safe }}</p>
 									<p>Время: {{ schedule.start_hour|time }} - {{ schedule.finish_hour|time }} ({{ schedule.days }})</p>
-									<p>Прод-ть: {{ schedule.duration }}</p>
-									<p>Оплата: {{ course.cost }}</p>
+									<p>Продолжительность: {{ schedule.duration }}</p>
+									{% if schedule.have_own_cost %}
+										<p>Оплата: {% if schedule.cost %}{{ schedule.cost }}{% else %}-{% endif %}</p>
+									{% else %}
+										<p>Оплата: {{ course.cost }}</p>
+									{% endif %}
 								</div>
 							{% endfor %}
 						</div>

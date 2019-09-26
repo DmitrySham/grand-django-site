@@ -12,7 +12,7 @@ class OneCImageInline(admin.TabularInline):
 
 @admin.register(OneC)
 class OneCAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ['title', 'price', 'is_active']
+    list_display = ['title', 'is_active']
     list_filter = ['is_active']
     search_fields = ['title', 'short_description', 'full_description']
 

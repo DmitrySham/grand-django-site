@@ -67,8 +67,16 @@
 												<div class="panel-body accordion-body text-center">
 													<p>Дата: {{ schedule.start_date|safe }}</p>
 													<p>Время: {{ schedule.start_hour|time }} - {{ schedule.finish_hour|time }} ({{ schedule.days }})</p>
-													<p>Прод-ть: {{ schedule.duration }}</p>
-													<p>Оплата: {{ item.cost }}</p>
+													<p>Продолжительность: {{ schedule.duration }}</p>
+													{% if schedule.has_own_cost %}
+														{% if schedule.cost %}
+															<p>{{ schedule.cost }}</p>
+														{% else %}
+															<p>-</p>
+														{% endif %}
+													{% else %}
+														<p>Оплата: {{ item.cost }}</p>
+													{% endif %}
 												</div>
 											{% endfor %}
 										</div>

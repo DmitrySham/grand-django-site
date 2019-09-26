@@ -12,6 +12,33 @@
 		.field-result-wrapper {
 			margin-top: 20px;
 		}
+
+		.list-field-data {
+			width: 85%;
+			margin-top: 65px;
+
+			padding: 16px;
+			-webkit-border-radius: 8px;
+			-moz-border-radius: 8px;
+			border-radius: 8px;
+			-webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+			-moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+			box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+		}
+
+		.list-field-data::before {
+			content: '';
+			display: block;
+			clear: both;
+		}
+
+		.list-field-data .input-label-field {
+			margin-bottom: 25px;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+		}
 	</style>
 {% endblock %}
 
@@ -22,6 +49,8 @@
 	<script src="{% static 'js/jquery.min.js' %}"></script>
 	<script>
 		window.dictFieldPrefixIndex = 0;
+		window.listFieldPrefixIndex = 0;
+
 		$(document).ready(() => {
 		    let dictField = new DictField({
 				field: '#id_price_box'
@@ -37,6 +66,16 @@
 				field: '#id_phones'
 			});
 			phoneDictField.init();
+
+
+			let listFields = new ListField({
+				fields: [
+				    '#id_schedule_list_items',
+					'#id_grand_service_list_items',
+					'#id_grand_smeta_list_items'
+				]
+			});
+			listFields.init();
 		});
 
 		function DictField(options) {
@@ -205,5 +244,171 @@
 
 		    return this;
         }
+
+        function ListField(options) {
+		    options = options || {};
+		    options.fields = options.fields || [];
+
+		    this.fields = [];
+
+		    this.init = () => {
+		        this.fields = options.fields.map(selector => ({
+					mainWrapper: null,
+					element: $(selector),
+					value: []
+				}));
+
+		        this.fields.forEach((obj, i) => {
+		            if (obj.element.length > 0) {
+		                this.initItem(obj, i);
+					}
+				});
+			};
+
+		    this.initItem = (obj, index) => {
+		        obj.element.css('display', 'none');
+		        obj.mainWrapper = $(obj.element.parent().parent());
+
+		        try {
+		            obj.value = JSON.parse(obj.element.val());
+				} catch (e) {
+		            console.error(e);
+					obj.value = [];
+                }
+                obj.mainWrapper.append(this.getRenderedListFieldTemplate(obj, index));
+                this.applyTemplateFunctions(obj, index);
+                this.applyEditableFunctions();
+            };
+
+		    this.applyTemplateFunctions = (obj, index) => {
+		        let addInput = $('#list-field-input-' + index);
+		        let addButton = $('#list-field-add-button-' + index);
+
+		        let table = $('#list-field-table-' + index);
+
+		        const addNewItem = () => {
+		            if (addInput.val() !== "") {
+		                let id = 0;
+
+		                if (obj.value.length > 0) {
+		                    id = obj.value[obj.value.length - 1].id + 1;
+						}
+
+		                obj.value.push({
+							id: id,
+							text: addInput.val()
+						});
+
+		                table.html(this.getTableRenderedValue(obj, index));
+		                this.applyEditableFunctions();
+		                addInput.val('');
+		                this.saveField(index);
+					}
+				};
+
+		        addInput.on('keydown keyup', e => {
+				    if (e.keyCode === 13) {
+				        addNewItem();
+					}
+				});
+
+				addButton.on('click', e => {
+				    e.preventDefault();
+				    addNewItem();
+				});
+			};
+
+		    this.applyEditableFunctions = () => {
+		        let elements = $('.list-field-editable-value');
+		        let deleteButtons = $('.list-field-delete-buttons');
+
+		        elements.each((i, obj) => {
+		            $(obj).unbind('input').bind('input', e => {
+		                let id = parseInt($(obj).attr('data-id'), 10);
+		                let index = parseInt($(obj).attr('data-index'), 10);
+
+		                this.fields[index].value = this.fields[index].value.map(item => {
+		                    if (item.id === id) {
+		                        return {
+									...item,
+									text: e.target.value
+								};
+							}
+							return item;
+						});
+		                this.saveField(index);
+					});
+				});
+
+		        deleteButtons.each((i, obj) => {
+		            $(obj).unbind('click').bind('click', e => {
+		                e.preventDefault();
+
+		                let index = parseInt($(obj).attr('data-index'), 10);
+		                let id = parseInt($(obj).attr('data-id'), 10);
+		                let parentRow = $($(obj).parent().parent());
+
+		                this.fields[index].value = this.fields[index].value.filter(item => item.id !== id);
+		                this.saveField(index);
+
+		                parentRow.fadeOut('fast', () => {
+		                    parentRow.remove();
+						});
+					});
+				});
+			};
+
+		    this.getTableRenderedValue = (obj, index) => {
+		        let result = "";
+
+		        if (obj.value.length > 0) {
+		            let listFieldItems = '';
+
+		            for (let i = 0; i < obj.value.length; ++i) {
+		                let item = obj.value[i];
+		                listFieldItems += '<tr>' +
+								'<td><input type="text" value="' + item.text + '" class="vTextField list-field-editable-value" data-id="' + item.id + '" data-index="' + index + '" /></td>' +
+								'<td><button type="button" class="button list-field-delete-buttons" data-id="' + item.id + '" data-index="' + index + '">Удалить</button></td>' +
+							'</tr>';
+					}
+
+					result += listFieldItems;
+				} else {
+		            result += '<tr><td colspan="2">Список пуст...</td></tr>';
+				}
+
+				return result;
+			};
+
+		    this.getRenderedListFieldTemplate = (obj, index) => {
+		        let template = '<div class="list-field-data" id="list-field-data-' + index + '">' +
+					'<div class="input-label-field">' +
+						'<label for="list-field-input-' + index + '">Введите элемент списка</label>' +
+						'<input type="text" class="vTextField" id="list-field-input-' + index + '" />' +
+						'<button class="button" id="list-field-add-button-' + index + '">Добавить</button>' +
+					'</div>' +
+					'<table>' +
+						'<thead>' +
+							'<tr>' +
+								'<th colspan="2">Элемент списка</th>' +
+							'</tr>' +
+						'</thead>' +
+						'<tbody id="list-field-table-' + index + '">';
+
+		        template += this.getTableRenderedValue(obj, index);
+
+		        template += '</tbody>' +
+					'</table>' +
+				'</div>';
+
+		        return template;
+			};
+
+		    this.saveField = index => {
+		        if (Boolean(this.fields[index].element)) {
+		            this.fields[index].element.val(JSON.stringify(this.fields[index].value));
+				}
+			};
+		}
 	</script>
 {% endblock %}

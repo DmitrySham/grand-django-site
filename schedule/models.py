@@ -153,6 +153,9 @@ class Schedule(models.Model):
 
     duration = models.TextField(verbose_name='Продолжительность')
 
+    have_own_cost = models.BooleanField(default=False, verbose_name='Другая цена?')
+    cost = models.CharField(max_length=255, verbose_name='Цена', null=True, blank=True)
+
     course = models.ForeignKey(to=Course, on_delete=models.CASCADE, verbose_name='Курс')
 
     def __str__(self):

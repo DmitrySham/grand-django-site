@@ -90,7 +90,7 @@
 
 
 <!-- Navbar START -->
-<header>
+<header style="position: relative;z-index: 101;">
 	<nav id="navigation4" class="container navigation">
 		<div class="nav-header">
 			<a class="nav-brand" href="{% url 'index' %}">
@@ -168,7 +168,7 @@
 
 			<!-- Column 2 Start -->
 			<div class="col-md-4 col-sm-6 col-12">
-				<h3>Ссылки</h3>
+				<h3>Карта сайта</h3>
 				{% if site_settings and site_settings.footermenulinks_set.count > 0 %}
 					<ul class="footer-list">
 						{% for item in site_settings.footermenulinks_set.all %}

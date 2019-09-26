@@ -28,7 +28,7 @@ class OneC(models.Model):
         null=True,
         blank=True
     )
-    price = models.CharField(max_length=255, verbose_name='Цена')
+    # price = models.CharField(max_length=255, verbose_name='Цена', )
     price_box = models.TextField(verbose_name='Расценка', default=json.dumps(list()))
     share_links = models.ManyToManyField(to='ShareLinks', verbose_name='Ссылки поделиться', blank=True)
 
