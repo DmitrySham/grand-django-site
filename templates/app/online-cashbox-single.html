@@ -62,7 +62,7 @@
 						<div class="product-share mt-20">
 							<span>Поделится: </span>
 							{% for item in online_cashbox.share_links.all %}
-								<a href="{% normalize_social_link item.url request title=electronic_signature.title description=electronic_signature.short_description image=electronic_signature.thumbnail %}"><i class="fa fa-{{ item.icon }}"></i></a>
+								<a href="{% normalize_social_link item.url request title=online_cashbox.title description=online_cashbox.short_description image=online_cashbox.thumbnail %}"><i class="fa fa-{{ item.icon }}"></i></a>
 							{% endfor %}
 						</div>
 					</div>

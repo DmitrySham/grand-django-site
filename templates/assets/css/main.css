@@ -4,7 +4,8 @@
 .blog-grid-text p,
 .grand-smeta-description-text p,
 .single-product p,
-.accordion-body p {
+.accordion-body p,
+p {
     color: #000000 !important;
 }
 
