@@ -20,13 +20,15 @@
 						<h2 class="animated fadeInDown">
 							{{ slide.title|safe }}
 						</h2>
-						<div class="row">
-							<div class="col-md-6 col-sm-12 col-12">
-								<p class="animated fadeInDown">
-									{{ slide.description }}
-								</p>
+						{% if slide.description %}
+							<div class="row">
+								<div class="col-md-6 col-sm-12 col-12">
+									<p class="animated fadeInDown">
+										{{ slide.description }}
+									</p>
+								</div>
 							</div>
-						</div>
+						{% endif %}
 						{% if slide.link %}
 							<div class="animated fadeInUp mt-30">
 								<a href="{{ slide.link }}" class="dark-button button-md">Узнать больше</a>
@@ -92,7 +94,7 @@
 						<div class="mt-20">
 							<ul class="primary-list">
 								{% for item in site_settings.schedule_list_items|parse_json %}
-									<li><i class="fa fa-caret-right"></i> {{ item.text }}</li>
+									<li><i class="fa fa-caret-right"></i> {{ item.text|safe }}</li>
 								{% endfor %}
 							</ul>
 						</div>
@@ -136,7 +138,7 @@
 						<div class="mt-20">
 							<ul class="primary-list">
 								{% for item in site_settings.grand_service_list_items|parse_json %}
-									<li><i class="fa fa-caret-right"></i> {{ item.text }}</li>
+									<li><i class="fa fa-caret-right"></i> {{ item.text|safe }}</li>
 								{% endfor %}
 							</ul>
 						</div>
@@ -176,7 +178,7 @@
 						<div class="mt-20">
 							<ul class="primary-list">
 								{% for item in site_settings.grand_smeta_list_items|parse_json %}
-									<li><i class="fa fa-caret-right"></i> {{ item.text }}</li>
+									<li><i class="fa fa-caret-right"></i> {{ item.text|safe }}</li>
 								{% endfor %}
 							</ul>
 						</div>

@@ -12,7 +12,7 @@ class Slider(models.Model):
 
     is_active = models.BooleanField(default=True, verbose_name='Активно?')
     title = models.CharField(max_length=255, verbose_name='Название')
-    description = models.TextField(verbose_name='Описание', help_text='HTML теги разрешены')
+    description = models.TextField(verbose_name='Описание', help_text='HTML теги разрешены', null=True, blank=True)
     link = models.CharField(
         max_length=1000,
         verbose_name='Сылка',
