@@ -52,23 +52,23 @@
 		window.listFieldPrefixIndex = 0;
 
 		$(document).ready(() => {
-		    let dictField = new DictField({
+		    window.dictField = new DictField({
 				field: '#id_price_box'
 			});
 		    dictField.init();
 
-			let iconPreview = new IconPreviewer({
+			window.iconPreview = new IconPreviewer({
 				selector: '.id_icon_preview'
 			});
 			iconPreview.init();
 
-			let phoneDictField = new DictField({
+			window.phoneDictField = new DictField({
 				field: '#id_phones'
 			});
 			phoneDictField.init();
 
 
-			let listFields = new ListField({
+			window.listFields = new ListField({
 				fields: [
 				    '#id_schedule_list_items',
 					'#id_grand_service_list_items',
@@ -367,7 +367,7 @@
 		            for (let i = 0; i < obj.value.length; ++i) {
 		                let item = obj.value[i];
 		                listFieldItems += '<tr>' +
-								'<td><input type="text" value="' + item.text + '" class="vTextField list-field-editable-value" data-id="' + item.id + '" data-index="' + index + '" /></td>' +
+								'<td><input type="text" value=\'' + item.text + '\' class="vTextField list-field-editable-value" data-id="' + item.id + '" data-index="' + index + '" /></td>' +
 								'<td><button type="button" class="button list-field-delete-buttons" data-id="' + item.id + '" data-index="' + index + '">Удалить</button></td>' +
 							'</tr>';
 					}
@@ -408,6 +408,24 @@
 		        if (Boolean(this.fields[index].element)) {
 		            this.fields[index].element.val(JSON.stringify(this.fields[index].value));
 				}
+			};
+
+		    this.setValue = (index, id, value) => {
+		        this.fields = this.fields.map((item, i) => {
+		            if (index === i) {
+		                return {
+							...item,
+							value: item.value.map(_item => {
+							    if (_item.id === id) return {..._item, text: value };
+							    return _item;
+							})
+						}
+					}
+
+		            return item;
+				});
+				this.saveField(index);
+				$(`input.list-field-editable-value[data-id=${id}][data-index=${index}]`).val(value);
 			};
 		}
 	</script>
