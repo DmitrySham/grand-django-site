@@ -13,7 +13,7 @@
 				<!-- Left Side START -->
 				<div class="col-md-9 col-sm-8 col-12">
 					<div class="blog-list-left">
-						<img src="{% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}http://via.placeholder.com/825x550{% endif %}" alt="img">
+						<img src="{% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}https://via.placeholder.com/825x550{% endif %}" alt="img">
 						<div class="data-box">
 							<h4>{{ post.created_at|date:"d" }}</h4>
 							<strong>{{ post.created_at|date:"M" }}</strong>
@@ -42,7 +42,7 @@
 							<div class="latest-posts">
 								<div class="row">
 									<div class="col-md-5 col-sm-5 col-4 latest-posts-img">
-										<img src="{% if item.thumbnail %}{{ item.thumbnail.url }}{% else %}http://via.placeholder.com/80x80{% endif %}" alt="blog-img">
+										<img src="{% if item.thumbnail %}{{ item.thumbnail.url }}{% else %}https://via.placeholder.com/80x80{% endif %}" alt="blog-img">
 									</div>
 
 									<div class="col-md-7 col-sm-7 col-8 latest-posts-text pl-0">

@@ -8,7 +8,7 @@
 
 {% block content %}
 	<!-- Page Title START -->
-	<div class="page-title-section" style="background-image: url({% if site_settings and site_settings.news_header_image %}{{ site_settings.news_header_image.url }}{% else %}http://via.placeholder.com/1730x300{% endif %});">
+	<div class="page-title-section" style="background-image: url({% if site_settings and site_settings.news_header_image %}{{ site_settings.news_header_image.url }}{% else %}https://via.placeholder.com/1730x300{% endif %});">
 		<div class="container">
 			<h1>Новости</h1>
 			<ul>
@@ -30,7 +30,7 @@
 					<div class="col-md-4 col-sm-4 col-12">
 						<div class="blog-grid">
 							<div class="blog-grid-img">
-								<img src="{% if item.thumbnail %}{{ item.thumbnail.url }}{% else %}http://via.placeholder.com/250x220{% endif %}" alt="img">
+								<img src="{% if item.thumbnail %}{{ item.thumbnail.url }}{% else %}https://via.placeholder.com/250x220{% endif %}" alt="img">
 								<div class="data-box-grid">
 									<h4>{{ item.created_at|date:"d" }}</h4>
 									<p>{{ item.created_at|date:"M" }}</p>
