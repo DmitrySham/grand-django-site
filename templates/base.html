@@ -71,7 +71,7 @@
 							<li><i class="fa fa-envelope"></i><a href="mailto:{{ site_settings.header_email }}" style="color: #fff;">{{ site_settings.header_email }}</a><li>
 						{% endif %}
 					</ul>
-				</div>				
+				</div>
 			</div>
 			{% if site_settings and site_settings.socialprofilelinks_set.count > 0 %}
 				<div class="col-md-3 col-12">
@@ -84,7 +84,7 @@
 			{% endif %}
 		</div>
 	</div>
-</div>	
+</div>
 <!-- Top-Bar END -->
 
 
@@ -103,9 +103,9 @@
 				<li>
 					<a href="{% url 'index' %}">Главная</a>
 				</li>
-{#				<li>#}
-{#					<a href="{% url 'blog:list' %}">Новости</a>#}
-{#				</li>#}
+				<li>
+					<a href="{% url 'blog:list' %}">Новости</a>
+				</li>
 				<li>
 					<a href="{% url 'schedule:list' %}">Учебный Центр</a>
 				</li>
@@ -222,7 +222,7 @@
 
 		<!-- Footer Bar Start -->
 		<div class="footer-bar">
-			<p><span class="primary-color">Grand75</span> © 2019. Все права защищены. <small style="color: rgba(255, 255, 255, 0.3);">Версия сайта: {{ site_version }}</small></p>
+            <p><span class="primary-color">Grand75</span> <span class="white-color"> © 2019. Все права защищены.</span> <small style="color: rgba(255, 255, 255, 0.3);">Версия сайта: {{ site_version }}</small></p>
 		</div>
 		<!-- Footer Bar End -->		
 	</div>
