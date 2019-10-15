@@ -45,7 +45,7 @@
 						<div class="row">
 							{% for item in category.objects %}
 								<!-- Product Start -->
-								<div class="col-md-3 col-sm-6 col-12">
+								<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-6 col-12">
 									<a href="{% url 'production:online_cashbox_single' id=item.id %}">
 										<div class="classic-shop">
 											<div class="classic-shop-img">
@@ -63,8 +63,8 @@
 												</div>
 											</div>
 											<div class="classic-shop-text p-3">
-												<h4><a href="{% url 'production:online_cashbox_single' id=item.id %}">{{ item.title|truncate_chars:50 }}</a></h4>
-												{{ item.short_description|truncate_chars:130|split_lines|safe }}
+                                                <h4><a href="{% url 'production:online_cashbox_single' id=item.id %}">{{ item.title|truncate_chars:50 }}</a></h4>
+                                                <div class="text-justify">{{ item.short_description|truncate_chars:80|split_lines|safe }}</div>
 												{#<h5>{{ item.price_box|parse_json|get_first_item:'value' }}</h5>#}
 											</div>
 										</div>
