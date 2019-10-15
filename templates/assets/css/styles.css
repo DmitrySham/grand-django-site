@@ -1688,7 +1688,7 @@ i) Animations
 12. Clients
 -------------------------------------------*/
 .clients img {
-    opacity: .5;
+    /*opacity: .5;*/
     -webkit-transition-duration: .3s;
     transition-duration: .3s;
 }
