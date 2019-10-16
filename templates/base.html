@@ -196,6 +196,7 @@
 				<div class="mt-25">
 					{% for post in last_posts %}
 						<!-- Post Start -->
+                    <a href="{% url 'blog:single' slug=post.slug %}">
 						<div class="footer-recent-post clearfix">
 							<div class="footer-recent-post-thumb">
 								<img src="{% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}http://via.placeholder.com/65x65{% endif %}" alt="img">
@@ -205,6 +206,7 @@
 								<a href="{% url 'blog:single' slug=post.slug %}">{{ post.title|slice:"0:20" }}...</a>
 							</div>
 						</div>
+                    </a>
 						<!-- Post End -->
 					{% endfor %}
 				</div>
