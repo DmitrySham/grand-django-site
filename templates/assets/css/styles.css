@@ -3224,7 +3224,7 @@ Blog Post
 .blog-list-left-heading:after {
     content: '';
     display: block;
-    width: 80px;
+    width: 200px;
     height: 2px;
     background: #f7c605;
     margin-top: 10px;
