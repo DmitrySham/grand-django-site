@@ -11,7 +11,7 @@ class Slider(models.Model):
         verbose_name = 'Слайд'
 
     is_active = models.BooleanField(default=True, verbose_name='Активно?')
-    title = models.CharField(max_length=255, verbose_name='Название')
+    title = models.CharField(max_length=255, verbose_name='Название', null=True, blank=True)
     description = models.TextField(verbose_name='Описание', help_text='HTML теги разрешены', null=True, blank=True)
     link = models.CharField(
         max_length=1000,
@@ -29,7 +29,9 @@ class Slider(models.Model):
     )
 
     def __str__(self):
-        return self.title
+        if self.title:
+            return self.title
+        return "Объект слайдера"
 
 
 class SiteSettings(models.Model):

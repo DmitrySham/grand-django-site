@@ -17,9 +17,11 @@
 				<!-- <div class="medium-overlay"></div> -->
 				<div class="container">
 					<div class="slider-content left-holder">
-						<h2 class="animated fadeInDown">
-							{{ slide.title|safe }}
-						</h2>
+						{% if slide.title %}
+                            <h2 class="animated fadeInDown">
+							    {{ slide.title|safe }}
+						    </h2>
+                        {% endif %}
 						{% if slide.description %}
 							<div class="row">
 								<div class="col-md-6 col-sm-12 col-12">
