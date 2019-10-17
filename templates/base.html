@@ -105,7 +105,7 @@
 	<nav id="navigation4" class="container navigation">
 		<div class="nav-header">
 			<a class="nav-brand" href="{% url 'index' %}">
-				<img src="{% static 'img/logo1.svg' %}" class="main-logo" alt="logo" id="main_logo">
+				<img src="{% static 'img/Logo12.svg' %}" class="main-logo" alt="logo" id="main_logo">
 			</a>
 			<div class="nav-toggle"></div>
 		</div>
@@ -159,7 +159,7 @@
 				<div class="mt-25">
 {#					<img src="{% static 'img/logo1.svg' %}" alt="footer-logo">#}
 					{% if site_settings and site_settings.footer_description %}
-						<div class="mt-25">
+						<div class="mt-25 white-color">
 							{{ site_settings.footer_description|split_lines|safe }}
 						</div>
 					{% endif %}
