@@ -1,14 +1,15 @@
 from django.contrib import admin
 from django.core.exceptions import ObjectDoesNotExist
 
+from adminsortable2.admin import SortableAdminMixin
 from .models import *
 
 
 # Register your models here.
 
 @admin.register(Slider)
-class SliderAdmin(admin.ModelAdmin):
-    list_display = ['title', 'is_active']
+class SliderAdmin(SortableAdminMixin, admin.ModelAdmin):
+    list_display = ['id', 'title', 'is_active', 'order_index']
     list_filter = ['is_active']
     search_fields = ['title', 'description', 'link']
 

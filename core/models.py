@@ -9,7 +9,9 @@ class Slider(models.Model):
     class Meta:
         verbose_name_plural = 'Слайдер на главной странице'
         verbose_name = 'Слайд'
+        ordering = ('order_index',)
 
+    order_index = models.PositiveIntegerField(default=0, verbose_name='Порядковый номер')
     is_active = models.BooleanField(default=True, verbose_name='Активно?')
     title = models.CharField(max_length=255, verbose_name='Название', null=True, blank=True)
     description = models.TextField(verbose_name='Описание', help_text='HTML теги разрешены', null=True, blank=True)
