@@ -72,7 +72,7 @@ class SiteSettings(models.Model):
 
     # home page:
     index_page_text = models.TextField(verbose_name='Текст на главной странице', null=True, blank=True)
-    why_choose_us = models.TextField(verbose_name='Почему выбирают нас?', null=True, blank=True)
+    why_choose_us = models.TextField(verbose_name='Текст на главной странице', null=True, blank=True)
 
     schedule = models.TextField(verbose_name='Текст учебного центра', null=True, blank=True)
     schedule_thumbnail = models.FileField(verbose_name='Изображение учебного центра', null=True, blank=True)
@@ -85,6 +85,14 @@ class SiteSettings(models.Model):
     grand_smeta = models.TextField(verbose_name='Текст Гранд Смета', null=True, blank=True)
     grand_smeta_thumbnail = models.FileField(verbose_name='Изображение Гранд смета', null=True, blank=True)
     grand_smeta_list_items = models.TextField(verbose_name='Маркированный список Гранд Смета', default=json.dumps(list()), blank=True)
+
+    icon_heading = models.CharField(max_length=255, verbose_name='Название раздела с иконками', null=True, blank=True)
+    icon_1c = models.TextField(verbose_name='Текст для иконки 1С', null=True, blank=True)
+    icon_online_cashbox = models.TextField(verbose_name='Текст для иконки Онлайн Касс', null=True, blank=True)
+    icon_schedule = models.TextField(verbose_name='Текст для иконки Учебного центра', null=True, blank=True)
+    icon_grand_smeta = models.TextField(verbose_name='Текст для иконки Гранд Смета', null=True, blank=True)
+    icon_electronic_sign = models.TextField(verbose_name='Текст для иконки Электронные подписи', null=True, blank=True)
+    icon_certificates = models.TextField(verbose_name='текст для иконки Сертификаты', null=True, blank=True)
 
     def __str__(self):
         return 'Настройки сайта'

@@ -42,20 +42,28 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         )}),
 
         ('Страница: Главная', {'fields': (
-            'index_page_text',
+            # 'index_page_text',
 
             'why_choose_us',
-            'schedule',
-            'schedule_thumbnail',
-            'schedule_list_items',
+            # 'schedule',
+            # 'schedule_thumbnail',
+            # 'schedule_list_items',
+            #
+            # 'grand_service',
+            # 'grand_service_thumbnail',
+            # 'grand_service_list_items',
+            #
+            # 'grand_smeta',
+            # 'grand_smeta_thumbnail',
+            # 'grand_smeta_list_items',
 
-            'grand_service',
-            'grand_service_thumbnail',
-            'grand_service_list_items',
-
-            'grand_smeta',
-            'grand_smeta_thumbnail',
-            'grand_smeta_list_items',
+            'icon_heading',
+            'icon_1c',
+            'icon_online_cashbox',
+            'icon_schedule',
+            'icon_grand_smeta',
+            'icon_electronic_sign',
+            'icon_certificates',
         )}),
 
         ('Страница: Гранд Смета', {'fields': (
