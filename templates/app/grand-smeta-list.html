@@ -2,7 +2,13 @@
 
 {% load staticfiles product_template_helper %}
 
-{% block title %}Гранд Смета{% endblock %}
+{% block title %}
+	{% if seo and seo.grand_smeta_list_page_title %}
+		{{ seo.grand_smeta_list_page_title }}
+	{% else %}
+		Гранд Смета
+	{% endif %}
+{% endblock %}
 
 {% block extra_css %}
 	<style>
@@ -12,6 +18,24 @@
 			font-family: 'Fira Sans', sans-serif;
 		}
 	</style>
+{% endblock %}
+
+{% block seo %}
+	{% if seo and seo.grand_smeta_list_page_meta_keywords %}
+		<meta name="keywords" content="{{ seo.grand_smeta_list_page_meta_keywords }}" />
+	{% endif %}
+	{% if seo and seo.grand_smeta_list_page_meta_description %}
+		<meta name="keywords" content="{{ seo.grand_smeta_list_page_meta_description }}" />
+	{% endif %}
+	{% if seo and seo.grand_smeta_list_page_meta_og_title %}
+		<meta name="og:title" content="{{ seo.grand_smeta_list_page_meta_og_title }}" />
+	{% endif %}
+	{% if seo and seo.grand_smeta_list_page_meta_og_description %}
+		<meta name="og:description" content="{{ seo.grand_smeta_list_page_meta_og_description }}" />
+	{% endif %}
+	{% if seo and seo.grand_smeta_list_page_meta_og_image %}
+		<meta name="og:image" content="{{ seo.grand_smeta_list_page_meta_og_image }}" />
+	{% endif %}
 {% endblock %}
 
 {% block content %}

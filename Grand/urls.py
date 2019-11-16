@@ -19,6 +19,8 @@ from django.urls import path, include
 from core import views as core_views
 from django.conf.urls import handler404, handler500
 
+from django.views.generic import TemplateView
+
 from Grand import settings
 
 urlpatterns = [
@@ -29,7 +31,11 @@ urlpatterns = [
     path('schedule/', include(('schedule.urls', 'schedule'))),
     path('news/', include(('blog.urls', 'blog'))),
 
-    path('', core_views.index, name='index')
+    path('yandex_88e2184967f12b8a.html', TemplateView.as_view(template_name='yandex_88e2184967f12b8a.html')),
+    path('robot.txt', TemplateView.as_view(template_name='robot.txt', content_type='text/plain')),
+    path('manifest.xml', TemplateView.as_view(template_name='manifest.xml', content_type='text/xml')),
+
+    path('', core_views.index, name='index'),
 ]
 
 

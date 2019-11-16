@@ -1,8 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.template.defaultfilters import truncatechars
-from django.urls import reverse_lazy
-from django.utils.safestring import mark_safe
 
 
 # # Create your models here.
@@ -29,6 +27,14 @@ class Course(models.Model):
     # schedule = models.CharField(max_length=255, verbose_name='Расписание занятий', help_text='Это расписание будет отображаться на странице расписани', null=True)
 
     share_links = models.ManyToManyField(to='production.ShareLinks', blank=True, verbose_name='Ссылки поделиться')
+
+    # Seo
+    page_title = models.TextField(verbose_name='Тег title', null=True, blank=True)
+    page_meta_keywords = models.TextField(verbose_name='Тег meta keywords', null=True, blank=True)
+    page_meta_description = models.TextField(verbose_name='Тег meta description', null=True, blank=True)
+    page_meta_og_title = models.TextField(verbose_name='Тег meta og:title', null=True, blank=True)
+    page_meta_og_description = models.TextField(verbose_name='Тег meta og:description', null=True, blank=True)
+    page_meta_og_image = models.TextField(verbose_name='Тег meta og:image', null=True, blank=True)
 
     # def get_actual_date_action(self):
     #     return self.courseactiondateobject_set.filter(is_active=True, is_actual=True).first()

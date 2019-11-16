@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 
     # Project Applications
     'account',
@@ -166,6 +167,7 @@ EMAIL_HOST_USER = 'grandchita.mailer@gmail.com'
 EMAIL_HOST_PASSWORD = '19979788q'
 EMAIL_PORT = 587
 
+SITE_ID = 1
 
 """
 Внимание! Очень важно импортировать параметры с файла parameters.py в последнюю очередь!

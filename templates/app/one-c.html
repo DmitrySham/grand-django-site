@@ -2,9 +2,31 @@
 
 {% load staticfiles product_template_helper %}
 
-{% block title %}Автоматизация учета 1С:Предприятие 8{% endblock %}
+{% block title %}
+	{% if seo and seo.one_c_list_page_title %}
+		{{ seo.one_c_list_page_title }}
+	{% else %}
+		Автоматизация учета 1С:Предприятие 8
+	{% endif %}
+{% endblock %}
 
-{% block description %}Продажа и настройка компьютерных программ 1С в Чите и Забайкальском крае. 1С в облаке – доступ из любой точки мира.{% endblock %}
+{% block seo %}
+	{% if seo and seo.one_c_list_page_meta_keywords %}
+		<meta name="keywords" content="{{ seo.one_c_list_page_meta_keywords }}" />
+	{% endif %}
+	{% if seo and seo.one_c_list_page_meta_description %}
+		<meta name="keywords" content="{{ seo.one_c_list_page_meta_description }}" />
+	{% endif %}
+	{% if seo and seo.one_c_list_page_meta_og_title %}
+		<meta name="og:title" content="{{ seo.one_c_list_page_meta_og_title }}" />
+	{% endif %}
+	{% if seo and seo.one_c_list_page_meta_og_description %}
+		<meta name="og:description" content="{{ seo.one_c_list_page_meta_og_description }}" />
+	{% endif %}
+	{% if seo and seo.one_c_list_page_meta_og_image %}
+		<meta name="og:image" content="{{ seo.one_c_list_page_meta_og_image }}" />
+	{% endif %}
+{% endblock %}
 
 {% block content %}
 {#	<!-- Page Title START -->#}

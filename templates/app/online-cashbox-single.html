@@ -2,12 +2,34 @@
 
 {% load staticfiles product_template_helper %}
 
-{% block title %}{{ online_cashbox.title }}{% endblock %}
+{% block title %}{% if online_cashbox.page_title %}{{ online_cashbox.page_title }}{% else %}{{ online_cashbox.title }}{% endif %}{% endblock %}
 
 {% block extra_css %}
 	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
 	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
 	<link rel="stylesheet" href="{% static 'css/lightgallery.min.css' %}">
+{% endblock %}
+
+{% block seo %}
+	{% if online_cashbox.page_meta_keywords %}
+		<meta name="keywords" content="{{ online_cashbox.page_meta_keywords }}" />
+	{% endif %}
+
+	{% if online_cashbox.page_meta_description %}
+		<meta name="description" content="{{ online_cashbox.page_meta_description }}" />
+	{% endif %}
+
+	{% if online_cashbox.page_meta_og_title %}
+		<meta name="og:title" content="{{ online_cashbox.page_meta_og_title }}" />
+	{% endif %}
+
+	{% if online_cashbox.page_meta_og_description %}
+		<meta name="og:description" content="{{ online_cashbox.page_meta_og_description }}" />
+	{% endif %}
+
+	{% if online_cashbox.page_meta_og_image %}
+		<meta name="og:image" content="{{ online_cashbox.page_meta_og_image }}" />
+	{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -27,10 +49,11 @@
 									<img src="{{ online_cashbox.thumbnail.url }}" alt="{{ online_cashbox.title }}" />
 								</figure>
 							</div>
+
 							{% for slide in online_cashbox.onlinecashboximage_set.all %}
 								<div class="main-img-slider" data-src="{{ slide.image.url }}">
 									<figure>
-										<img src="{{ slide.image.url }}" alt="{{ slide.image.name }}" />
+										<img src="{{ slide.image.url }}" alt="{% if slide.image_title %}{{ slide.image_title }}{% else %}{{ slide.image.name }}{% endif %}" />
 									</figure>
 								</div>
 							{% endfor %}

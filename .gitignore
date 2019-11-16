@@ -17,3 +17,5 @@ venv
 env
 
 parameters.py
+
+node_modules/

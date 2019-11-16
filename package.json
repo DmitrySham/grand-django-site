@@ -1,0 +1,36 @@
+{
+  "name": "local-minifier",
+  "version": "0.1.0",
+  "description": "A local environment to minify CSS, JS, & HTML files",
+  "license": "Apache-2.0",
+  "author": "DoubleByte",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amardeeprai/local-minifier"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.24.7",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-cache": "^1.0.2",
+    "gulp-changed": "^3.1.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify-es": "^2.0.0",
+    "gulp-uglifyjs": "^0.6.2",
+    "imagemin-jpeg-recompress": "^5.1.0",
+    "imagemin-pngquant": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=0.12.0"
+  },
+  "dependencies": {
+    "serve": "^11.2.0"
+  }
+}

@@ -32,6 +32,14 @@ class OneC(models.Model):
     price_box = models.TextField(verbose_name='Расценка', default=json.dumps(list()))
     share_links = models.ManyToManyField(to='ShareLinks', verbose_name='Ссылки поделиться', blank=True)
 
+    # Seo
+    page_title = models.TextField(verbose_name='Тег title', null=True, blank=True)
+    page_meta_keywords = models.TextField(verbose_name='Тег meta keywords', null=True, blank=True)
+    page_meta_description = models.TextField(verbose_name='Тег meta description', null=True, blank=True)
+    page_meta_og_title = models.TextField(verbose_name='Тег meta og:title', null=True, blank=True)
+    page_meta_og_description = models.TextField(verbose_name='Тег meta og:description', null=True, blank=True)
+    page_meta_og_image = models.TextField(verbose_name='Тег meta og:image', null=True, blank=True)
+
     def __str__(self):
         return self.title
 
@@ -99,6 +107,14 @@ class OnlineCashbox(models.Model):
 
     category = models.ForeignKey(to='OnlineCashboxCategory', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Категория')
 
+    # Seo
+    page_title = models.TextField(verbose_name='Тег title', null=True, blank=True)
+    page_meta_keywords = models.TextField(verbose_name='Тег meta keywords', null=True, blank=True)
+    page_meta_description = models.TextField(verbose_name='Тег meta description', null=True, blank=True)
+    page_meta_og_title = models.TextField(verbose_name='Тег meta og:title', null=True, blank=True)
+    page_meta_og_description = models.TextField(verbose_name='Тег meta og:description', null=True, blank=True)
+    page_meta_og_image = models.TextField(verbose_name='Тег meta og:image', null=True, blank=True)
+
     def __str__(self):
         return self.title
 
@@ -109,6 +125,7 @@ class OnlineCashboxImage(models.Model):
         verbose_name_plural = 'Изображения онлайн касс'
 
     image = models.FileField(verbose_name='Изображение', upload_to='online-cashbox/single/sliders/')
+    image_title = models.CharField(max_length=255, verbose_name='Атрибут alt', null=True, blank=True)
     cashbox = models.ForeignKey(to=OnlineCashbox, on_delete=models.CASCADE, verbose_name='Касса')
 
     def __str__(self):

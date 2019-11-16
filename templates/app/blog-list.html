@@ -3,8 +3,31 @@
 {% load staticfiles product_template_helper %}
 
 
-{% block title %}Новости{% endblock %}
+{% block title %}
+	{% if seo and seo.blog_list_page_title %}
+		{{ seo.blog_list_page_title }}
+	{% else %}
+		Новости
+	{% endif %}
+{% endblock %}
 
+{% block seo %}
+	{% if seo and seo.blog_list_page_meta_keywords %}
+		<meta name="keywords" content="{{ seo.blog_list_page_meta_keywords }}" />
+	{% endif %}
+	{% if seo and seo.blog_list_page_meta_description %}
+		<meta name="keywords" content="{{ seo.blog_list_page_meta_description }}" />
+	{% endif %}
+	{% if seo and seo.blog_list_page_meta_og_title %}
+		<meta name="og:title" content="{{ seo.blog_list_page_meta_og_title }}" />
+	{% endif %}
+	{% if seo and seo.blog_list_page_meta_og_description %}
+		<meta name="og:description" content="{{ seo.blog_list_page_meta_og_description }}" />
+	{% endif %}
+	{% if seo and seo.blog_list_page_meta_og_image %}
+		<meta name="og:image" content="{{ seo.blog_list_page_meta_og_image }}" />
+	{% endif %}
+{% endblock %}
 
 {% block content %}
 {#	<!-- Page Title START -->#}

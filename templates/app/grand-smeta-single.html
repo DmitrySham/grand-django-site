@@ -2,7 +2,29 @@
 
 {% load staticfiles product_template_helper %}
 
-{% block title %}{{ grand_smeta.title }}{% endblock %}
+{% block title %}{% if grand_smeta.page_title %}{{ grand_smeta.page_title }}{% else %}{{ grand_smeta.title }}{% endif %}{% endblock %}
+
+{% block seo %}
+	{% if grand_smeta.page_meta_keywords %}
+		<meta name="keywords" content="{{ grand_smeta.page_meta_keywords }}" />
+	{% endif %}
+
+	{% if grand_smeta.page_meta_description %}
+		<meta name="description" content="{{ grand_smeta.page_meta_description }}" />
+	{% endif %}
+
+	{% if grand_smeta.page_meta_og_title %}
+		<meta name="og:title" content="{{ grand_smeta.page_meta_og_title }}" />
+	{% endif %}
+
+	{% if grand_smeta.page_meta_og_description %}
+		<meta name="og:description" content="{{ grand_smeta.page_meta_og_description }}" />
+	{% endif %}
+
+	{% if grand_smeta.page_meta_og_image %}
+		<meta name="og:image" content="{{ grand_smeta.page_meta_og_image }}" />
+	{% endif %}
+{% endblock %}
 
 {% block content %}
 	<div class="section-block-grey">

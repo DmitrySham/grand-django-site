@@ -105,6 +105,26 @@ class GrandSmeta(admin.ModelAdmin):
 
     prepopulated_fields = {'slug': ('title',)}
 
+    fieldsets = (
+        ('Общее', {'fields': (
+            'is_active',
+            'thumbnail',
+            'title',
+            'slug',
+            'short_description',
+            'description',
+            'price',
+        )}),
+        ('SEO', {'fields': (
+            'page_title',
+            'page_meta_keywords',
+            'page_meta_description',
+            'page_meta_og_title',
+            'page_meta_og_description',
+            'page_meta_og_image',
+        )})
+    )
+
 
 @admin.register(Contacts)
 class ContactsAdmin(admin.ModelAdmin):
@@ -133,3 +153,77 @@ class FeedbackAdmin(admin.ModelAdmin):
             pass
 
         return super(FeedbackAdmin, self).change_view(request, object_id, form_url=form_url, extra_context=extra_context)
+
+
+@admin.register(Seo)
+class SeoAdmin(admin.ModelAdmin):
+
+    fieldsets = (
+        ('Главная страница', {'fields': (
+            'index_page_title',
+            'index_page_meta_keywords',
+            'index_page_meta_description',
+            'index_page_meta_og_title',
+            'index_page_meta_og_description',
+            'index_page_meta_og_image',
+        )}),
+        ('Новости (Каталог)', {'fields': (
+            'blog_list_page_title',
+            'blog_list_page_meta_keywords',
+            'blog_list_page_meta_description',
+            'blog_list_page_meta_og_title',
+            'blog_list_page_meta_og_description',
+            'blog_list_page_meta_og_image',
+        )}),
+        ('Гранд Смета (Каталог)', {'fields': (
+            'grand_smeta_list_page_title',
+            'grand_smeta_list_page_meta_keywords',
+            'grand_smeta_list_page_meta_description',
+            'grand_smeta_list_page_meta_og_title',
+            'grand_smeta_list_page_meta_og_description',
+            'grand_smeta_list_page_meta_og_image',
+        )}),
+        ('1C (Каталог)', {'fields': (
+            'one_c_list_page_title',
+            'one_c_list_page_meta_keywords',
+            'one_c_list_page_meta_description',
+            'one_c_list_page_meta_og_title',
+            'one_c_list_page_meta_og_description',
+            'one_c_list_page_meta_og_image',
+        )}),
+        ('Онлайн Кассы (Каталог)', {'fields': (
+            'online_cashbox_list_page_title',
+            'online_cashbox_list_page_meta_keywords',
+            'online_cashbox_list_page_meta_description',
+            'online_cashbox_list_page_meta_og_title',
+            'online_cashbox_list_page_meta_og_description',
+            'online_cashbox_list_page_meta_og_image',
+        )}),
+        ('Таблица с расписанием', {'fields': (
+            'schedule_table_page_title',
+            'schedule_table_page_meta_keywords',
+            'schedule_table_page_meta_description',
+            'schedule_table_page_meta_og_title',
+            'schedule_table_page_meta_og_description',
+            'schedule_table_page_meta_og_image',
+        )}),
+        ('Каталог курсов', {'fields': (
+            'schedule_list_page_title',
+            'schedule_list_page_meta_keywords',
+            'schedule_list_page_meta_description',
+            'schedule_list_page_meta_og_title',
+            'schedule_list_page_meta_og_description',
+            'schedule_list_page_meta_og_image',
+        )}),
+        ('Контакты', {'fields': (
+            'contacts_page_title',
+            'contacts_page_meta_keywords',
+            'contacts_page_meta_description',
+            'contacts_page_meta_og_title',
+            'contacts_page_meta_og_description',
+            'contacts_page_meta_og_image',
+        )}),
+    )
+
+    def has_add_permission(self, request):
+        return self.model.objects.count() < 1

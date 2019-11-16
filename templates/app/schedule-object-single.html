@@ -2,8 +2,7 @@
 
 {% load staticfiles product_template_helper widget_tweaks %}
 
-
-{% block title %}Учебный центр{% endblock %}
+{% block title %}{% if course.page_title %}{{ course.page_title }}{% else %}{{ course.title }}{% endif %}{% endblock %}
 
 {% block extra_css %}
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
@@ -37,6 +36,28 @@
 			cursor: pointer;
 		}
 	</style>
+{% endblock %}
+
+{% block seo %}
+	{% if course.page_meta_keywords %}
+		<meta name="keywords" content="{{ course.page_meta_keywords }}" />
+	{% endif %}
+
+	{% if course.page_meta_description %}
+		<meta name="description" content="{{ course.page_meta_description }}" />
+	{% endif %}
+
+	{% if course.page_meta_og_title %}
+		<meta name="og:title" content="{{ course.page_meta_og_title }}" />
+	{% endif %}
+
+	{% if course.page_meta_og_description %}
+		<meta name="og:description" content="{{ course.page_meta_og_description }}" />
+	{% endif %}
+
+	{% if course.page_meta_og_image %}
+		<meta name="og:image" content="{{ course.page_meta_og_image }}" />
+	{% endif %}
 {% endblock %}
 
 {% block content %}

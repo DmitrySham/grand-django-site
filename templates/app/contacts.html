@@ -2,7 +2,31 @@
 
 {% load staticfiles product_template_helper widget_tweaks %}
 
-{% block title %}Контакты{% endblock %}
+{% block title %}
+	{% if seo and seo.contacts_page_title %}
+		{{ seo.contacts_page_title }}
+	{% else %}
+		Контакты
+	{% endif %}
+{% endblock %}
+
+{% block seo %}
+	{% if seo and seo.contacts_page_meta_keywords %}
+		<meta name="keywords" content="{{ seo.contacts_page_meta_keywords }}" />
+	{% endif %}
+	{% if seo and seo.contacts_page_meta_description %}
+		<meta name="keywords" content="{{ seo.contacts_page_meta_description }}" />
+	{% endif %}
+	{% if seo and seo.contacts_page_meta_og_title %}
+		<meta name="og:title" content="{{ seo.contacts_page_meta_og_title }}" />
+	{% endif %}
+	{% if seo and seo.contacts_page_meta_og_description %}
+		<meta name="og:description" content="{{ seo.contacts_page_meta_og_description }}" />
+	{% endif %}
+	{% if seo and seo.contacts_page_meta_og_image %}
+		<meta name="og:image" content="{{ seo.contacts_page_meta_og_image }}" />
+	{% endif %}
+{% endblock %}
 
 {% block extra_css %}
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">

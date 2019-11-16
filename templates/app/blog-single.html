@@ -2,8 +2,29 @@
 
 {% load staticfiles product_template_helper %}
 
-{% block title %}{{ post.title }}{% endblock %}
+{% block title %}{% if post.page_title %}{{ post.page_title }}{% else %}{{ post.title }}{% endif %}{% endblock %}
 
+{% block seo %}
+	{% if post.page_meta_keywords %}
+		<meta name="keywords" content="{{ post.page_meta_keywords }}" />
+	{% endif %}
+
+	{% if post.page_meta_description %}
+		<meta name="description" content="{{ post.page_meta_description }}" />
+	{% endif %}
+
+	{% if post.page_meta_og_title %}
+		<meta name="og:title" content="{{ post.page_meta_og_title }}" />
+	{% endif %}
+
+	{% if post.page_meta_og_description %}
+		<meta name="og:description" content="{{ post.page_meta_og_description }}" />
+	{% endif %}
+
+	{% if post.page_meta_og_image %}
+		<meta name="og:image" content="{{ post.page_meta_og_image }}" />
+	{% endif %}
+{% endblock %}
 
 {% block content %}
 	<!-- Blog Post START -->

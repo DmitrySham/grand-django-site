@@ -12,3 +12,25 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ['title', 'short_description', 'full_description', 'slug']
 
     prepopulated_fields = {'slug': ('title',)}
+
+    readonly_fields = ['created_at']
+
+    fieldsets = (
+        ('Общее', {'fields': (
+            'is_active',
+            'thumbnail',
+            'title',
+            'slug',
+            'short_description',
+            'content',
+            'created_at',
+        )}),
+        ('SEO', {'fields': (
+            'page_title',
+            'page_meta_keywords',
+            'page_meta_description',
+            'page_meta_og_title',
+            'page_meta_og_description',
+            'page_meta_og_image',
+        )})
+    )

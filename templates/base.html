@@ -33,40 +33,43 @@
 
 	<title>{% block title %}{% endblock %} | Центр ГРАНД</title>
 	<meta charset="UTF-8">
-    <meta name="description" content="{% block description %}{% endblock %}">
+
 	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 	<!-- Bootstrap CSS-->
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-	
+
 	<!-- Font-Awesome -->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">  
+	<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
 
 	<!-- Icomoon -->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/icomoon.css' %}"> 
+	<link rel="stylesheet" type="text/css" href="{% static 'css/icomoon.css' %}">
 
 	<!-- Slider -->
 	<link rel="stylesheet" type="text/css" href="{% static 'css/swiper.min.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/slider.css' %}">
 
 	<!-- Animate.css -->
-	<link rel="stylesheet" href="{% static 'css/animate.css' %}">	
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
 
     <!-- Color Switcher -->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/switcher.css' %}">	
+	<link rel="stylesheet" type="text/css" href="{% static 'css/switcher.css' %}">
 
 	<!-- Owl Carousel  -->
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">    
-	
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+
 	<!-- Main Styles -->
 	<link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" id="colors">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+{#	<link rel="stylesheet" href="{% static 'dist/app.min.css' %}">#}
 
 	<!-- Fonts Google -->
 	<link href="https://fonts.googleapis.com/css?family=Fira+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 	{% block extra_css %}{% endblock %}
+
+	{% block seo %}{% endblock %}
 </head>
 <body>
 
@@ -193,6 +196,28 @@
 						</div>
 					{% endif %}
 				</div>
+
+				<div itemscope itemtype="http://schema.org/Organization" style="display: none;">
+
+					<span itemprop="name">ГРАНД Центр</span>
+
+					Контакты:
+
+					<div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+
+						Адрес:
+
+						<span itemprop="streetAddress">Бабушкина, 104,</span>
+
+						<span itemprop="addressLocality">Чита</span>,
+
+					</div>
+
+					Телефон:<span itemprop="telephone">7-3022-35-72-15</span>,<span itemprop="telephone">7-3022-35-81-87</span>
+
+					Электронная почта: <span itemprop="email">chitagrand@mail.ru</span>
+
+				</div>
 			</div>
 			<!-- Column 1 End -->
 
@@ -271,56 +296,54 @@
 
 
 
-
-<!-- Jquery -->
-<script src="{% static 'js/jquery.min.js' %}"></script>
-
-<!--Popper JS-->
-<script src="{% static 'js/popper.min.js' %}"></script>
-
-<!--Popper JS-->
-<script src="{% static 'js/popper.min.js' %}"></script>
-
-<!-- Bootstrap JS-->
-<script src="{% static 'js/bootstrap.min.js' %}"></script>	
-
-<!-- Owl Carousel-->
-<script src="{% static 'js/owl.carousel.js' %}"></script>
-
-<!-- Navbar JS -->
-<script src="{% static 'js/navigation.js' %}"></script>
-<script src="{% static 'js/navigation.fixed.js' %}"></script>
-
-<!-- Wow JS -->
-<script src="{% static 'js/wow.min.js' %}"></script>
-
-<!-- Countup -->
-<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
-<script src="{% static 'js/waypoints.min.js' %}"></script>
-
-<!-- Tabs -->
-<script src="{% static 'js/tabs.min.js' %}"></script>
-
-<!-- Yotube Video Player -->
-<script src="{% static 'js/jquery.mb.YTPlayer.min.js' %}"></script>
-
-<!-- Swiper Slider -->
-<script src="{% static 'js/swiper.min.js' %}"></script>
-
-<!-- Isotop -->
-<script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
-
-<!-- Switcher JS -->
-<script src="{% static 'js/switcher.js' %}"></script>
-
-<!-- Modernizr -->
-<script src="{% static 'js/modernizr.js' %}"></script>
-
-<!-- Google Map -->
-<script src="{% static 'js/map.js' %}"></script>
-
-<!-- Main JS -->
-<script src="{% static 'js/main.js' %}"></script>
+{##}
+{#<!-- Jquery -->#}
+{#<script src="{% static 'js/jquery.min.js' %}"></script>#}
+{##}
+{#<!--Popper JS-->#}
+{#<script src="{% static 'js/popper.min.js' %}"></script>#}
+{##}
+{#<!-- Bootstrap JS-->#}
+{#<script src="{% static 'js/bootstrap.min.js' %}"></script>#}
+{##}
+{#<!-- Owl Carousel-->#}
+{#<script src="{% static 'js/owl.carousel.js' %}"></script>#}
+{##}
+{#<!-- Navbar JS -->#}
+{#<script src="{% static 'js/navigation.js' %}"></script>#}
+{#<script src="{% static 'js/navigation.fixed.js' %}"></script>#}
+{##}
+{#<!-- Wow JS -->#}
+{#<script src="{% static 'js/wow.min.js' %}"></script>#}
+{##}
+{#<!-- Countup -->#}
+{#<script src="{% static 'js/jquery.counterup.min.js' %}"></script>#}
+{#<script src="{% static 'js/waypoints.min.js' %}"></script>#}
+{##}
+{#<!-- Tabs -->#}
+{#<script src="{% static 'js/tabs.min.js' %}"></script>#}
+{##}
+{#<!-- Yotube Video Player -->#}
+{#<script src="{% static 'js/jquery.mb.YTPlayer.min.js' %}"></script>#}
+{##}
+{#<!-- Swiper Slider -->#}
+{#<script src="{% static 'js/swiper.min.js' %}"></script>#}
+{##}
+{#<!-- Isotop -->#}
+{#<script src="{% static 'js/isotope.pkgd.min.js' %}"></script>#}
+{##}
+{#<!-- Switcher JS -->#}
+{#<script src="{% static 'js/switcher.js' %}"></script>#}
+{##}
+{#<!-- Modernizr -->#}
+{#<script src="{% static 'js/modernizr.js' %}"></script>#}
+{##}
+{#<!-- Google Map -->#}
+{#<script src="{% static 'js/map.js' %}"></script>#}
+{##}
+{#<!-- Main JS -->#}
+{#<script src="{% static 'js/main.js' %}"></script>#}
+<script src="{% static 'dist/app.min.js' %}"></script>
 
 <script>
 	const getCookie = name => {

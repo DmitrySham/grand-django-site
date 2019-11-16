@@ -2,12 +2,34 @@
 
 {% load staticfiles product_template_helper %}
 
-{% block title %}{{ one_c_object.title }}{% endblock %}
+{% block title %}{% if one_c_object.page_title %}{{ one_c_object.page_title }}{% else %}{{ one_c_object.title }}{% endif %}{% endblock %}
 
 {% block extra_css %}
 	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
 	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
 	<link rel="stylesheet" href="{% static 'css/lightgallery.min.css' %}">
+{% endblock %}
+
+{% block seo %}
+	{% if one_c_object.page_meta_keywords %}
+		<meta name="keywords" content="{{ one_c_object.page_meta_keywords }}" />
+	{% endif %}
+
+	{% if one_c_object.page_meta_description %}
+		<meta name="description" content="{{ one_c_object.page_meta_description }}" />
+	{% endif %}
+
+	{% if one_c_object.page_meta_og_title %}
+		<meta name="og:title" content="{{ one_c_object.page_meta_og_title }}" />
+	{% endif %}
+
+	{% if one_c_object.page_meta_og_description %}
+		<meta name="og:description" content="{{ one_c_object.page_meta_og_description }}" />
+	{% endif %}
+
+	{% if one_c_object.page_meta_og_image %}
+		<meta name="og:image" content="{{ one_c_object.page_meta_og_image }}" />
+	{% endif %}
 {% endblock %}
 
 {% block content %}

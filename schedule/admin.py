@@ -50,6 +50,28 @@ class CourseAdmin(SortableAdminMixin, admin.ModelAdmin):
 
     prepopulated_fields = {'slug': ('title',)}
 
+    fieldsets = (
+        ('Общее', {'fields': (
+            'is_active',
+            'thumbnail',
+            'cover_image',
+            'title',
+            'slug',
+            'short_description',
+            'full_description',
+            'cost',
+            'share_links',
+        )}),
+        ('SEO', {'fields': (
+            'page_title',
+            'page_meta_keywords',
+            'page_meta_description',
+            'page_meta_og_title',
+            'page_meta_og_description',
+            'page_meta_og_image',
+        )})
+    )
+
 
 # @admin.register(ApplyRequest)
 # class ApplyRequestAdmin(admin.ModelAdmin):

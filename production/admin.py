@@ -18,6 +18,27 @@ class OneCAdmin(SortableAdminMixin, admin.ModelAdmin):
 
     inlines = (OneCImageInline,)
 
+    fieldsets = (
+        ('Общее', {'fields': (
+            'is_active',
+            'title',
+            'short_description',
+            'full_description',
+            'thumbnail',
+            'cover_image',
+            'price_box',
+            'share_links',
+        )}),
+        ('SEO', {'fields': (
+            'page_title',
+            'page_meta_keywords',
+            'page_meta_description',
+            'page_meta_og_title',
+            'page_meta_og_description',
+            'page_meta_og_image',
+        )})
+    )
+
 
 class OnlineCashboxImageInline(admin.TabularInline):
     model = OnlineCashboxImage
@@ -31,6 +52,28 @@ class OnlineCashboxAdmin(SortableAdminMixin, admin.ModelAdmin):
     search_fields = ['title', 'short_description', 'full_description']
 
     inlines = (OnlineCashboxImageInline,)
+
+    fieldsets = (
+        ('Общее', {'fields': (
+            'is_active',
+            'title',
+            'short_description',
+            'full_description',
+            'price_box',
+            'thumbnail',
+            'cover_image',
+            'share_links',
+            'category',
+        )}),
+        ('SEO', {'fields': (
+            'page_title',
+            'page_meta_keywords',
+            'page_meta_description',
+            'page_meta_og_title',
+            'page_meta_og_description',
+            'page_meta_og_image',
+        )})
+    )
 
 
 @admin.register(ElectronicSignature)

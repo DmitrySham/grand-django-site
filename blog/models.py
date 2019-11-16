@@ -21,6 +21,14 @@ class Post(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 
+    # Seo
+    page_title = models.TextField(verbose_name='Тег title', null=True, blank=True)
+    page_meta_keywords = models.TextField(verbose_name='Тег meta keywords', null=True, blank=True)
+    page_meta_description = models.TextField(verbose_name='Тег meta description', null=True, blank=True)
+    page_meta_og_title = models.TextField(verbose_name='Тег meta og:title', null=True, blank=True)
+    page_meta_og_description = models.TextField(verbose_name='Тег meta og:description', null=True, blank=True)
+    page_meta_og_image = models.TextField(verbose_name='Тег meta og:image', null=True, blank=True)
+
     def __str__(self):
         return truncatechars(self.title, 100)
 
