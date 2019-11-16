@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+
+{% block title %}Страница не найдена!{% endblock %}
+
+
+{% block content %}
+	<!-- 404 START -->
+	<div class="error-box">
+		<div class="back-box">
+			<h2>Ошибка</h2>
+		</div>
+		<div class="error-box-text">
+			<h1>404</h1>
+			<h3>Страница не найдена!</h3>
+			<h4>Мы сожалеем, но запрошенная Вами страница не найдена.</h4>
+			<div class="mt-30">
+				<a href="{% url 'index' %}" class="dark-button button-md">Перейти на главную</a>
+			</div>
+		</div>
+	</div>
+	<!-- 404 END -->
+{% endblock %}

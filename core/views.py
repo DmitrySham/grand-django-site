@@ -80,3 +80,15 @@ def contacts(request):
         return JsonResponse(dict(success=False, message=str(feedback_form.errors)))
 
     return render(request, 'app/contacts.html', locals())
+
+
+def handler404(request, *args, **argv):
+    response = render(request, 'not_found.html', locals())
+    response.status_code = 404
+    return response
+
+
+def handler500(request, *args, **argv):
+    response = render(request, 'internal_error.html', locals())
+    response.status_code = 500
+    return response

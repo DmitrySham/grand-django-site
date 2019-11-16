@@ -6668,7 +6668,8 @@ Grid Classic Style
     width: 100%;
     height: 100%;
     margin: 0 auto;
-    text-align: center;
+    /*text-align: center;*/
+    z-index: 1;
 }
 
 .error-box-text {
