@@ -40,18 +40,18 @@
 {% endblock %}
 
 {% block content %}
-	<!-- Page Title START -->
-	<div class="page-title-section" style="background-image: url({% if course.cover_image %}{{ course.cover_image.url }}{% else %}https://via.placeholder.com/1730x300{% endif %});">
-		<div class="container">
-			<h1>{{ course.title }}</h1>
-			<ul>
-				<li><a href="{% url 'index' %}">Главная</a></li>
-				<li><a href="{% url 'schedule:list' %}">Образовательные программы</a></li>
-				<li><a href="{% url 'schedule:single' slug=course.slug %}">{{ course.title }}</a></li>
-			</ul>
-		</div>
-	</div>
-	<!-- Page Title END -->
+{#	<!-- Page Title START -->#}
+{#	<div class="page-title-section" style="background-image: url({% if course.cover_image %}{{ course.cover_image.url }}{% else %}https://via.placeholder.com/1730x300{% endif %});">#}
+{#		<div class="container">#}
+{#			<h1>{{ course.title }}</h1>#}
+{#			<ul>#}
+{#				<li><a href="{% url 'index' %}">Главная</a></li>#}
+{#				<li><a href="{% url 'schedule:list' %}">Образовательные программы</a></li>#}
+{#				<li><a href="{% url 'schedule:single' slug=course.slug %}">{{ course.title }}</a></li>#}
+{#			</ul>#}
+{#		</div>#}
+{#	</div>#}
+{#	<!-- Page Title END -->#}
 
 
 	<div class="section-block-grey">
@@ -65,24 +65,24 @@
 {#							<button class="primary-button button-md{% if not course.get_actual_date_action %} disabled{% endif %}" id="open-apply-form-button">{% if course.get_actual_date_action %}Записаться{% else %}Запись временно не доступна{% endif %}</button>#}
 						</div>
 						<div class="section-heading-line-left"></div>
-						<div class="text-content-big mt-20">
+						<div class="mt-20">
 							{{ course.short_description|split_lines|safe }}
-							<!-- Подставляется из основного расписание  shedule.html-->
-
-							{% for schedule in course.schedule_set.all %}
-								<div class="border p-3 mb-3">
-									<h5 class="mb-3">Курс #{{ forloop.counter }}</h5>
-
-									<p>Дата: {{ schedule.start_date|safe }}</p>
-									<p>Время: {{ schedule.start_hour|time }} - {{ schedule.finish_hour|time }} ({{ schedule.days }})</p>
-									<p>Продолжительность: {{ schedule.duration }}</p>
-									{% if schedule.have_own_cost %}
-										<p>Оплата: {% if schedule.cost %}{{ schedule.cost }}{% else %}-{% endif %}</p>
-									{% else %}
-										<p>Оплата: {{ course.cost }}</p>
-									{% endif %}
-								</div>
-							{% endfor %}
+{#							<!-- Подставляется из основного расписание  shedule.html-->#}
+{##}
+{#							{% for schedule in course.schedule_set.all %}#}
+{#								<div class="border p-3 mb-3">#}
+{#									<h5 class="mb-3">Курс #{{ forloop.counter }}</h5>#}
+{##}
+{#									<p>Дата: {{ schedule.start_date|safe }}</p>#}
+{#									<p>Время: {{ schedule.start_hour|time }} - {{ schedule.finish_hour|time }} ({{ schedule.days }})</p>#}
+{#									<p>Продолжительность: {{ schedule.duration }}</p>#}
+{#									{% if schedule.have_own_cost %}#}
+{#										<p>Оплата: {% if schedule.cost %}{{ schedule.cost }}{% else %}-{% endif %}</p>#}
+{#									{% else %}#}
+{#										<p>Оплата: {{ course.cost }}</p>#}
+{#									{% endif %}#}
+{#								</div>#}
+{#							{% endfor %}#}
 						</div>
 					</div>
 				</div>
@@ -102,8 +102,43 @@
 		</div>
 		<div class="container mt-50">
 			<div class="section-heading-line"></div>
+            <br>
 			{{ course.full_description|split_lines|safe }}
 		</div>
+
+        <br>
+
+        <div class="container">
+        <div class="section-heading text-center">
+            <h5>Расписание</h5>
+            <div class="section-heading-line"></div>
+        </div>
+        <br>
+            <div class="row">
+
+
+                    <!-- Подставляется из основного расписание  shedule.html-->
+
+							{% for schedule in course.schedule_set.all %}
+                                 <div class="col-md-4 col-sm-4 col-12">
+								<div class="border p-3 mb-3">
+									<h5 class="mb-3">Группа {{ forloop.counter }}</h5>
+
+									<p>Дата: {{ schedule.start_date|safe }}</p>
+									<p>Время: {{ schedule.start_hour|time }} - {{ schedule.finish_hour|time }} ({{ schedule.days }})</p>
+									<p>Продолжительность: {{ schedule.duration }}</p>
+									{% if schedule.have_own_cost %}
+										<p>Оплата: {% if schedule.cost %}{{ schedule.cost }}{% else %}-{% endif %}</p>
+									{% else %}
+										<p>Оплата: {{ course.cost }}</p>
+									{% endif %}
+								</div>
+                                </div>
+							{% endfor %}
+
+
+            </div>
+        </div>
 	</div>
 
 

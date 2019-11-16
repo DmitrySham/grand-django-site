@@ -2,33 +2,35 @@
 
 {% load staticfiles product_template_helper %}
 
-{% block title %}1C{% endblock %}
+{% block title %}Автоматизация учета 1С:Предприятие 8{% endblock %}
+
+{% block description %}Продажа и настройка компьютерных программ 1С в Чите и Забайкальском крае. 1С в облаке – доступ из любой точки мира.{% endblock %}
 
 {% block content %}
-	<!-- Page Title START -->
-	<div class="page-title-section" style="background-image: url({% if site_settings and site_settings.one_c_header_image %}{{ site_settings.one_c_header_image.url }}{% else %}https://via.placeholder.com/1730x300{% endif %});">
-		<div class="container">
-			<h1>Продукция 1С</h1>
-			<ul>
-				<li><a href="{% url 'index' %}">Главная</a></li>
-				<li><a href="{% url 'production:one_c_list' %}">1С</a></li>
-			</ul>
-		</div>
-	</div>
-	<!-- Page Title END -->
+{#	<!-- Page Title START -->#}
+{#	<div class="page-title-section" style="background-image: url({% if site_settings and site_settings.one_c_header_image %}{{ site_settings.one_c_header_image.url }}{% else %}https://via.placeholder.com/1730x300{% endif %});">#}
+{#		<div class="container">#}
+{#			<h1>Продукция 1С</h1>#}
+{#			<ul>#}
+{#				<li><a href="{% url 'index' %}">Главная</a></li>#}
+{#				<li><a href="{% url 'production:one_c_list' %}">1С</a></li>#}
+{#			</ul>#}
+{#		</div>#}
+{#	</div>#}
+{#	<!-- Page Title END -->#}
 
 
 	<!-- Shop Grid START -->
 	<div class="section-block">
 		<div class="container">
 			<div class="section-heading">
-				<h3>1С</h3>
-				<div class="section-heading-line-left"></div>
+                <h1>Автоматизация учета 1С:Предприятие 8</h1>
+                <div class="section-heading-line-left"></div>
 			</div>
 			<div class="row mt-30">
 				{% for item in objects %}
 					<!-- Product Start -->
-					<div class="col-md-4 col-sm-6 col-12">
+					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-6 col-12">
 						<a href="{% url 'production:one_c_single' id=item.id %}">
 							<div class="classic-shop">
 								<div class="classic-shop-img">
@@ -47,7 +49,7 @@
 								</div>
 								<div class="classic-shop-text">
 									<h4><a href="{% url 'production:one_c_single' id=item.id %}">{{ item.title|truncate_chars:50 }}</a></h4>
-									{{ item.short_description|truncate_chars:130|split_lines|safe }}
+									{{ item.short_description|truncate_chars:75|split_lines|safe }}
 									{#<h5>{{ item.price }}</h5>#}
 								</div>
 							</div>

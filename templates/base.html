@@ -2,8 +2,38 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-	<title>{% block title %}{% endblock %} | Гранд Чита</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150063230-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-150063230-1');
+    </script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+       ym(55858624, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true
+       });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/55858624" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+	<meta name="yandex-verification" content="845f58260cc82f57" />
+
+
+
+	<title>{% block title %}{% endblock %} | Центр ГРАНД</title>
 	<meta charset="UTF-8">
+    <meta name="description" content="{% block description %}{% endblock %}">
 	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,7 +101,7 @@
 							<li><i class="fa fa-envelope"></i><a href="mailto:{{ site_settings.header_email }}" style="color: #fff;">{{ site_settings.header_email }}</a><li>
 						{% endif %}
 					</ul>
-				</div>				
+				</div>
 			</div>
 			{% if site_settings and site_settings.socialprofilelinks_set.count > 0 %}
 				<div class="col-md-3 col-12">
@@ -84,7 +114,7 @@
 			{% endif %}
 		</div>
 	</div>
-</div>	
+</div>
 <!-- Top-Bar END -->
 
 
@@ -94,7 +124,7 @@
 	<nav id="navigation4" class="container navigation">
 		<div class="nav-header">
 			<a class="nav-brand" href="{% url 'index' %}">
-				<img src="{% static 'img/logo.svg' %}" class="main-logo" alt="logo" id="main_logo">
+				<img src="{% static 'img/Logo12.svg' %}" class="main-logo" alt="logo" id="main_logo">
 			</a>
 			<div class="nav-toggle"></div>
 		</div>
@@ -146,9 +176,9 @@
 			<div class="col-md-4 col-sm-6 col-12">
 				<h3>О Нас</h3>
 				<div class="mt-25">
-					<img src="{% static 'img/logo.svg' %}" alt="footer-logo">
+{#					<img src="{% static 'img/logo1.svg' %}" alt="footer-logo">#}
 					{% if site_settings and site_settings.footer_description %}
-						<div class="mt-25">
+						<div class="mt-25 white-color">
 							{{ site_settings.footer_description|split_lines|safe }}
 						</div>
 					{% endif %}
@@ -185,6 +215,7 @@
 				<div class="mt-25">
 					{% for post in last_posts %}
 						<!-- Post Start -->
+                    <a href="{% url 'blog:single' slug=post.slug %}">
 						<div class="footer-recent-post clearfix">
 							<div class="footer-recent-post-thumb">
 								<img src="{% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}http://via.placeholder.com/65x65{% endif %}" alt="img">
@@ -194,6 +225,7 @@
 								<a href="{% url 'blog:single' slug=post.slug %}">{{ post.title|slice:"0:20" }}...</a>
 							</div>
 						</div>
+                    </a>
 						<!-- Post End -->
 					{% endfor %}
 				</div>
@@ -222,7 +254,7 @@
 
 		<!-- Footer Bar Start -->
 		<div class="footer-bar">
-			<p><span class="primary-color">Grand75</span> © 2019. Все права защищены. <small style="color: rgba(255, 255, 255, 0.3);">Версия сайта: {{ site_version }}</small></p>
+            <p><span class="primary-color">Grand75</span> <span class="white-color"> © 2019. Все права защищены.</span> <small style="color: rgba(255, 255, 255, 0.3);">Версия сайта: {{ site_version }}</small></p>
 		</div>
 		<!-- Footer Bar End -->		
 	</div>
@@ -304,3 +336,22 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

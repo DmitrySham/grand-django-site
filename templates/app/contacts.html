@@ -11,13 +11,13 @@
 {% block content %}
 	<!-- Page Title START -->
 	<div class="page-title-section" style="background-image: url({% if contacts_object and contacts_object.thumbnail %}{{ contacts_object.thumbnail.url }}{% else %}https://via.placeholder.com/1730x300{% endif %});">
-		<div class="container">
-			<h1>О нас</h1>
-			<ul>
-				<li><a href="{% url 'index' %}">Главная</a></li>
-				<li><a href="{% url 'core:contacts' %}">Контакты</a></li>
-			</ul>
-		</div>
+{#		<div class="container">#}
+{#			<h1>О нас</h1>#}
+{#			<ul>#}
+{#				<li><a href="{% url 'index' %}">Главная</a></li>#}
+{#				<li><a href="{% url 'core:contacts' %}">Контакты</a></li>#}
+{#			</ul>#}
+{#		</div>#}
 	</div>
 	<!-- Page Title END -->
 
@@ -28,7 +28,7 @@
 			<div class="row">
 				<div class="col-md-7 col-sm-7 col-12">
 					<div class="section-heading mt-15">
-						<h4>Связаться с нами</h4>
+						<h5>Связаться с нами</h5>
 						<div class="section-heading-line-left"></div>
 					</div>
 					<div class="contact-form-box mt-30">
@@ -230,7 +230,7 @@
 					success: response => {
 					    enableFieldsAndButton();
 					    if (response.success) {
-					        _alert('Успех', response.message, 'orange');
+					        _alert('Успешно', response.message, 'orange');
 						} else {
 					        _alert('Ошибка!', response.message, 'red');
 						}

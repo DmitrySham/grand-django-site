@@ -276,7 +276,7 @@ TABLE OF CONTENT
 .section-heading-line {
     content: '';
     display: block;
-    width: 100px;
+    width: 210px;
     height: 3px;
     background: #f7c605;
     border-radius: 25%;
@@ -288,7 +288,7 @@ TABLE OF CONTENT
 .section-heading-line-left {
     content: '';
     display: block;
-    width: 100px;
+    width: 210px;
     height: 3px;
     background: #f7c605;
     border-radius: 25%;
@@ -315,7 +315,7 @@ TABLE OF CONTENT
 }
 
 .page-title-section {
-    padding: 110px 0px 110px 0px;
+    padding: 125px 0px 125px 0px;
     background-color: #eee;
     background-size: cover;
     background-position: center;
@@ -1688,7 +1688,7 @@ i) Animations
 12. Clients
 -------------------------------------------*/
 .clients img {
-    opacity: .5;
+    /*opacity: .5;*/
     -webkit-transition-duration: .3s;
     transition-duration: .3s;
 }
@@ -2668,7 +2668,7 @@ footer h3 {
 footer h3:after {
     content: '';
     display: block;
-    width: 70px;
+    width: 210px;
     height: 2px;
     background: #f7c605;
     margin-top: 12px;
@@ -3224,7 +3224,7 @@ Blog Post
 .blog-list-left-heading:after {
     content: '';
     display: block;
-    width: 80px;
+    width: 200px;
     height: 2px;
     background: #f7c605;
     margin-top: 10px;
@@ -6750,7 +6750,7 @@ Grid Classic Style
     font-weight: 500 !important;
     border-radius: 5px;
     font-size: 13px;
-    border: 1px solid #f6f7f8;
+    border: 1px solid #5a5a5a;
     background: #f6f7f8;
     color: #777 !important;
     outline: none;
@@ -6765,7 +6765,7 @@ Grid Classic Style
     font-weight: 500 !important;
     border-radius: 5px;
     font-size: 13px;
-    border: 1px solid #f6f7f8;
+    border: 1px solid #5a5a5a;
     background: #f6f7f8;
     color: #777 !important;
     outline: none;

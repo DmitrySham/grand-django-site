@@ -2,7 +2,7 @@
 
 {% load staticfiles product_template_helper %}
 
-{% block title %}Главная{% endblock %}
+{% block title %}Программы 1С, кассы-онлайн, электронные подписи, обучение{% endblock %}
 
 {% block content %}
 
@@ -13,13 +13,15 @@
 
 		{% for slide in slides %}
 			<!-- Slide 1 Start -->
-			<div class="swiper-slide" style="background-image:url({% if slide.thumbnail %}{{ slide.thumbnail.url }}{% else %}https://via.placeholder.com/1520x450{% endif %});">
+			<div class="swiper-slide" style="background-image:url({% if slide.thumbnail %}{{ slide.thumbnail.url }}{% else %}https://via.placeholder.com/1520x450{% endif %}); background-size: contain; background-repeat: no-repeat;">
 				<!-- <div class="medium-overlay"></div> -->
 				<div class="container">
 					<div class="slider-content left-holder">
-						<h2 class="animated fadeInDown">
-							{{ slide.title|safe }}
-						</h2>
+						{% if slide.title %}
+                            <h2 class="animated fadeInDown">
+							    {{ slide.title|safe }}
+						    </h2>
+                        {% endif %}
 						{% if slide.description %}
 							<div class="row">
 								<div class="col-md-6 col-sm-12 col-12">
@@ -30,7 +32,7 @@
 							</div>
 						{% endif %}
 						{% if slide.link %}
-							<div class="animated fadeInUp mt-30">
+							<div class="animated fadeInUp  center-holder " style="margin-top: 255px;">
 								<a href="{{ slide.link }}" class="dark-button button-md">Узнать больше</a>
 							</div>
 						{% endif %}
@@ -49,17 +51,138 @@
 <!-- Slider END -->
 
 
+<!-- Feature Boxes Section START -->
+<div class="section-block">
+  <div class="container">
+    <div class="section-heading center-holder">
+        <h1>Программы 1С, кассы-онлайн, электронные подписи, обучение</h1>
+        <div class="section-heading-line"></div>
+
+    </div>
+    <div class="row mt-60">
+      <div class="col-xl-4 col-md-6 col-sm-12 col-12">
+        <div class="feature-flex">
+          <div class="clearfix">
+            <div class="feature-flex-icon">
+                <a href="{% url 'production:one_c_list' %}"> <i class="icon-sprout"></i></a>
+            </div>
+            <div class="feature-flex-content">
+                <h4><a href="{% url 'production:one_c_list' %}">1С</a></h4>
+                {% if site_settings and site_settings.icon_1c %}
+                    {{ site_settings.icon_1c|split_lines|safe }}
+                {% else %}
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-4 col-md-6 col-sm-12 col-12">
+        <div class="feature-flex">
+          <div class="clearfix">
+            <div class="feature-flex-icon">
+                <a href="{% url 'production:online_cashbox_list' %}"> <i class="icon-calculator"></i></a>
+            </div>
+            <div class="feature-flex-content">
+                <h4><a href="{% url 'production:online_cashbox_list' %}">Онлайн-Кассы</a></h4>
+                 {% if site_settings and site_settings.icon_1c %}
+                    {{ site_settings.icon_online_cashbox|split_lines|safe }}
+                 {% else %}
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                 {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-4 col-md-6 col-sm-12 col-12">
+        <div class="feature-flex">
+          <div class="clearfix">
+            <div class="feature-flex-icon">
+                <a href="{% url 'schedule:list' %}"> <i class="icon-contract2"></i></a>
+            </div>
+            <div class="feature-flex-content">
+                <h4><a href="{% url 'schedule:list' %}">Учебный Центр</a></h4>
+                {% if site_settings and site_settings.icon_1c %}
+                    {{ site_settings.icon_schedule|split_lines|safe }}
+                {% else %}
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-4 col-md-6 col-sm-12 col-12">
+        <div class="feature-flex">
+          <div class="clearfix">
+            <div class="feature-flex-icon">
+                <a href="{% url 'core:grand_smeta_list' %}"> <i class="icon-presentation2"></i></a>
+            </div>
+            <div class="feature-flex-content">
+                <h4><a href="{% url 'core:grand_smeta_list' %}">Гранд Смета</a></h4>
+                {% if site_settings and site_settings.icon_1c %}
+                    {{ site_settings.icon_grand_smeta|split_lines|safe }}
+                {% else %}
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-4 col-md-6 col-sm-12 col-12">
+        <div class="feature-flex">
+          <div class="clearfix">
+            <div class="feature-flex-icon">
+                <a href="https://grand75.kontur-partner.ru/ca"> <i class="icon-certificate"></i></a>
+            </div>
+            <div class="feature-flex-content">
+                <h4><a href="https://grand75.kontur-partner.ru/ca">Электронные подписи</a></h4>
+                {% if site_settings and site_settings.icon_1c %}
+                    {{ site_settings.icon_electronic_sign|split_lines|safe }}
+                {% else %}
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+{#      <div class="col-xl-4 col-md-6 col-sm-12 col-12">#}
+{#        <div class="feature-flex">#}
+{#          <div class="clearfix">#}
+{#            <div class="feature-flex-icon">#}
+{#                <a href="{% url 'core:contacts' %}"> <i class="icon-certificate3"></i></a>#}
+{#            </div>#}
+{#            <div class="feature-flex-content">#}
+{#                <h4><a href="{% url 'core:contacts' %}">Сертификаты компании</a></h4>#}
+{#                {% if site_settings and site_settings.icon_1c %}#}
+{#                    {{ site_settings.icon_online_cashbox|split_lines|safe }}#}
+{#                {% else %}#}
+{#                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>#}
+{#                {% endif %}#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+
+    </div>
+  </div>
+</div>
+<!-- Feature Boxes Section END -->
 
 
 <!-- Number Boxes START -->
-<div class="section-block">
+<div class="section-block-grey">
 	<div class="container">
-		<div class="section-heading ">
-			<h1 class="text-center">Почему нас выбирают?</h1>
-			<div class="section-heading-line"></div>
+		<div  class="section-heading text-center">
+
+
 			{% if site_settings and site_settings.why_choose_us %}
 				{{ site_settings.why_choose_us|split_lines|safe }}
-			{% else %}
+            {% else %}
 				<p>Курсы. Дополнительное образование плотно вошло в жизнь каждого современного человека. В чем же его актуальность, спросите Вы? А в том, что на курсах 1С, к примеру, Вас научат работать с современными программами учета, которые применяются сейчас повсеместно, и, зная их, устроиться на работу шансов намного больше. А на курсах "Сметное дело в строительстве" Вас не только научат составлять сметы и работать в программе ГрандСмета, но и впоследствии, когда Вы устроитесь на работу, Вас будут продолжать консультировать специалисты нашего Учебного Центра. А может случиться и так, что в какой-то момент Вы заметите, что не хватает навыков работе на компьютере. Или родители-пенсионеры проявили интерес к работе в интернете. Словом, поводов, чтобы пройти курсы Пользователь ПЭВМ или Оператор 1С или любые другие, предостаточно.</p>
 				<p>Курсы 1С в Чите. Вот уже 10 лет Учебный центр "Гранд" предоставляет услуги по дополнительному образованию и дополнительному профессиональному образованию жителям Читы и Забайкальского края. За столь долгое время у нас сложился прекрасный педагогический коллектив, наработаны методические материалы, налажены крепкие партнерские отношения со многими крупными организациями города Читы, обучены несколько тысяч специалистов. Сегодня мы можем с уверенностью сказать, что даем полные, актуальные знания каждому, кто приходит к нам. Наше приоритетное направление - это качество образования. Нам важно, чтобы наши выпускники получили знания, которые действительно помогут им трудоустроиться или повысить профессиональный уровень.</p>
 				<p>Особо хочется отметить, что занятия в учебном центре проходят в действительно дружелюбной обстановке. Мы работаем в диалоге со студентами и каждый, кто у нас уже обучался, знает, что лекции проходят легко и интересно. Для лучшего усвоения материала курсантам выдается методическая литература: как рекомендованная компанией 1С, так и адаптированные разработки наших методистов. Учебные классы чистые и светлые, оборудованы проектором и кондиционером. Все готово для того, чтобы Вы пришли и начали обучаться.</p>
@@ -73,128 +196,133 @@
 
 
 
-<!-- Учебный Центр START -->
-<div class="section-block-grey">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-sm-6 col-12">
-				<div class="pr-30-md">
-					<div class="section-heading">
-						<h4>Учебный Центр</h4>
-					</div>
-					<div class="section-heading-line-left"></div>
-					<div class="text-content-big mt-20">
-						{% if site_settings and site_settings.schedule %}
-							{{ site_settings.schedule|split_lines|safe }}
-						{% else %}
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-						{% endif %}
-					</div>
-					{% if site_settings and site_settings.schedule_list_items %}
-						<div class="mt-20">
-							<ul class="primary-list">
-								{% for item in site_settings.schedule_list_items|parse_json %}
-									<li><i class="fa fa-caret-right"></i> {{ item.text|safe }}</li>
-								{% endfor %}
-							</ul>
-						</div>
-					{% endif %}
-					<div class="mt-25">
-						<a href="{% url 'schedule:list' %}" class="primary-button button-sm mb-15-xs">Подробнее</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6 col-sm-6 col-12">
-				<img src="{% if site_settings and site_settings.schedule_thumbnail %}{{ site_settings.schedule_thumbnail.url }}{% else %}https://via.placeholder.com/540x380{% endif %}" class="rounded-border shadow-primary" alt="img">
-			</div>
-		</div>
-	</div>
-</div>
-<!-- Учебный Центр END -->
 
 
-
-
-
-
-<!-- Гранд Сервис START -->
-<div class="section-block-grey">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-sm-6 col-12">
-				<div class="pr-30-md">
-					<div class="section-heading">
-						<h4>Гранд Сервис</h4>
-					</div>
-					<div class="section-heading-line-left"></div>
-					<div class="text-content-big mt-20">
-						{% if site_settings and site_settings.grand_service %}
-							{{ site_settings.grand_service|split_lines|safe }}
-						{% else %}
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-						{% endif %}
-					</div>
-					{% if site_settings and site_settings.grand_service_list_items %}
-						<div class="mt-20">
-							<ul class="primary-list">
-								{% for item in site_settings.grand_service_list_items|parse_json %}
-									<li><i class="fa fa-caret-right"></i> {{ item.text|safe }}</li>
-								{% endfor %}
-							</ul>
-						</div>
-					{% endif %}
-				</div>
-			</div>
-			<div class="col-md-6 col-sm-6 col-12">
-				<img src="{% if site_settings and site_settings.grand_service_thumbnail %}{{ site_settings.grand_service_thumbnail.url }}{% else %}https://via.placeholder.com/540x380{% endif %}" class="rounded-border shadow-primary" alt="img">
-			</div>
-		</div>
-	</div>
-</div>
-<!-- Гранд Сервис END -->
-
-
-
-
-
-<!-- Гранд Смета START -->
-<div class="section-block-grey">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-sm-6 col-12">
-				<div class="pr-30-md">
-					<div class="section-heading">
-						<h4>Гранд Смета</h4>
-					</div>
-					<div class="section-heading-line-left"></div>
-					<div class="text-content-big mt-20">
-						{% if site_settings and site_settings.grand_smeta %}
-							{{ site_settings.grand_smeta|split_lines|safe }}
-						{% else %}
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-						{% endif %}
-					</div>
-					{% if site_settings and site_settings.grand_smeta_list_items %}
-						<div class="mt-20">
-							<ul class="primary-list">
-								{% for item in site_settings.grand_smeta_list_items|parse_json %}
-									<li><i class="fa fa-caret-right"></i> {{ item.text|safe }}</li>
-								{% endfor %}
-							</ul>
-						</div>
-					{% endif %}
-					<div class="mt-25">
-						<a href="{% url 'core:grand_smeta_list' %}" class="primary-button button-sm mb-15-xs">Подробнее</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6 col-sm-6 col-12">
-				<img src="{% if site_settings and site_settings.grand_smeta_thumbnail %}{{ site_settings.grand_smeta_thumbnail.url }}{% else %}https://via.placeholder.com/540x380{% endif %}" class="rounded-border shadow-primary" alt="img">
-			</div>
-		</div>
-	</div>
-</div>
-<!-- Гранд Смета END -->
+{#<!-- Учебный Центр START -->#}
+{#<div class="section-block-grey">#}
+{#	<div class="container">#}
+{#		<div class="row">#}
+{#			<div class="col-md-7 col-sm-12 col-12">#}
+{#				<div class="pr-30-md">#}
+{#					<div class="section-heading">#}
+{#						<h4>Учебный Центр</h4>#}
+{#					</div>#}
+{#					<div class="section-heading-line-left"></div>#}
+{#					<div class="text-content mt-20">#}
+{#						{% if site_settings and site_settings.schedule %}#}
+{#							{{ site_settings.schedule|split_lines|safe }}#}
+{#						{% else %}#}
+{#							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>#}
+{#						{% endif %}#}
+{#					</div>#}
+{#					{% if site_settings and site_settings.schedule_list_items %}#}
+{#						<div class="mt-20">#}
+{#							<ul class="primary-list">#}
+{#								{% for item in site_settings.schedule_list_items|parse_json %}#}
+{#									<li><i class="fa fa-caret-right"></i> {{ item.text|safe }}</li>#}
+{#								{% endfor %}#}
+{#							</ul>#}
+{#						</div>#}
+{#					{% endif %}#}
+{#					<div class="mt-25">#}
+{#						<a href="{% url 'schedule:list' %}" class="primary-button button-sm mb-15-xs">Подробнее</a>#}
+{#					</div>#}
+{#				</div>#}
+{#			</div>#}
+{#			<div class="col-md-5 col-sm-12 col-12 pt-5">#}
+{#				<img src="{% if site_settings and site_settings.schedule_thumbnail %}{{ site_settings.schedule_thumbnail.url }}{% else %}https://via.placeholder.com/540x380{% endif %}" class="rounded-border shadow-primary" alt="img">#}
+{#			</div>#}
+{#		</div>#}
+{#	</div>#}
+{#</div>#}
+{#<!-- Учебный Центр END -->#}
+{##}
+{##}
+{##}
+{##}
+{##}
+{##}
+{#<!-- Гранд Сервис START -->#}
+{#<div class="section-block">#}
+{#	<div class="container">#}
+{#		<div class="row">#}
+{#			<div class="col-md-7 col-sm-12 col-12">#}
+{#				<div class="pr-30-md">#}
+{#					<div class="section-heading">#}
+{#						<h4>Гранд Сервис</h4>#}
+{#					</div>#}
+{#					<div class="section-heading-line-left"></div>#}
+{#					<div class="text-content mt-20">#}
+{#						{% if site_settings and site_settings.grand_service %}#}
+{#							{{ site_settings.grand_service|split_lines|safe }}#}
+{#						{% else %}#}
+{#							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>#}
+{#						{% endif %}#}
+{#					</div>#}
+{#					{% if site_settings and site_settings.grand_service_list_items %}#}
+{#						<div class="mt-20">#}
+{#							<ul class="primary-list">#}
+{#								{% for item in site_settings.grand_service_list_items|parse_json %}#}
+{#									<li><i class="fa fa-caret-right"></i> {{ item.text|safe }}</li>#}
+{#								{% endfor %}#}
+{#							</ul>#}
+{#						</div>#}
+{#					{% endif %}#}
+{#                    <div class="mt-25">#}
+{#                        <a href="{% url 'production:online_cashbox_list' %}" class="primary-button button-sm mb-15-xs">Подробнее</a>#}
+{#                    </div>#}
+{#				</div>#}
+{#			</div>#}
+{#			<div class="col-md-5 col-sm-12 col-12 pt-5">#}
+{#				<img src="{% if site_settings and site_settings.grand_service_thumbnail %}{{ site_settings.grand_service_thumbnail.url }}{% else %}https://via.placeholder.com/540x380{% endif %}" class="rounded-border shadow-primary" alt="img">#}
+{#			</div>#}
+{#		</div>#}
+{#	</div>#}
+{#</div>#}
+{#<!-- Гранд Сервис END -->#}
+{##}
+{##}
+{##}
+{##}
+{##}
+{#<!-- Гранд Смета START -->#}
+{#<div class="section-block-grey">#}
+{#	<div class="container">#}
+{#		<div class="row">#}
+{#			<div class="col-md-7 col-sm-12 col-12 ">#}
+{#				<div class="pr-30-md">#}
+{#					<div class="section-heading">#}
+{#						<h4>Гранд Смета</h4>#}
+{#					</div>#}
+{#					<div class="section-heading-line-left"></div>#}
+{#					<div class="text-content mt-20">#}
+{#						{% if site_settings and site_settings.grand_smeta %}#}
+{#							{{ site_settings.grand_smeta|split_lines|safe }}#}
+{#						{% else %}#}
+{#							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>#}
+{#						{% endif %}#}
+{#					</div>#}
+{#					{% if site_settings and site_settings.grand_smeta_list_items %}#}
+{#						<div class="mt-20">#}
+{#							<ul class="primary-list">#}
+{#								{% for item in site_settings.grand_smeta_list_items|parse_json %}#}
+{#									<li><i class="fa fa-caret-right"></i> {{ item.text|safe }}</li>#}
+{#								{% endfor %}#}
+{#							</ul>#}
+{#						</div>#}
+{#					{% endif %}#}
+{#					<div class="mt-25">#}
+{#						<a href="{% url 'core:grand_smeta_list' %}" class="primary-button button-sm mb-15-xs">Подробнее</a>#}
+{#					</div>#}
+{#				</div>#}
+{#			</div>#}
+{#			<div class="col-md-5 col-sm-12 col-12 pt-5">#}
+{#				<img src="{% if site_settings and site_settings.grand_smeta_thumbnail %}{{ site_settings.grand_smeta_thumbnail.url }}{% else %}https://via.placeholder.com/540x380{% endif %}" class="rounded-border shadow-primary" alt="img">#}
+{#			</div>#}
+{#		</div>#}
+{#	</div>#}
+{#</div>#}
+{#<!-- Гранд Смета END -->#}
 
 
 
@@ -220,7 +348,7 @@
 									<img src="{% if item.thumbnail %}{{ item.thumbnail.url }}{% else %}https://via.placeholder.com/445x255{% endif %}" alt="img">
 									<div class="data-box-simple">
 										<h4>{{ item.created_at|date:"d" }}</h4>
-										<p>{{ item.created_at|date:"M" }}</p>
+										<strong>{{ item.created_at|date:"M" }}</strong>
 									</div>
 								</div>
 							</div>

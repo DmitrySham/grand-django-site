@@ -9,9 +9,11 @@ class Slider(models.Model):
     class Meta:
         verbose_name_plural = 'Слайдер на главной странице'
         verbose_name = 'Слайд'
+        ordering = ('order_index',)
 
+    order_index = models.PositiveIntegerField(default=0, verbose_name='Порядковый номер')
     is_active = models.BooleanField(default=True, verbose_name='Активно?')
-    title = models.CharField(max_length=255, verbose_name='Название')
+    title = models.CharField(max_length=255, verbose_name='Название', null=True, blank=True)
     description = models.TextField(verbose_name='Описание', help_text='HTML теги разрешены', null=True, blank=True)
     link = models.CharField(
         max_length=1000,
@@ -29,7 +31,9 @@ class Slider(models.Model):
     )
 
     def __str__(self):
-        return self.title
+        if self.title:
+            return self.title
+        return "Объект слайдера"
 
 
 class SiteSettings(models.Model):
@@ -68,7 +72,7 @@ class SiteSettings(models.Model):
 
     # home page:
     index_page_text = models.TextField(verbose_name='Текст на главной странице', null=True, blank=True)
-    why_choose_us = models.TextField(verbose_name='Почему выбирают нас?', null=True, blank=True)
+    why_choose_us = models.TextField(verbose_name='Текст на главной странице', null=True, blank=True)
 
     schedule = models.TextField(verbose_name='Текст учебного центра', null=True, blank=True)
     schedule_thumbnail = models.FileField(verbose_name='Изображение учебного центра', null=True, blank=True)
@@ -81,6 +85,14 @@ class SiteSettings(models.Model):
     grand_smeta = models.TextField(verbose_name='Текст Гранд Смета', null=True, blank=True)
     grand_smeta_thumbnail = models.FileField(verbose_name='Изображение Гранд смета', null=True, blank=True)
     grand_smeta_list_items = models.TextField(verbose_name='Маркированный список Гранд Смета', default=json.dumps(list()), blank=True)
+
+    icon_heading = models.CharField(max_length=255, verbose_name='Название раздела с иконками', null=True, blank=True)
+    icon_1c = models.TextField(verbose_name='Текст для иконки 1С', null=True, blank=True)
+    icon_online_cashbox = models.TextField(verbose_name='Текст для иконки Онлайн Касс', null=True, blank=True)
+    icon_schedule = models.TextField(verbose_name='Текст для иконки Учебного центра', null=True, blank=True)
+    icon_grand_smeta = models.TextField(verbose_name='Текст для иконки Гранд Смета', null=True, blank=True)
+    icon_electronic_sign = models.TextField(verbose_name='Текст для иконки Электронные подписи', null=True, blank=True)
+    icon_certificates = models.TextField(verbose_name='текст для иконки Сертификаты', null=True, blank=True)
 
     def __str__(self):
         return 'Настройки сайта'
