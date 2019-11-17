@@ -10,10 +10,13 @@ from schedule.models import Course
 class PostSitemap(Sitemap):
 
     def items(self):
-        return Post.objects.all()
+        return Post.objects.all().order_by('-created_at')
 
     def location(self, obj):
         return reverse('blog:single', kwargs={'slug': obj.slug})
+
+    def lastmod(self, obj):
+        return obj.created_at
 
 
 class GrandSmetaSitemap(Sitemap):
@@ -52,4 +55,21 @@ class CourseSitemap(Sitemap):
         return reverse('schedule:single', kwargs={'slug': obj.slug})
 
 
+class StaticPagesSitemap(Sitemap):
+    changefreq = "never"
+    priority = 0.5
 
+    def items(self):
+        return [
+            'index',
+            'production:one_c_list',
+            'production:online_cashbox_list',
+            'core:grand_smeta_list',
+            'core:contacts',
+            'schedule:list',
+            'schedule:base_view',
+            'blog:list'
+        ]
+
+    def location(self, obj):
+        return reverse(obj)

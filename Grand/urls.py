@@ -18,10 +18,19 @@ from django.contrib import admin
 from django.urls import path, include
 from core import views as core_views
 from django.conf.urls import handler404, handler500
-
 from django.views.generic import TemplateView
-
 from Grand import settings
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import *
+
+sitemaps = {
+    'static': StaticPagesSitemap,
+    'post': PostSitemap,
+    'grand_smeta': GrandSmetaSitemap,
+    'one_c': OneCSitemap,
+    'online_cashbox': OnlineCashboxSitemap,
+    'courses': CourseSitemap,
+}
 
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
@@ -34,16 +43,14 @@ urlpatterns = [
     path('yandex_88e2184967f12b8a.html', TemplateView.as_view(template_name='yandex_88e2184967f12b8a.html')),
     path('robot.txt', TemplateView.as_view(template_name='robot.txt', content_type='text/plain')),
     path('manifest.xml', TemplateView.as_view(template_name='manifest.xml', content_type='text/xml')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
     path('', core_views.index, name='index'),
 ]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-
 handler404 = core_views.handler404
 handler500 = core_views.handler500
-
