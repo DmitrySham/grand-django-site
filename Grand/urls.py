@@ -41,7 +41,7 @@ urlpatterns = [
     path('news/', include(('blog.urls', 'blog'))),
 
     path('yandex_88e2184967f12b8a.html', TemplateView.as_view(template_name='yandex_88e2184967f12b8a.html')),
-    path('robot.txt', TemplateView.as_view(template_name='robot.txt', content_type='text/plain')),
+    path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     path('manifest.xml', TemplateView.as_view(template_name='manifest.xml', content_type='text/xml')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
