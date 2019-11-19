@@ -34,7 +34,7 @@
 				<!-- Left Side START -->
 				<div class="col-md-9 col-sm-8 col-12">
 					<div class="blog-list-left">
-						<img src="{% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}https://via.placeholder.com/825x550{% endif %}" alt="img">
+						<img src="{% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}https://via.placeholder.com/825x550{% endif %}" alt="{{ post.atr_alt }}">
 						<div class="data-box">
 							<h4>{{ post.created_at|date:"d" }}</h4>
 							<strong>{{ post.created_at|date:"M" }}</strong>

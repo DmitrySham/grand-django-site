@@ -154,6 +154,7 @@ class GrandSmeta(models.Model):
 
     is_active = models.BooleanField(default=True, verbose_name='Активна?')
     thumbnail = models.FileField(upload_to='grand-smeta/', verbose_name='Изображение', help_text='Предпочтительные размеры: 540x380')
+    art_alt = models.CharField(max_length=255, verbose_name='Атрибут alt', null=True, blank=True)
     title = models.CharField(max_length=255, verbose_name='Название')
     slug = models.CharField(max_length=255, verbose_name='SLUG', unique=True, help_text='URL Endpoint name')
     short_description = models.TextField(verbose_name='Короткое описание', null=True, blank=False)

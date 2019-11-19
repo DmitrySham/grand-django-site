@@ -53,7 +53,7 @@
 					<div class="col-md-4 col-sm-4 col-12">
 						<div class="blog-grid">
 							<div class="blog-grid-img">
-								<img src="{% if item.thumbnail %}{{ item.thumbnail.url }}{% else %}https://via.placeholder.com/250x220{% endif %}" alt="img">
+								<img src="{% if item.thumbnail %}{{ item.thumbnail.url }}{% else %}https://via.placeholder.com/250x220{% endif %}" alt="{% if item.atr_alt %}{{ item.atr_alt }}{% else %}{{ item.image.name }}{% endif %}">
 								<div class="data-box-grid">
 									<h4>{{ item.created_at|date:"d" }}</h4>
 									<p>{{ item.created_at|date:"M" }}</p>

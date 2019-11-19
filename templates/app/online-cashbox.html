@@ -74,7 +74,7 @@
 									<a href="{% url 'production:online_cashbox_single' id=item.id %}">
 										<div class="classic-shop">
 											<div class="classic-shop-img">
-												<img src="{{ item.thumbnail.url }}" alt="img">
+												<img src="{{ item.thumbnail.url }}" alt="{% if item.image_title_alt %}{{ item.image_title_alt }}{% else %}{{ item.image.name }}{% endif %}">
 												<div class="shop-box-overlay">
 													<div class="row">
 														<div class="col-md-12 col-sm-12 col-12">

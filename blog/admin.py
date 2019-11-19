@@ -19,6 +19,7 @@ class PostAdmin(admin.ModelAdmin):
         ('Общее', {'fields': (
             'is_active',
             'thumbnail',
+            'atr_alt',
             'title',
             'slug',
             'short_description',

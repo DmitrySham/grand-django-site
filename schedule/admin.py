@@ -54,7 +54,8 @@ class CourseAdmin(SortableAdminMixin, admin.ModelAdmin):
         ('Общее', {'fields': (
             'is_active',
             'thumbnail',
-            'cover_image',
+            'atr_alt',
+            #'cover_image',
             'title',
             'slug',
             'short_description',

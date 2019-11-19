@@ -12,6 +12,7 @@ class Post(models.Model):
     is_active = models.BooleanField(default=True, verbose_name='Активна?')
 
     thumbnail = models.FileField(upload_to='blog/', null=True, blank=False, verbose_name='Изображение')
+    atr_alt = models.CharField(max_length=255, verbose_name='Атрибут alt', null=True, blank=True)
     title = models.CharField(max_length=255, verbose_name='Название')
     slug = models.CharField(max_length=255, verbose_name='SLUG', unique=True)
 
