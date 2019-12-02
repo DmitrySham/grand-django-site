@@ -22,6 +22,7 @@ class OneCAdmin(SortableAdminMixin, admin.ModelAdmin):
         ('Общее', {'fields': (
             'is_active',
             'title',
+            'slug',
             'short_description',
             'full_description',
             'thumbnail',
@@ -38,6 +39,8 @@ class OneCAdmin(SortableAdminMixin, admin.ModelAdmin):
             'page_meta_og_image',
         )})
     )
+
+    prepopulated_fields = {'slug': ('title',)}
 
 
 class OnlineCashboxImageInline(admin.TabularInline):
@@ -57,6 +60,7 @@ class OnlineCashboxAdmin(SortableAdminMixin, admin.ModelAdmin):
         ('Общее', {'fields': (
             'is_active',
             'title',
+            'slug',
             'short_description',
             'full_description',
             'price_box',
@@ -74,6 +78,8 @@ class OnlineCashboxAdmin(SortableAdminMixin, admin.ModelAdmin):
             'page_meta_og_image',
         )})
     )
+
+    prepopulated_fields = {'slug': ('title',)}
 
 
 @admin.register(ElectronicSignature)

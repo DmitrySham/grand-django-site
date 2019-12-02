@@ -1,8 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
+
 from .models import *
-from .utils import get_item_index
 
 
 # Create your views here.
@@ -14,9 +15,18 @@ def one_c_list(request):
     return render(request, 'app/one-c.html', locals())
 
 
-def one_c_single(request, id):
+def one_c_single_old(request, id):
     try:
         one_c_object = OneC.objects.get(id=id)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    return HttpResponseRedirect(reverse('production:one_c_single', kwargs={'slug': one_c_object.slug}))
+
+
+def one_c_single(request, slug):
+    try:
+        one_c_object = OneC.objects.get(slug=slug)
     except ObjectDoesNotExist:
         raise Http404
 
@@ -47,9 +57,18 @@ def online_cashbox_list(request):
     return render(request, 'app/online-cashbox.html', locals())
 
 
-def online_cashbox_single(request, id):
+def online_cashbox_single_old(request, id):
     try:
         online_cashbox = OnlineCashbox.objects.get(id=id)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    return HttpResponseRedirect(reverse('production:online_cashbox_single', kwargs={'slug': online_cashbox.slug}))
+
+
+def online_cashbox_single(request, slug):
+    try:
+        online_cashbox = OnlineCashbox.objects.get(slug=slug)
     except ObjectDoesNotExist:
         raise Http404
 

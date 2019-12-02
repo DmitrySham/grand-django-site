@@ -1,5 +1,6 @@
 import json
 import os
+import uuid
 
 from django.db import models
 
@@ -15,6 +16,8 @@ class OneC(models.Model):
     order_index = models.PositiveIntegerField(default=0, verbose_name='Порядковый номер')
     is_active = models.BooleanField(default=True, verbose_name='Активно?')
     title = models.CharField(max_length=255, verbose_name='Название 1С услуги')
+    slug = models.CharField(max_length=255, verbose_name='SLUG', unique=True)
+
     short_description = models.TextField(verbose_name='Краткое описание')
     full_description = models.TextField(verbose_name='Полное описание')
     thumbnail = models.FileField(
@@ -87,6 +90,8 @@ class OnlineCashbox(models.Model):
     order_index = models.PositiveIntegerField(default=0, verbose_name='Порядковый номер')
     is_active = models.BooleanField(default=True, verbose_name='Активный')
     title = models.CharField(max_length=255, verbose_name='Название')
+    slug = models.CharField(max_length=255, verbose_name='SLUG', unique=True)
+
     short_description = models.TextField(verbose_name='Короткое описание', null=True, blank=True)
     full_description = models.TextField(verbose_name='Полное описание', null=True, blank=True)
 
