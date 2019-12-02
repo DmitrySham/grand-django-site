@@ -109,6 +109,7 @@ class GrandSmeta(admin.ModelAdmin):
         ('Общее', {'fields': (
             'is_active',
             'thumbnail',
+            'art_alt',
             'title',
             'slug',
             'short_description',

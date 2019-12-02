@@ -45,13 +45,13 @@
 						<div id="slick-target">
 							<div class="main-img-slider" data-src="{{ one_c_object.thumbnail.url }}">
 								<figure>
-									<img src="{{ one_c_object.thumbnail.url }}" alt="{{ one_c_object.title }}" />
+									<img src="{{ one_c_object.thumbnail.url }}" alt="{{ one_c_object.image_title_alt }}" />
 								</figure>
 							</div>
 							{% for slide in one_c_object.onecimage_set.all %}
 								<div class="main-img-slider" data-src="{{ slide.image.url }}">
 									<figure>
-										<img src="{{ slide.image.url }}" alt="{{ slide.image.name }}" />
+										<img src="{{ slide.image.url }}" alt="{% if slide.image_title %}{{ slide.image_title }}{% else %}{{ slide.image.name }}{% endif %}" />
 									</figure>
 								</div>
 							{% endfor %}
@@ -62,7 +62,7 @@
 				</div>
 				<div class="col-md-6 col-sm-6 col-12">
 					<div class="single-product">
-						<h2>{{ one_c_object.title }}</h2>
+						<h1>{{ one_c_object.title }}</h1>
 
 						<!-- Price Start -->
 						<div class="single-product-price">

@@ -15,7 +15,7 @@
 		<meta name="keywords" content="{{ seo.schedule_list_page_meta_keywords }}" />
 	{% endif %}
 	{% if seo and seo.schedule_list_page_meta_description %}
-		<meta name="keywords" content="{{ seo.schedule_list_page_meta_description }}" />
+		<meta name="description" content="{{ seo.schedule_list_page_meta_description }}" />
 	{% endif %}
 	{% if seo and seo.schedule_list_page_meta_og_title %}
 		<meta name="og:title" content="{{ seo.schedule_list_page_meta_og_title }}" />
@@ -45,7 +45,7 @@
 	<div class="section-block">
 		<div class="container">
 			<div class="section-heading text-center">
-				<h4>Образовательные программы</h4>
+				<h1>Образовательные программы</h1>
 				<h4><a class="primary-button button-md mb-15-xs" style="padding: 0 22px 0 22px;" href="{% url 'schedule:base_view' %}">Расписание занятий</a></h4>
 {#				<div class="section-heading-line"></div>#}
 			</div>
@@ -57,7 +57,7 @@
 						<div class="col-md-3 col-sm-6 col-12">
 							<div class="classic-shop">
 								<div class="classic-shop-img">
-									<img src="{{ item.thumbnail.url }}" alt="img">
+									<img src="{{ item.thumbnail.url }}" alt="{% if item.atr_alt %}{{ item.atr_alt }}{% else %}{{ item.image.name }}{% endif %}">
 									<div class="shop-box-overlay">
 										<div class="row">
 											<div class="col-md-12 col-sm-12 col-12">

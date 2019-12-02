@@ -25,7 +25,7 @@
 		<meta name="keywords" content="{{ seo.grand_smeta_list_page_meta_keywords }}" />
 	{% endif %}
 	{% if seo and seo.grand_smeta_list_page_meta_description %}
-		<meta name="keywords" content="{{ seo.grand_smeta_list_page_meta_description }}" />
+		<meta name="description" content="{{ seo.grand_smeta_list_page_meta_description }}" />
 	{% endif %}
 	{% if seo and seo.grand_smeta_list_page_meta_og_title %}
 		<meta name="og:title" content="{{ seo.grand_smeta_list_page_meta_og_title }}" />
@@ -71,7 +71,7 @@
 		<div class="section-block">
 			<div class="container">
 				<div class="section-heading">
-					<h5>ПК ГрандСмета</h5>
+					<h1>ПК ГрандСмета</h1>
 					<div class="section-heading-line-left"></div>
 				</div>
 				<div class="row mt-30">
@@ -82,7 +82,7 @@
 							<div class="col-md-3 col-sm-6 col-12">
 								<div class="classic-shop">
 									<div class="classic-shop-img">
-										<img src="{{ item.thumbnail.url }}" alt="img">
+										<img src="{{ item.thumbnail.url }}" alt="{% if item.art_alt %}{{ item.art_alt }}{% else %}{{ item.image.name }}{% endif %}">
 										<div class="shop-box-overlay">
 											<div class="row">
 												<div class="col-md-12 col-sm-12 col-12">

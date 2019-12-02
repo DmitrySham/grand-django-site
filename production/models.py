@@ -25,6 +25,9 @@ class OneC(models.Model):
         verbose_name='Изображение',
         help_text='Предпочитаемые размеры 540x540'
     )
+
+    image_title_alt = models.CharField(max_length=255, verbose_name='Атрибут alt', null=True, blank=True)
+
     cover_image = models.FileField(
         upload_to='production/one-c/cover-images/',
         verbose_name='Обложка',
@@ -53,6 +56,7 @@ class OneCImage(models.Model):
         verbose_name_plural = 'Изображения 1C'
 
     image = models.FileField(verbose_name='Изображение', upload_to='one-c/single/sliders')
+    image_title = models.CharField(max_length=255, verbose_name='Атрибут alt', null=True, blank=True)
     one_c = models.ForeignKey(to=OneC, on_delete=models.CASCADE, verbose_name='1С')
 
     def __str__(self):
@@ -102,6 +106,9 @@ class OnlineCashbox(models.Model):
         verbose_name='Изображение',
         help_text='Предпочитаемые размеры 540x540'
     )
+
+    image_title_alt = models.CharField(max_length=255, verbose_name='Атрибут alt', null=True, blank=True)
+
     cover_image = models.FileField(
         upload_to='production/online-cashbox/cover-images/',
         verbose_name='Обложка',
