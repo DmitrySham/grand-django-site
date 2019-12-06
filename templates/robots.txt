@@ -1,5 +1,7 @@
 User-agent: *
-Allow: /
+Disallow: /media
+Disallow: /*.css$
+Disallow: /static
 
-Host: https://grand75.ru/
-Sitemap: https://grand75.ru/sitemap.xml
+Host: https://www.grand75.ru/
+Sitemap: https://www.grand75.ru/sitemap.xml
