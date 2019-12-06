@@ -71,14 +71,14 @@
 							{% for item in category.objects %}
 								<!-- Product Start -->
 								<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-6 col-12">
-									<a href="{% url 'production:online_cashbox_single' id=item.id %}">
+									<a href="{% url 'production:online_cashbox_single' slug=item.slug %}">
 										<div class="classic-shop">
 											<div class="classic-shop-img">
 												<img src="{{ item.thumbnail.url }}" alt="{% if item.image_title_alt %}{{ item.image_title_alt }}{% else %}{{ item.image.name }}{% endif %}">
 												<div class="shop-box-overlay">
 													<div class="row">
 														<div class="col-md-12 col-sm-12 col-12">
-															<a href="{% url 'production:online_cashbox_single' id=item.id %}">
+															<a href="{% url 'production:online_cashbox_single' slug=item.slug %}">
 																<div class="shop-to-card">
 																	<h4><span class="fa fa-eye"></span>Подробнее</h4>
 																</div>
@@ -88,7 +88,7 @@
 												</div>
 											</div>
 											<div class="classic-shop-text p-3">
-                                                <h4><a href="{% url 'production:online_cashbox_single' id=item.id %}">{{ item.title|truncate_chars:15 }}</a></h4>
+                                                <h4><a href="{% url 'production:online_cashbox_single' slug=item.slug %}">{{ item.title|truncate_chars:15 }}</a></h4>
                                                 <div>{{ item.short_description|truncate_chars:75|split_lines|safe }}</div>
                                                 {#<h5>{{ item.price_box|parse_json|get_first_item:'value' }}</h5>#}
 											</div>
