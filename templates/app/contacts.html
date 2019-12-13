@@ -101,7 +101,7 @@
 											<h4>Телефон</h4>
 											{% if contacts_object and contacts_object.phones|parse_json|length > 0 %}
 												{% for item in contacts_object.phones|parse_json  %}
-													<p><b>{{ item.key }}</b> {{ item.value }}</p>
+													<a href="tel: {{ item.key }}{{ item.value }}" style="color: #f7f7f7"><p><b>{{ item.key }}</b> {{ item.value }}</p></a>
 												{% endfor %}
 											{% endif %}
 										</div>
