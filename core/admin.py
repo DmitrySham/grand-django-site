@@ -81,10 +81,12 @@ class SiteSettingsAdmin(admin.ModelAdmin):
 
         ('Страница: 1С', {'fields': (
             'one_c_header_image',
+            'one_c_text',
         )}),
 
         ('Страница: Онлайн кассы', {'fields': (
             'online_cash_box_header_image',
+            'online_cash_box_text',
         )}),
 
         ('Страница: Элек. подписи', {'fields': (

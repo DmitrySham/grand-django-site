@@ -66,7 +66,9 @@ class SiteSettings(models.Model):
     grand_smeta_header_image = models.FileField(verbose_name='Изображение на странице "Гранд Смета"', null=True, blank=True, upload_to='grand-smeta/headers/')
     news_header_image = models.FileField(verbose_name='Изображение на странице новостей', null=True, blank=True, upload_to='blog/headers/')
     schedule_header_image = models.FileField(verbose_name='Изображение на странице "Учебный центр"', null=True, blank=True, upload_to='schedule/headers/')
+    one_c_text = models.TextField(verbose_name='Текст в 1С', null=True, blank=True)
     one_c_header_image = models.FileField(verbose_name='Изображение на странице "1C"', null=True, blank=True, upload_to='1c/headers/')
+    online_cash_box_text = models.TextField(verbose_name='Текст в Онлайн-кассах', null=True, blank=True)
     online_cash_box_header_image = models.FileField(verbose_name='Изображение на странице "Онлайн Кассы"', null=True, blank=True, upload_to='online-cahs-box/headers/')
     electronic_signature_header_image = models.FileField(verbose_name='Изображение на странице "Электронные подписи"', null=True, blank=True, upload_to='electronic-signature/headers/')
 

@@ -85,5 +85,20 @@
 	<!-- Shop Grid END -->
 
 
+    <!-- Number Boxes START -->
+<div class="section-block-grey">
+	<div class="container">
+		<div  class="section-heading justify-content-center">
+
+
+			{% if site_settings and site_settings.one_c_text %}
+				{{ site_settings.one_c_text|split_lines|safe }}
+			{% endif %}
+		</div>
+	</div>
+</div>
+<!-- Number Boxes END -->
+
+
 
 {% endblock %}
