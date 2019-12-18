@@ -3,5 +3,8 @@ Disallow: /media
 Disallow: /*.css$
 Disallow: /static
 
-Host: https://www.grand75.ru/
-Sitemap: https://www.grand75.ru/sitemap.xml
+Host: https://grand75.ru/
+Sitemap: https://grand75.ru/sitemap.xml
+
+
+
