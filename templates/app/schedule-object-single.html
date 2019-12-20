@@ -73,9 +73,18 @@
 {#		</div>#}
 {#	</div>#}
 {#	<!-- Page Title END -->#}
+    <!-- Page Title START -->
+		<div class="container xleb mt-50">
+			<ul>
+				<li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'schedule:list' %}">Учебный Центр</a></li>
+				<li><a href="{% url 'schedule:single' slug=course.slug %}">{{ course.title }}</a></li>
+			</ul>
+		</div>
+	<!-- Page Title END -->
 
 
-	<div class="section-block-grey">
+	<div class="section-block">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 col-sm-6 col-12">

@@ -71,3 +71,14 @@ p {
     padding-right: 13px;
     cursor: pointer;
 }
+
+.xleb ul li:after {
+    content: ' \f105';
+    color: #111;
+    font-family: 'FontAwesome';
+    padding: 0px 10px;
+}
+
+.xleb li {
+    display: inline-block
+}

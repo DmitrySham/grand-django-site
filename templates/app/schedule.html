@@ -37,6 +37,16 @@
 {% endblock %}
 
 {% block content %}
+    <!-- Page Title START -->
+		<div class="container xleb mt-50">
+			<ul>
+				<li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'schedule:list' %}">Учебный Центр</a></li>
+				<li><a href="{% url 'schedule:base_view' %}">Расписание</a></li>
+			</ul>
+		</div>
+	<!-- Page Title END -->
+
 	<div class="section-block" style="color: #111;">
 		<div class="section-heading">
 			<h1 class="text-center">Расписание</h1>

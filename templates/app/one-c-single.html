@@ -34,6 +34,17 @@
 
 {% block content %}
 
+
+    <!-- Page Title START -->
+		<div class="container xleb mt-50">
+			<ul>
+				<li><a href="{% url 'index' %}">Главная</a></li>
+				<li><a href="{% url 'production:one_c_list' %}">1С</a></li>
+                <li><a href="">{{ one_c_object.title }}</a></li>
+			</ul>
+		</div>
+	<!-- Page Title END -->
+
 	<!-- Shop Single START -->
 	<div class="section-block">
 		<div class="container">

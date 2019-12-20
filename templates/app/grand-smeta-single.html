@@ -27,6 +27,16 @@
 {% endblock %}
 
 {% block content %}
+    <!-- Page Title START -->
+		<div class="container xleb mt-50">
+			<ul>
+				<li><a href="{% url 'index' %}">Главная</a></li>
+				<li><a href="{% url 'core:grand_smeta_list' %}">ГрандСмета</a></li>
+                <li><a href="">{{ grand_smeta.title }}</a></li>
+			</ul>
+		</div>
+	<!-- Page Title END -->
+
 	<div class="section-block-grey">
 		<div class="container">
 			<div class="row">

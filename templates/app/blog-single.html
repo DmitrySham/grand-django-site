@@ -27,6 +27,17 @@
 {% endblock %}
 
 {% block content %}
+    <!-- Page Title START -->
+		<div class="container xleb mt-50">
+			<ul>
+				<li><a href="{% url 'index' %}">Главная</a></li>
+				<li><a href="{% url 'blog:list' %}">Новости</a></li>
+                <li><a href="">{{ post.title }}</a></li>
+			</ul>
+		</div>
+	<!-- Page Title END -->
+
+
 	<!-- Blog Post START -->
 	<div class="section-block">
 		<div class="container">

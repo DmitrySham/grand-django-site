@@ -42,10 +42,19 @@
 {#	</div>#}
 {#	<!-- Page Title END -->#}
 
+    <!-- Page Title START -->
+		<div class="container xleb mt-50">
+			<ul>
+				<li><a href="{% url 'index' %}">Главная</a></li>
+				<li><a href="{% url 'blog:list' %}">Новости</a></li>
+			</ul>
+		</div>
+	<!-- Page Title END -->
+
 
 
 	<!-- Blog Grid START -->
-	<div class="section-block-grey">
+	<div class="section-block">
 		<div class="container">
 			<div class="row">
 
