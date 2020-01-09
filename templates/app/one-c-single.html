@@ -72,12 +72,14 @@
 					</div>
 				</div>
 				<div class="col-md-6 col-sm-6 col-12">
-					<div class="single-product">
-						<h1>{{ one_c_object.title }}</h1>
+					<div itemscope itemtype="http://schema.org/Product"  class="single-product">
+						<h1 itemprop="name">{{ one_c_object.title }}</h1>
 
 						<!-- Price Start -->
-						<div class="single-product-price">
+						<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="single-product-price">
 							<h4 id="price-tag">{{ one_c_object.price_box|parse_json|get_first_item:'value' }}</h4>
+                            <meta itemprop="price" content="{{ one_c_object.price_box|parse_json|get_first_item:'value' }}">
+                            <meta itemprop="priceCurrency" content="RUB">
 						</div>
 						<!-- Price End -->
 
