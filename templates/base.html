@@ -67,6 +67,45 @@
 
 	<!-- Fonts Google -->
 	<link href="https://fonts.googleapis.com/css?family=Fira+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <style>
+        ul > li {
+            list-style-type: circle;
+        }
+
+        .checkout-button{
+            background: #f7c605;
+            padding: 2% 20%;
+            border-radius: 5px;
+        }
+
+        .checkout-button:hover {
+            background: #111;
+            color: #fff;
+            text-shadow: none;
+        }
+
+        .checkout-form input, .checkout-form textarea{
+            border: 1px solid #111;
+            border-radius: 5px;
+            background: #f7f7f7;
+        }
+        .checkout-form textarea {
+            height: 25vh;
+        }
+        .checkout-form button{
+            width: 100%;
+            background: #f7c605;
+            padding: 2% 20%;
+            border-radius: 5px;
+        }
+
+        .checkout-form button:hover {
+            background: #111;
+            color: #fff;
+            text-shadow: none;
+        }
+
+    </style>
 	{% block extra_css %}{% endblock %}
 
 	{% block seo %}{% endblock %}

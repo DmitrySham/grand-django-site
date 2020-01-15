@@ -70,6 +70,14 @@
 
 						<!-- End Product Images Slider -->
 					</div>
+
+                    <!-- Start Checkout button -->
+                    <div class="container text-center">
+                        <button type="button" class="center checkout-button" data-toggle="modal" data-target="#checkoutModal" >
+                            Оформить заказ
+                        </button>
+                    </div>
+                     <!-- End Checkout button -->
 				</div>
 				<div class="col-md-6 col-sm-6 col-12">
 					<div itemscope itemtype="http://schema.org/Product"  class="single-product">
@@ -113,7 +121,7 @@
 	</div>
 	<!-- Shop Single END -->
 
-
+    {% include 'modals/checkout-modal.html' %}
 
 {% endblock %}
 
