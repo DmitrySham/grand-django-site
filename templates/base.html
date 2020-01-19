@@ -5,74 +5,109 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150063230-1"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
 
-      gtag('config', 'UA-150063230-1');
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-150063230-1');
     </script>
 
     <!-- Yandex.Metrika counter -->
-    <script type="text/javascript" >
-       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-       m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () {
+                (m[i].a = m[i].a || []).push(arguments)
+            };
+            m[i].l = 1 * new Date();
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-       ym(55858624, "init", {
-            clickmap:true,
-            trackLinks:true,
-            accurateTrackBounce:true
-       });
+        ym(55858624, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true
+        });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/55858624" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/55858624" style="position:absolute; left:-9999px;" alt=""/></div>
+    </noscript>
     <!-- /Yandex.Metrika counter -->
 
-	<meta name="yandex-verification" content="845f58260cc82f57" />
+    <meta name="yandex-verification" content="845f58260cc82f57"/>
 
     <script src="//code-ya.jivosite.com/widget/Y6THuEtv1C" async></script>
 
-	<title>{% block title %}{% endblock %} | Центр ГРАНД</title>
-	<meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} | Центр ГРАНД</title>
+    <meta charset="UTF-8">
 
-	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-	<!-- Bootstrap CSS-->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
 
-	<!-- Font-Awesome -->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
 
-	<!-- Icomoon -->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/icomoon.css' %}">
+    <!-- Icomoon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/icomoon.css' %}">
 
-	<!-- Slider -->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/swiper.min.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/slider.css' %}">
+    <!-- Slider -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/swiper.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/slider.css' %}">
 
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
 
     <!-- Color Switcher -->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/switcher.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/switcher.css' %}">
 
-	<!-- Owl Carousel  -->
+    <!-- Owl Carousel  -->
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
 
-	<!-- Main Styles -->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" id="colors">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-{#	<link rel="stylesheet" href="{% static 'dist/app.min.css' %}">#}
+    <!-- Main Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" id="colors">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    {#	<link rel="stylesheet" href="{% static 'dist/app.min.css' %}">#}
 
-	<!-- Fonts Google -->
-	<link href="https://fonts.googleapis.com/css?family=Fira+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <!-- Fonts Google -->
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <style>
         ul > li {
             list-style-type: circle;
         }
 
-        .checkout-button{
+        @media (min-width: 768px) {
+            .mobile {
+                display: none;
+            }
+            .web{
+                display: block;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .mobile {
+                display: block;
+                padding: 0;
+                margin-top: 40px;
+            }
+
+            .mobile .checkout-button{
+                width: 100%;
+            }
+            .web{
+                display: none;
+            }
+        }
+
+        .checkout-button {
             background: #f7c605;
             padding: 2% 20%;
             border-radius: 5px;
@@ -84,15 +119,17 @@
             text-shadow: none;
         }
 
-        .checkout-form input, .checkout-form textarea{
+        .checkout-form input, .checkout-form textarea {
             border: 1px solid #111;
             border-radius: 5px;
             background: #f7f7f7;
         }
+
         .checkout-form textarea {
             height: 25vh;
         }
-        .checkout-form button{
+
+        .checkout-form button {
             width: 100%;
             background: #f7c605;
             padding: 2% 20%;
@@ -106,233 +143,231 @@
         }
 
     </style>
-	{% block extra_css %}{% endblock %}
+    {% block extra_css %}{% endblock %}
 
-	{% block seo %}{% endblock %}
+    {% block seo %}{% endblock %}
 </head>
 <body>
 
 
-
 <!-- Preloader Start-->
 <div id="preloader">
-	<div class="row loader">
-		<div class="loader-icon"></div>
-	</div>
+    <div class="row loader">
+        <div class="loader-icon"></div>
+    </div>
 </div>
 <!-- Preloader End -->
 
 
-
 <!-- Top-Bar START -->
 <div id="top-bar" class="hidden-sm-down">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-9 col-12">
-				<div class="top-bar-welcome">
-				<ul>
-					<li>Добро пожаловать!</li>
-				</ul>
-				</div>
-				<div class="top-bar-info">
-					<ul>
-						{% if site_settings and site_settings.header_phone %}
-							<li><i class="fa fa-phone"></i>{{ site_settings.header_phone|safe }}<li>
-						{% endif %}
-						{% if site_settings and site_settings.header_email %}
-							<li><i class="fa fa-envelope"></i><a href="mailto:{{ site_settings.header_email }}" style="color: #fff;">{{ site_settings.header_email }}</a><li>
-						{% endif %}
-					</ul>
-				</div>
-			</div>
-			{% if site_settings and site_settings.socialprofilelinks_set.count > 0 %}
-				<div class="col-md-3 col-12">
-					<ul class="social-icons hidden-md-down">
-						{% for item in site_settings.socialprofilelinks_set.all %}
-							<li><a href="{{ item.url }}" target="_blank"><i class="{{ item.icon }}"></i></a></li>
-						{% endfor %}
-					</ul>
-				</div>
-			{% endif %}
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-12">
+                <div class="top-bar-welcome">
+                    <ul>
+                        <li>Добро пожаловать!</li>
+                    </ul>
+                </div>
+                <div class="top-bar-info">
+                    <ul>
+                        {% if site_settings and site_settings.header_phone %}
+                            <li><i class="fa fa-phone"></i>{{ site_settings.header_phone|safe }}
+                            <li>
+                        {% endif %}
+                        {% if site_settings and site_settings.header_email %}
+                            <li><i class="fa fa-envelope"></i><a href="mailto:{{ site_settings.header_email }}"
+                                                                 style="color: #fff;">{{ site_settings.header_email }}</a>
+                            <li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            {% if site_settings and site_settings.socialprofilelinks_set.count > 0 %}
+                <div class="col-md-3 col-12">
+                    <ul class="social-icons hidden-md-down">
+                        {% for item in site_settings.socialprofilelinks_set.all %}
+                            <li><a href="{{ item.url }}" target="_blank"><i class="{{ item.icon }}"></i></a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 </div>
 <!-- Top-Bar END -->
 
 
-
 <!-- Navbar START -->
 <header style="position: relative;z-index: 101;">
-	<nav id="navigation4" class="container navigation">
-		<div class="nav-header">
-			<a class="nav-brand" href="{% url 'index' %}">
-				<img src="{% static 'img/Logo12.svg' %}" class="main-logo" alt="logo" id="main_logo">
-			</a>
-			<div class="nav-toggle"></div>
-		</div>
-		<div class="nav-menus-wrapper">
-			<ul class="nav-menu align-to-right">
-				<li>
-					<a href="{% url 'index' %}">Главная</a>
-				</li>
-{#				<li>#}
-{#					<a href="{% url 'blog:list' %}">Новости</a>#}
-{#				</li>#}
-				<li>
-					<a href="{% url 'schedule:list' %}">Учебный Центр</a>
-				</li>
-				<li>
-					<a href="{% url 'production:one_c_list' %}">1С</a>
-				</li>
-				<li>
-					<a href="{% url 'production:online_cashbox_list' %}">Онлайн-Кассы</a>
-				</li>
-				<li>
-					<a href="https://grand75.kontur-partner.ru/ca" target="_blank">Эл.подписи</a>
-				</li>
-				<li>
-					<a href="{% url 'core:grand_smeta_list' %}">ГрандСмета</a>
-				</li>
-				<li>
-					<a href="{% url 'core:contacts' %}">Контакты</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
+    <nav id="navigation4" class="container navigation">
+        <div class="nav-header">
+            <a class="nav-brand" href="{% url 'index' %}">
+                <img src="{% static 'img/Logo12.svg' %}" class="main-logo" alt="logo" id="main_logo">
+            </a>
+            <div class="nav-toggle"></div>
+        </div>
+        <div class="nav-menus-wrapper">
+            <ul class="nav-menu align-to-right">
+                <li>
+                    <a href="{% url 'index' %}">Главная</a>
+                </li>
+                {#				<li>#}
+                {#					<a href="{% url 'blog:list' %}">Новости</a>#}
+                {#				</li>#}
+                <li>
+                    <a href="{% url 'schedule:list' %}">Учебный Центр</a>
+                </li>
+                <li>
+                    <a href="{% url 'production:one_c_list' %}">1С</a>
+                </li>
+                <li>
+                    <a href="{% url 'production:online_cashbox_list' %}">Онлайн-Кассы</a>
+                </li>
+                <li>
+                    <a href="https://grand75.kontur-partner.ru/ca" target="_blank">Эл.подписи</a>
+                </li>
+                <li>
+                    <a href="{% url 'core:grand_smeta_list' %}">ГрандСмета</a>
+                </li>
+                <li>
+                    <a href="{% url 'core:contacts' %}">Контакты</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </header>
 <!-- Navbar END -->
-
-
 
 
 {% block content %}{% endblock %}
 
 
-
-
 <!-- Footer START -->
 <footer>
-	<div class="container">
-		<div class="row">
-			<!-- Column 1 Start -->
-			<div class="col-md-4 col-sm-6 col-12">
-				<h3>О Нас</h3>
-				<div class="mt-25">
-{#					<img src="{% static 'img/logo1.svg' %}" alt="footer-logo">#}
-					{% if site_settings and site_settings.footer_description %}
-						<div class="mt-25 white-color">
-							{{ site_settings.footer_description|split_lines|safe }}
-						</div>
-					{% endif %}
+    <div class="container">
+        <div class="row">
+            <!-- Column 1 Start -->
+            <div class="col-md-4 col-sm-6 col-12">
+                <h3>О Нас</h3>
+                <div class="mt-25">
+                    {#					<img src="{% static 'img/logo1.svg' %}" alt="footer-logo">#}
+                    {% if site_settings and site_settings.footer_description %}
+                        <div class="mt-25 white-color">
+                            {{ site_settings.footer_description|split_lines|safe }}
+                        </div>
+                    {% endif %}
 
-					{% if site_settings and site_settings.socialprofilelinks_set.count > 0 %}
-						<div class="footer-social-icons mt-25">
-							<ul>
-								{% for item in site_settings.socialprofilelinks_set.all %}
-									<li><a href="{{ item.url }}" target="_blank"><i class="{{ item.icon }}"></i></a></li>
-								{% endfor %}
-							</ul>
-						</div>
-					{% endif %}
-				</div>
+                    {% if site_settings and site_settings.socialprofilelinks_set.count > 0 %}
+                        <div class="footer-social-icons mt-25">
+                            <ul>
+                                {% for item in site_settings.socialprofilelinks_set.all %}
+                                    <li><a href="{{ item.url }}" target="_blank"><i class="{{ item.icon }}"></i></a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
 
-				<div itemscope itemtype="http://schema.org/Organization" style="display: none;">
+                <div itemscope itemtype="http://schema.org/Organization" style="display: none;">
 
-					<span itemprop="name">ГРАНД Центр</span>
+                    <span itemprop="name">ГРАНД Центр</span>
 
-					Контакты:
+                    Контакты:
 
-					<div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
 
-						Адрес:
+                        Адрес:
 
-						<span itemprop="streetAddress">Бабушкина, 104,</span>
+                        <span itemprop="streetAddress">Бабушкина, 104,</span>
 
-						<span itemprop="addressLocality">Чита</span>,
+                        <span itemprop="addressLocality">Чита</span>,
 
-					</div>
+                    </div>
 
-					Телефон:<span itemprop="telephone">7-3022-35-72-15</span>,<span itemprop="telephone">7-3022-35-81-87</span>
+                    Телефон:<span itemprop="telephone">7-3022-35-72-15</span>,<span
+                        itemprop="telephone">7-3022-35-81-87</span>
 
-					Электронная почта: <span itemprop="email">chitagrand@mail.ru</span>
+                    Электронная почта: <span itemprop="email">chitagrand@mail.ru</span>
 
-				</div>
-			</div>
-			<!-- Column 1 End -->
+                </div>
+            </div>
+            <!-- Column 1 End -->
 
-			<!-- Column 2 Start -->
-			<div class="col-md-4 col-sm-6 col-12">
-				<h3>Карта сайта</h3>
-				{% if site_settings and site_settings.footermenulinks_set.count > 0 %}
-					<ul class="footer-list">
-						{% for item in site_settings.footermenulinks_set.all %}
-							<li><a href="{{ item.link }}"{% if item.on_blank %} target="_blank"{% endif %}>{{ item.title }}</a></li>
-						{% endfor %}
-					</ul>
-				{% endif %}
-			</div>
-			<!-- Column 2 End -->
+            <!-- Column 2 Start -->
+            <div class="col-md-4 col-sm-6 col-12">
+                <h3>Карта сайта</h3>
+                {% if site_settings and site_settings.footermenulinks_set.count > 0 %}
+                    <ul class="footer-list">
+                        {% for item in site_settings.footermenulinks_set.all %}
+                            <li><a href="{{ item.link }}"{% if item.on_blank %}
+                                   target="_blank"{% endif %}>{{ item.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <!-- Column 2 End -->
 
-			<!-- Column 3 Start -->
-			<div class="col-md-4 col-sm-6 col-12">
-				<h3>Свежие Новости</h3>
-				<div class="mt-25">
-					{% for post in last_posts %}
-						<!-- Post Start -->
-                    <a href="{% url 'blog:single' slug=post.slug %}">
-						<div class="footer-recent-post clearfix">
-							<div class="footer-recent-post-thumb">
-								<img src="{% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}http://via.placeholder.com/65x65{% endif %}" alt="img">
-							</div>
-							<div class="footer-recent-post-content">
-								<span>{{ post.created_at|date }} {{ post.created_at|time }}</span>
-								<a href="{% url 'blog:single' slug=post.slug %}">{{ post.title|slice:"0:20" }}...</a>
-							</div>
-						</div>
-                    </a>
-						<!-- Post End -->
-					{% endfor %}
-				</div>
-			</div>
-			<!-- Column 3 End -->	
-{#			<!-- Column 4 Start -->#}
-{#			<div class="col-md-2 col-sm-6 col-12">#}
-{#				<h3>Тэги</h3>#}
-{#				<div class="footer-tags mt-25">#}
-{#					<a href="#">Business</a>#}
-{#					<a href="#">Conusltant</a>#}
-{#					<a href="#">Coach</a>#}
-{#					<a href="#">UX</a>#}
-{#					<a href="#">API</a>#}
-{#					<a href="#">Reputation</a>#}
-{#					<a href="#">Research</a>#}
-{#					<a href="#">Sale</a>#}
-{#					<a href="#">Service</a>#}
-{#					<a href="#">UI</a>#}
-{#					<a href="#">Web</a>#}
-{#					<a href="#">WebDesign</a>#}
-{#				</div>#}
-{#			</div>#}
-{#			<!-- Column 4 End -->		#}
-		</div>
+            <!-- Column 3 Start -->
+            <div class="col-md-4 col-sm-6 col-12">
+                <h3>Свежие Новости</h3>
+                <div class="mt-25">
+                    {% for post in last_posts %}
+                        <!-- Post Start -->
+                        <a href="{% url 'blog:single' slug=post.slug %}">
+                            <div class="footer-recent-post clearfix">
+                                <div class="footer-recent-post-thumb">
+                                    <img src="
+                                            {% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}http://via.placeholder.com/65x65{% endif %}"
+                                         alt="img">
+                                </div>
+                                <div class="footer-recent-post-content">
+                                    <span>{{ post.created_at|date }} {{ post.created_at|time }}</span>
+                                    <a href="{% url 'blog:single' slug=post.slug %}">{{ post.title|slice:"0:20" }}...</a>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- Post End -->
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Column 3 End -->
+            {#			<!-- Column 4 Start -->#}
+            {#			<div class="col-md-2 col-sm-6 col-12">#}
+            {#				<h3>Тэги</h3>#}
+            {#				<div class="footer-tags mt-25">#}
+            {#					<a href="#">Business</a>#}
+            {#					<a href="#">Conusltant</a>#}
+            {#					<a href="#">Coach</a>#}
+            {#					<a href="#">UX</a>#}
+            {#					<a href="#">API</a>#}
+            {#					<a href="#">Reputation</a>#}
+            {#					<a href="#">Research</a>#}
+            {#					<a href="#">Sale</a>#}
+            {#					<a href="#">Service</a>#}
+            {#					<a href="#">UI</a>#}
+            {#					<a href="#">Web</a>#}
+            {#					<a href="#">WebDesign</a>#}
+            {#				</div>#}
+            {#			</div>#}
+            {#			<!-- Column 4 End -->		#}
+        </div>
 
-		<!-- Footer Bar Start -->
-		<div class="footer-bar">
-            <p><span class="primary-color">Grand75</span> <span class="white-color"> © 2020. Все права защищены.</span> <small style="color: rgba(255, 255, 255, 0.3);">Версия сайта: {{ site_version }}</small></p>
-		</div>
-		<!-- Footer Bar End -->		
-	</div>
+        <!-- Footer Bar Start -->
+        <div class="footer-bar">
+            <p><span class="primary-color">Grand75</span> <span class="white-color"> © 2020. Все права защищены.</span>
+                <small style="color: rgba(255, 255, 255, 0.3);">Версия сайта: {{ site_version }}</small></p>
+        </div>
+        <!-- Footer Bar End -->
+    </div>
 </footer>
 <!-- Footer END -->
 
 
-
-
 <!-- Scroll to top button Start -->
-<a href="#" class="scroll-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>	
+<a href="#" class="scroll-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
 <!-- Scroll to top button End -->
-
-
 
 
 {##}
@@ -385,13 +420,13 @@
 <script src="{% static 'dist/app.min.js' %}"></script>
 
 <script>
-	const getCookie = name => {
+    const getCookie = name => {
 
-            let matches = document.cookie.match(new RegExp(
-                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-            ));
-            return matches ? decodeURIComponent(matches[1]) : undefined
-        };
+        let matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined
+    };
 </script>
 
 {% block extra_js %}{% endblock %}

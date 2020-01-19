@@ -2,124 +2,144 @@
 
 {% load staticfiles product_template_helper %}
 
-{% block title %}{% if one_c_object.page_title %}{{ one_c_object.page_title }}{% else %}{{ one_c_object.title }}{% endif %}{% endblock %}
+{% block title %}{% if one_c_object.page_title %}{{ one_c_object.page_title }}{% else %}{{ one_c_object.title }}
+{% endif %}{% endblock %}
 
 {% block extra_css %}
-	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
-	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
-	<link rel="stylesheet" href="{% static 'css/lightgallery.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/lightgallery.min.css' %}">
 {% endblock %}
 
 {% block seo %}
-	{% if one_c_object.page_meta_keywords %}
-		<meta name="keywords" content="{{ one_c_object.page_meta_keywords }}" />
-	{% endif %}
+    {% if one_c_object.page_meta_keywords %}
+        <meta name="keywords" content="{{ one_c_object.page_meta_keywords }}"/>
+    {% endif %}
 
-	{% if one_c_object.page_meta_description %}
-		<meta name="description" content="{{ one_c_object.page_meta_description }}" />
-	{% endif %}
+    {% if one_c_object.page_meta_description %}
+        <meta name="description" content="{{ one_c_object.page_meta_description }}"/>
+    {% endif %}
 
-	{% if one_c_object.page_meta_og_title %}
-		<meta name="og:title" content="{{ one_c_object.page_meta_og_title }}" />
-	{% endif %}
+    {% if one_c_object.page_meta_og_title %}
+        <meta name="og:title" content="{{ one_c_object.page_meta_og_title }}"/>
+    {% endif %}
 
-	{% if one_c_object.page_meta_og_description %}
-		<meta name="og:description" content="{{ one_c_object.page_meta_og_description }}" />
-	{% endif %}
+    {% if one_c_object.page_meta_og_description %}
+        <meta name="og:description" content="{{ one_c_object.page_meta_og_description }}"/>
+    {% endif %}
 
-	{% if one_c_object.page_meta_og_image %}
-		<meta name="og:image" content="{{ one_c_object.page_meta_og_image }}" />
-	{% endif %}
+    {% if one_c_object.page_meta_og_image %}
+        <meta name="og:image" content="{{ one_c_object.page_meta_og_image }}"/>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
 
 
     <!-- Page Title START -->
-		<div class="container xleb mt-50">
-			<ul>
-				<li><a href="{% url 'index' %}">Главная</a></li>
-				<li><a href="{% url 'production:one_c_list' %}">1С</a></li>
-                <li><a href="">{{ one_c_object.title }}</a></li>
-			</ul>
-		</div>
-	<!-- Page Title END -->
+    <div class="container xleb mt-50">
+        <ul>
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            <li><a href="{% url 'production:one_c_list' %}">1С</a></li>
+            <li><a href="">{{ one_c_object.title }}</a></li>
+        </ul>
+    </div>
+    <!-- Page Title END -->
 
-	<!-- Shop Single START -->
-	<div class="section-block">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 col-sm-6 col-12">
-					<!-- Product Images & Alternates -->
-					<div class="product-images">
-						<!-- Begin Product Images Slider -->
-						<div id="slick-target">
-							<div class="main-img-slider" data-src="{{ one_c_object.thumbnail.url }}">
-								<figure>
-									<img src="{{ one_c_object.thumbnail.url }}" alt="{{ one_c_object.image_title_alt }}" />
-								</figure>
-							</div>
-							{% for slide in one_c_object.onecimage_set.all %}
-								<div class="main-img-slider" data-src="{{ slide.image.url }}">
-									<figure>
-										<img src="{{ slide.image.url }}" alt="{% if slide.image_title %}{{ slide.image_title }}{% else %}{{ slide.image.name }}{% endif %}" />
-									</figure>
-								</div>
-							{% endfor %}
-						</div>
+    <!-- Shop Single START -->
+    <div class="section-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-12">
+                    <!-- Product Images & Alternates -->
+                    <div class="product-images">
+                        <!-- Begin Product Images Slider -->
+                        <div id="slick-target">
+                            <div class="main-img-slider" data-src="{{ one_c_object.thumbnail.url }}">
+                                <figure>
+                                    <img src="{{ one_c_object.thumbnail.url }}"
+                                         alt="{{ one_c_object.image_title_alt }}"/>
+                                </figure>
+                            </div>
+                            {% for slide in one_c_object.onecimage_set.all %}
+                                <div class="main-img-slider" data-src="{{ slide.image.url }}">
+                                    <figure>
+                                        <img src="{{ slide.image.url }}" alt="
 
-						<!-- End Product Images Slider -->
-					</div>
+                                                {% if slide.image_title %}{{ slide.image_title }}{% else %}{{ slide.image.name }}{% endif %}"/>
+                                    </figure>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- End Product Images Slider -->
+                    </div>
 
                     <!-- Start Checkout button -->
-                    <div class="container text-center">
-                        <button type="button" class="center checkout-button" data-toggle="modal" data-target="#checkoutModal" >
+                    <div class="container text-center web">
+                        <button type="button" class="center checkout-button" data-toggle="modal"
+                                data-target="#checkoutModal">
                             Оформить заказ
                         </button>
                     </div>
-                     <!-- End Checkout button -->
-				</div>
-				<div class="col-md-6 col-sm-6 col-12">
-					<div itemscope itemtype="http://schema.org/Product"  class="single-product">
-						<h1 itemprop="name">{{ one_c_object.title }}</h1>
+                    <!-- End Checkout button -->
+                </div>
+                <div class="col-md-6 col-sm-6 col-12">
+                    <div itemscope itemtype="http://schema.org/Product" class="single-product">
+                        <h1 itemprop="name">{{ one_c_object.title }}</h1>
 
-						<!-- Price Start -->
-						<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="single-product-price">
-							<h4 id="price-tag">{{ one_c_object.price_box|parse_json|get_first_item:'value' }}</h4>
-                            <meta itemprop="price" content="{{ one_c_object.price_box|parse_json|get_first_item:'value' }}">
+                        <!-- Price Start -->
+                        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer"
+                             class="single-product-price">
+                            <h4 id="price-tag">{{ one_c_object.price_box|parse_json|get_first_item:'value' }}</h4>
+                            <meta itemprop="price"
+                                  content="{{ one_c_object.price_box|parse_json|get_first_item:'value' }}">
                             <meta itemprop="priceCurrency" content="RUB">
-						</div>
-						<!-- Price End -->
+                        </div>
+                        <!-- Price End -->
 
-						<div class="price-box">
-							<ul id="price-box">
-								{% for item in one_c_object.price_box|parse_json %}
-									<li{% if forloop.counter0 == 0 %} class="active"{% endif %} data-value="{{ item.value }}" data-id="{{ item.id }}">{{ item.key }}</li>
-								{% endfor %}
-							</ul>
-						</div>
+                        <!-- Start Mobile Checkout button -->
+                        <div class="container text-center mobile">
+                            <button type="button" class="center checkout-button" data-toggle="modal"
+                                    data-target="#checkoutModal">
+                                Оформить заказ
+                            </button>
+                        </div>
+                        <!-- End Mobile Checkout button -->
 
-						{{ one_c_object.short_description|split_lines|safe }}
+                        <div class="price-box">
+                            <ul id="price-box">
+                                {% for item in one_c_object.price_box|parse_json %}
+                                    <li{% if forloop.counter0 == 0 %} class="active"{% endif %}
+                                                                      data-value="{{ item.value }}"
+                                                                      data-id="{{ item.id }}">{{ item.key }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
 
-						<div class="product-share mt-20">
-							<span>Поделиться: </span>
-							{% for item in one_c_object.share_links.all %}
-								<a href="{% normalize_social_link item.url request title=one_c_object.title description=one_c_object.short_description image=one_c_object.thumbnail %}" target="_blank"><i class="fa fa-{{ item.icon }}"></i></a>
-							{% endfor %}
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
-		<div class="container mt-50">
-			<div class="section-heading ">
-				<div class="section-heading-line"></div>
-				{{ one_c_object.full_description|split_lines|safe }}
-			</div>
-		</div>
-	</div>
-	<!-- Shop Single END -->
+                        {{ one_c_object.short_description|split_lines|safe }}
+
+                        <div class="product-share mt-20">
+                            <span>Поделиться: </span>
+                            {% for item in one_c_object.share_links.all %}
+                                <a href="{% normalize_social_link item.url request title=one_c_object.title description=one_c_object.short_description image=one_c_object.thumbnail %}"
+                                   target="_blank"><i class="fa fa-{{ item.icon }}"></i></a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-50">
+            <div class="section-heading ">
+                <div class="section-heading-line"></div>
+                {{ one_c_object.full_description|split_lines|safe }}
+            </div>
+        </div>
+    </div>
+    <!-- Shop Single END -->
 
     {% include 'modals/checkout-modal.html' %}
 
@@ -127,28 +147,73 @@
 
 
 {% block extra_js %}
-	<script src="{% static 'js/lightgallery.min.js' %}"></script>
-	<script src="{% static 'slick/slick.min.js' %}"></script>
-	<script src="{% static 'js/price-box.js' %}"></script>
-	<script>
-		$(document).ready(() => {
-			let priceBox = new PriceBox();
-			priceBox.init();
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script src="{% static 'js/lightgallery.min.js' %}"></script>
+    <script src="{% static 'slick/slick.min.js' %}"></script>
+    <script src="{% static 'js/price-box.js' %}"></script>
+    <script>
+        $(document).ready(() => {
+            $('#checkoutForm').on('submit', function (e) {
+                e.preventDefault();
+
+                var token = '{{ csrf_token }}';
+                var name = $('#id_name');
+                var email = $('#id_email');
+                var message = $('#id_message');
+                var model_id = '{{ one_c_object.pk }}';
+                var model_name = 'onec';
+
+                console.log(name, email, message);
+
+                var data = {
+                    csrfmiddlewaretoken: getCookie('csrftoken'),
+                    'name': name,
+                    'email': email,
+                    'message': message,
+                    'model_id': model_id,
+                    'model_name': model_name,
+                };
+                console.log('data: ', data);
+
+                $.ajax({
+                    url: "{% url 'checkouts:checkout_request' %}",
+                    {#headers: {"X-CSRFToken": token},#}
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: data,
+
+                    success: function (response) {
+                        console.log("response");
+                        console.log(response);
+                        alert(response.message)
+                    },
+                    error: function (request, errThrown, errObject) {
+                        console.error(request, errThrown, errObject);
+                    }
+                })
+            })
+        });
+
+    </script>
+    <script>
+        $(document).ready(() => {
+            let priceBox = new PriceBox();
+            priceBox.init();
 
 
-			let slickGallerySlider = $('#slick-target');
+            let slickGallerySlider = $('#slick-target');
 
-			slickGallerySlider.slick({
-				dots: true,
-				arrows: true,
-				autoplay: true,
-				adaptiveHeight: true,
-				infinite: true
-			});
+            slickGallerySlider.slick({
+                dots: true,
+                arrows: true,
+                autoplay: true,
+                adaptiveHeight: true,
+                infinite: true
+            });
 
-			slickGallerySlider.lightGallery({
-				selector: '.main-img-slider'
-			});
-		});
-	</script>
+            slickGallerySlider.lightGallery({
+                selector: '.main-img-slider'
+            });
+        });
+    </script>
 {% endblock %}
