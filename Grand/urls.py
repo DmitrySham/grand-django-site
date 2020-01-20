@@ -39,6 +39,7 @@ urlpatterns = [
     path('core/', include(('core.urls', 'core'))),
     path('schedule/', include(('schedule.urls', 'schedule'))),
     path('news/', include(('blog.urls', 'blog'))),
+    path('checkouts/', include(('checkouts.urls', 'checkouts'))),
 
     path('yandex_88e2184967f12b8a.html', TemplateView.as_view(template_name='yandex_88e2184967f12b8a.html')),
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
