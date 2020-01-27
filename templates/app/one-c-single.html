@@ -156,14 +156,11 @@
             $('#checkoutForm').on('submit', function (e) {
                 e.preventDefault();
 
-                let token = '{{ csrf_token }}';
                 let name = $('#id_name').val();
                 let email = $('#id_email').val();
                 let message = $('#id_message').val();
                 let model_id = '{{ one_c_object.pk }}';
                 let model_name = 'onec';
-
-                console.log(name, email, message);
 
                 let data = {
                     csrfmiddlewaretoken: getCookie('csrftoken'),
@@ -173,18 +170,16 @@
                     'model_id': model_id,
                     'model_name': model_name,
                 };
-                console.log('data: ', data);
+
+                $('#checkoutModal').modal("hide");
 
                 $.ajax({
                     url: "{% url 'checkouts:checkout_request' %}",
-                    {#headers: {"X-CSRFToken": token},#}
                     method: 'POST',
                     dataType: 'JSON',
                     data: data,
 
                     success: function (response) {
-                        console.log("response");
-                        console.log(response);
                         alert(response.message)
                     },
                     error: function (request, errThrown, errObject) {

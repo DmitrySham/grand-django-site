@@ -26,12 +26,8 @@ def get_model(model_name):
 
 @require_POST
 def checkout_request(request):
-    print('hihi')
     model_name = request.POST.get('model_name', None)
     model_id = request.POST.get('model_id', None)
-
-    print(model_name)
-    print(model_id)
 
     if not model_id or not model_name:
         return HttpResponse('', status=400)
@@ -65,11 +61,12 @@ def checkout_request(request):
 
         mail_response = template.render(request=request, context=context)
 
-        admin_emails = [item.email for item in AdminEmails.objects.filter(is_active=True)]
+        # admin_emails = [item.email for item in AdminEmails.objects.filter(is_active=True)]
+        admin_emails = ['tggrmi@gmail.com']
         thread = threading.Thread(
             target=send_email_notification,
             args=(
-                'Обратная связь',
+                'Заказы',
                 mail_response,
                 admin_emails
             )

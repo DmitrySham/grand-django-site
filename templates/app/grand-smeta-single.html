@@ -42,17 +42,38 @@
 			<div class="row">
 				<div class="col-md-6 col-sm-6 col-12">
 					<img src="{{ grand_smeta.thumbnail.url }}" class="rounded-border shadow-primary" alt="{{ grand_smeta.art_alt }}">
-				</div>
+				    <!-- Start Checkout button -->
+                    <div class="container text-center web mt-20">
+                        <button type="button" class="center checkout-button" data-toggle="modal"
+                                data-target="#checkoutModal">
+                            Оформить заказ
+                        </button>
+                    </div>
+                    <!-- End Checkout button -->
+                </div>
 				<div class="col-md-6 col-sm-6 col-12">
 					<div class="pr-30-md">
 						<div class="section-heading">
 							<h1>{{ grand_smeta.title }}</h1>
 							<h4>{{ grand_smeta.price }}</h4>
 						</div>
-						<div class="section-heading-line-left"></div>
+
+
+                        <!-- Start Mobile Checkout button -->
+                        <div class="container text-center mobile">
+                            <button type="button" class="center checkout-button" data-toggle="modal"
+                                    data-target="#checkoutModal">
+                                Оформить заказ
+                            </button>
+                        </div>
+                        <!-- End Mobile Checkout button -->
+
+						<div class="section-heading-line"></div>
 						<div class="text-content-big mt-20">
 							{{ grand_smeta.short_description|split_lines|safe }}
 						</div>
+
+
 					</div>
 				</div>
 
@@ -63,4 +84,51 @@
 			{{ grand_smeta.description|split_lines|safe }}
 		</div>
 	</div>
+
+    {% include 'modals/checkout-modal.html' %}
+
+{% endblock %}
+
+
+
+{% block extra_js %}
+    <script>
+        $(document).ready(() => {
+            $('#checkoutForm').on('submit', function (e) {
+                e.preventDefault();
+
+                let name = $('#id_name').val();
+                let email = $('#id_email').val();
+                let message = $('#id_message').val();
+                let model_id = '{{ grand_smeta.pk }}';
+                let model_name = 'grandsmeta';
+
+                let data = {
+                    csrfmiddlewaretoken: getCookie('csrftoken'),
+                    'name': name,
+                    'email': email,
+                    'message': message,
+                    'model_id': model_id,
+                    'model_name': model_name,
+                };
+
+                $('#checkoutModal').modal("hide");
+
+                $.ajax({
+                    url: "{% url 'checkouts:checkout_request' %}",
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: data,
+
+                    success: function (response) {
+                        alert(response.message)
+                    },
+                    error: function (request, errThrown, errObject) {
+                        console.error(request, errThrown, errObject);
+                    }
+                })
+            })
+        });
+
+    </script>
 {% endblock %}
