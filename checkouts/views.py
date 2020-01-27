@@ -1,7 +1,10 @@
 import threading
 
+import django
 from django.apps import apps
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.models import Site
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.template import loader
@@ -56,9 +59,10 @@ def checkout_request(request):
             message=instance.message,
             created_at=instance.created_at,
             link=protocol + request.get_host() + reverse(
-                'admin:%s_%s_change' % (content_type.app_label, content_type.model), args=(instance.id,))
+                'admin:%s_%s_change' % (content_type.app_label, content_type.model), args=(instance.id,)),
+            # admin_link=f"{Site.objects.get(id=settings.SITE_ID).domain}/admin/",
+            admin_link=protocol + request.get_host() + "/admin/",
         )
-
         mail_response = template.render(request=request, context=context)
 
         # admin_emails = [item.email for item in AdminEmails.objects.filter(is_active=True)]
