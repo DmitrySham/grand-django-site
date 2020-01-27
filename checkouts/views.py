@@ -65,8 +65,7 @@ def checkout_request(request):
         )
         mail_response = template.render(request=request, context=context)
 
-        # admin_emails = [item.email for item in AdminEmails.objects.filter(is_active=True)]
-        admin_emails = ['tggrmi@gmail.com']
+        admin_emails = [item.email for item in AdminEmails.objects.filter(is_active=True)]
         thread = threading.Thread(
             target=send_email_notification,
             args=(
