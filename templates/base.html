@@ -91,7 +91,8 @@
             .mobile {
                 display: none;
             }
-            .web{
+
+            .web {
                 display: block;
             }
         }
@@ -103,10 +104,11 @@
                 margin-top: 40px;
             }
 
-            .mobile .checkout-button{
+            .mobile .checkout-button {
                 width: 100%;
             }
-            .web{
+
+            .web {
                 display: none;
             }
         }
@@ -146,7 +148,7 @@
             text-shadow: none;
         }
 
-        .call-button{
+        .call-button {
             width: 100%;
             background: #f7c605;
             padding: 20px 15px;
@@ -157,6 +159,27 @@
             background: #111;
             color: #fff;
             text-shadow: none;
+        }
+
+        .privacy-policy a {
+            color: #f7c605;
+        }
+
+        .privacy-policy a:link {
+            text-decoration: none;
+        }
+
+        .privacy-policy a:visited {
+            text-decoration: none;
+        }
+
+        .privacy-policy a:hover {
+            text-decoration: underline;
+        }
+
+        .privacy-policy a:active {
+            color: black;
+            text-decoration: underline;
         }
 
     </style>
@@ -336,6 +359,7 @@
                             <div class="footer-recent-post clearfix">
                                 <div class="footer-recent-post-thumb">
                                     <img src="
+
                                             {% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}http://via.placeholder.com/65x65{% endif %}"
                                          alt="img">
                                 </div>

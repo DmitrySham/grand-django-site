@@ -102,9 +102,11 @@
                 let message = $('#id_message').val();
                 let model_id = '{{ grand_smeta.pk }}';
                 let model_name = 'grandsmeta';
+                let is_agree = $('#is_agree').is(":checked");
 
                 let data = {
                     csrfmiddlewaretoken: getCookie('csrftoken'),
+                    'is_agree': is_agree,
                     'name': name,
                     'email': email,
                     'message': message,
@@ -121,9 +123,11 @@
                     data: data,
 
                     success: function (response) {
+                        $('#checkoutModal').modal("hide");
                         alert(response.message)
                     },
                     error: function (request, errThrown, errObject) {
+                        $('#checkoutModal').modal("hide");
                         console.error(request, errThrown, errObject);
                     }
                 })
