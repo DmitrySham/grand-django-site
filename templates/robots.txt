@@ -2,6 +2,7 @@ User-agent: *
 Disallow: /media
 Disallow: /*.css$
 Disallow: /static
+Disallow: /production/electronic-signature/
 
 Host: https://grand75.ru/
 Sitemap: https://grand75.ru/sitemap.xml
