@@ -33,6 +33,7 @@ sitemaps = {
 }
 
 urlpatterns = [
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
     path('production/', include(('production.urls', 'production'))),

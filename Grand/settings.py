@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'ckeditor',
+    'ckeditor_uploader',
 
     # Project Applications
     'account',
@@ -170,6 +172,19 @@ EMAIL_HOST_PASSWORD = '19979788q'
 EMAIL_PORT = 587
 
 SITE_ID = 1
+
+
+CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
+CKEDITOR_JQUERY_URL = 'http://libs.baidu.com/jquery/2.0.3/jquery.min.js'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'language': 'ru',
+        'toolbar': 'full'
+    }
+}
 
 """
 Внимание! Очень важно импортировать параметры с файла parameters.py в последнюю очередь!

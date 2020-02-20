@@ -11,7 +11,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from blog.models import Post
 from core.forms import FeedbackForm
 from schedule.utils import send_email_notification
-from .models import GrandSmeta, Slider, Contacts, AdminEmails, Feedback
+from .models import GrandSmeta, Slider, Contacts, AdminEmails, Feedback, PrivacyPolicy
 
 
 # Create your views here.
@@ -92,3 +92,9 @@ def handler500(request, *args, **argv):
     response = render(request, 'internal_error.html', locals())
     response.status_code = 500
     return response
+
+
+def privacy_policy(request):
+    privacy_policy = PrivacyPolicy.objects.first()
+
+    return render(request, 'app/privacy-policy.html', locals())
