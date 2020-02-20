@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'schedule',
     'blog',
     'checkouts',
+    'calls',
 
     # Dependencies
     'adminsortable2',

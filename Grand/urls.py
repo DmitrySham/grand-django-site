@@ -40,6 +40,7 @@ urlpatterns = [
     path('schedule/', include(('schedule.urls', 'schedule'))),
     path('news/', include(('blog.urls', 'blog'))),
     path('checkouts/', include(('checkouts.urls', 'checkouts'))),
+    path('calls/', include(('calls.urls', 'calls'))),
 
     path('yandex_88e2184967f12b8a.html', TemplateView.as_view(template_name='yandex_88e2184967f12b8a.html')),
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
@@ -47,6 +48,7 @@ urlpatterns = [
     path('sitemap.xml', TemplateView.as_view(template_name='sitemap.xml', content_type='text/xml')),
     #path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
+    # path('production/', include(('production.urls', 'production'))),
     path('', core_views.index, name='index'),
 ]
 
