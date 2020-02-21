@@ -167,8 +167,8 @@ SITE_VERSION = '0.2.1'
 EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'grandchita.mailer@gmail.com'
-EMAIL_HOST_PASSWORD = '19979788q'
+EMAIL_HOST_USER = 'Centergrandchita@gmail.com'
+EMAIL_HOST_PASSWORD = 'Redirect32152'
 EMAIL_PORT = 587
 
 SITE_ID = 1
