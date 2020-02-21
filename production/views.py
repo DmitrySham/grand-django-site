@@ -21,7 +21,7 @@ def one_c_single_old(request, id):
     except ObjectDoesNotExist:
         raise Http404
 
-    return HttpResponseRedirect(reverse('production:one_c_single', kwargs={'slug': one_c_object.slug}))
+    return HttpResponseRedirect(reverse('one_c_single', kwargs={'slug': one_c_object.slug}))
 
 
 def one_c_single(request, slug):

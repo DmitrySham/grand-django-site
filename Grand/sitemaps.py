@@ -34,7 +34,7 @@ class OneCSitemap(Sitemap):
         return OneC.objects.all()
 
     def location(self, obj):
-        return reverse('production:one_c_single', kwargs={'id': obj.id})
+        return reverse('one_c_single', kwargs={'id': obj.id})
 
 
 class OnlineCashboxSitemap(Sitemap):
@@ -52,7 +52,7 @@ class CourseSitemap(Sitemap):
         return Course.objects.all()
 
     def location(self, obj):
-        return reverse('schedule:single', kwargs={'slug': obj.slug})
+        return reverse('courses_single', kwargs={'slug': obj.slug})
 
 
 class StaticPagesSitemap(Sitemap):
@@ -62,8 +62,8 @@ class StaticPagesSitemap(Sitemap):
     def items(self):
         return [
             'index',
-            'production:one_c_list',
-            'production:online_cashbox_list',
+            'one_c_list',
+            'online_cashbox_list',
             'core:grand_smeta_list',
             'core:contacts',
             'schedule:list',

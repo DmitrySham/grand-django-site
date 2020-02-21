@@ -21,6 +21,9 @@ from django.conf.urls import handler404, handler500
 from django.views.generic import TemplateView
 from Grand import settings
 from django.contrib.sitemaps.views import sitemap
+
+from production.views import online_cashbox_list, one_c_single, one_c_list
+from schedule.views import course_single
 from .sitemaps import *
 
 sitemaps = {
@@ -49,7 +52,11 @@ urlpatterns = [
     path('sitemap.xml', TemplateView.as_view(template_name='sitemap.xml', content_type='text/xml')),
     #path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
-    # path('production/', include(('production.urls', 'production'))),
+    # path('1c/predpriyatie/', include(('production.urls', 'production'))),
+    path('1c/predpriyatie/', one_c_list, name='one_c_list'),
+    path('1c/<str:slug>/', one_c_single, name='one_c_single'),
+    path('courses/<str:slug>/', course_single, name='courses_single'),
+    path('online-kassa/', online_cashbox_list, name='online_cashbox_list'),
     path('', core_views.index, name='index'),
 ]
 

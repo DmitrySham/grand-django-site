@@ -78,7 +78,7 @@
 			<ul>
 				<li><a href="{% url 'index' %}">Главная</a></li>
                 <li><a href="{% url 'schedule:list' %}">Учебный Центр</a></li>
-				<li><a href="{% url 'schedule:single' slug=course.slug %}">{{ course.title }}</a></li>
+				<li><a href="{% url 'courses_single' slug=course.slug %}">{{ course.title }}</a></li>
 			</ul>
 		</div>
 	<!-- Page Title END -->
