@@ -67,7 +67,7 @@
 		{% for item in courses %}
 			<div class="container border mt-10 text-center">
 				<div class="row">
-                    <div class="col-md-12 col-sm-12 col-12 pb-3 pt-2  border"><u><b><a href="{% url 'schedule:single' slug=item.slug %}">{{ item.title }}</a></b></u></div>
+                    <div class="col-md-12 col-sm-12 col-12 pb-3 pt-2  border"><u><b><a href="{% url 'courses_single' slug=item.slug %}">{{ item.title }}</a></b></u></div>
 				</div>
 				{% for schedule in item.schedule_set.all %}
 					<div class="row pt-3 text">

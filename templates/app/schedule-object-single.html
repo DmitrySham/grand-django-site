@@ -78,7 +78,7 @@
 			<ul>
 				<li><a href="{% url 'index' %}">Главная</a></li>
                 <li><a href="{% url 'schedule:list' %}">Учебный Центр</a></li>
-				<li><a href="{% url 'schedule:single' slug=course.slug %}">{{ course.title }}</a></li>
+				<li><a href="{% url 'courses_single' slug=course.slug %}">{{ course.title }}</a></li>
 			</ul>
 		</div>
 	<!-- Page Title END -->
@@ -127,6 +127,15 @@
 							<a href="{% normalize_social_link item.url request title=course.title description=course.short_description image=course.thumbnail %}" target="_blank"><i class="fa fa-{{ item.icon }}"></i></a>
 						{% endfor %}
 					</div>
+
+                    <!-- Start Checkout button -->
+                    <div class="mt-20">
+                        <button type="button" class="center call-button" data-toggle="modal"
+                                data-target="#callModal">
+                            Заказать звонок
+                        </button>
+                    </div>
+                    <!-- End Checkout button -->
 				</div>
 			</div>
 		</div>
@@ -170,6 +179,7 @@
             </div>
         </div>
 	</div>
+    {% include 'modals/call-modal.html' %}
 
 
 {#	<!-- Modal -->#}
@@ -227,7 +237,46 @@
 {#	</div>#}
 {% endblock %}
 
-{#{% block extra_js %}#}
+{% block extra_js %}
+     <script>
+        $(document).ready(() => {
+            $('#callForm').on('submit', function (e) {
+                e.preventDefault();
+
+                let name = $('#id_name').val();
+                let phone = $('#id_phone').val();
+                let message = $('#id_message').val();
+                let model_id = '{{ course.pk }}';
+
+                let data = {
+                    csrfmiddlewaretoken: getCookie('csrftoken'),
+                    'name': name,
+                    'phone': phone,
+                    'message': message,
+                    'course': model_id,
+                };
+
+                $('#callModal').modal("hide");
+
+                $.ajax({
+                    url: "{% url 'calls:calls_request' %}",
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: data,
+
+                    success: function (response) {
+                        alert(response.message)
+                    },
+                    error: function (request, errThrown, errObject) {
+                        console.error(request, errThrown, errObject);
+                    }
+                })
+            })
+        });
+
+    </script>
+
+
 {#	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>#}
 {#	<script>#}
 {#		let isRequesting = false;#}
@@ -345,4 +394,4 @@
 {#            });#}
 {#        });#}
 {#	</script>#}
-{#{% endblock %}#}
+{% endblock %}

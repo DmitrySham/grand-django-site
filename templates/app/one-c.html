@@ -34,7 +34,7 @@
 		<div class="container xleb mt-50">
 			<ul>
 				<li><a href="{% url 'index' %}">Главная</a></li>
-				<li><a href="{% url 'production:one_c_list' %}">1С</a></li>
+				<li><a href="{% url 'one_c_list' %}">1С</a></li>
 			</ul>
 		</div>
 	<!-- Page Title END -->
@@ -51,14 +51,14 @@
 				{% for item in objects %}
 					<!-- Product Start -->
 					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-6 col-12">
-						<a href="{% url 'production:one_c_single' slug=item.slug %}">
+						<a href="{% url 'one_c_single' slug=item.slug %}">
 							<div class="classic-shop">
 								<div class="classic-shop-img">
 									<img src="{{ item.thumbnail.url }}" alt="{% if item.image_title_alt %}{{ item.image_title_alt }}{% else %}{{ item.image.name }}{% endif %}">
 									<div class="shop-box-overlay">
 										<div class="row">
 											<div class="col-md-12 col-sm-12 col-12">
-												<a href="{% url 'production:one_c_single' slug=item.slug %}">
+												<a href="{% url 'one_c_single' slug=item.slug %}">
 													<div class="shop-to-card">
 														<h4><span class="fa fa-eye"></span>Подробнее</h4>
 													</div>
@@ -68,7 +68,7 @@
 									</div>
 								</div>
 								<div class="classic-shop-text">
-									<h4><a href="{% url 'production:one_c_single' slug=item.slug %}">{{ item.title|truncate_chars:50 }}</a></h4>
+									<h4><a href="{% url 'one_c_single' slug=item.slug %}">{{ item.title|truncate_chars:50 }}</a></h4>
 									{{ item.short_description|truncate_chars:75|split_lines|safe }}
 									{#<h5>{{ item.price }}</h5>#}
 								</div>

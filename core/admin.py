@@ -230,3 +230,10 @@ class SeoAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return self.model.objects.count() < 1
+
+
+@admin.register(PrivacyPolicy)
+class PrivacyPolicyAdmin(admin.ModelAdmin):
+
+    def has_add_permission(self, request):
+        return self.model.objects.count() < 1

@@ -50,7 +50,7 @@
 
 				{% for item in courses %}
 					<!-- Product Start -->
-					<a href="{% url 'schedule:single' slug=item.slug %}">
+					<a href="{% url 'courses_single' slug=item.slug %}">
 						<div class="col-md-3 col-sm-6 col-12">
 							<div class="classic-shop">
 								<div class="classic-shop-img">
@@ -58,7 +58,7 @@
 									<div class="shop-box-overlay">
 										<div class="row">
 											<div class="col-md-12 col-sm-12 col-12">
-												<a href="{% url 'schedule:single' slug=item.slug %}">
+												<a href="{% url 'courses_single' slug=item.slug %}">
 													<div class="shop-to-card">
 														<h4><span class="fa fa-eye"></span>Подробнее</h4>
 													</div>
@@ -68,7 +68,7 @@
 									</div>
 								</div>
 								<div class="classic-shop-text p-4" style="height: 15vh;">
-									<h6><a href="{% url 'schedule:single' slug=item.slug %}">{{ item.title|truncate_chars:45 }}</a></h6>
+									<h6><a href="{% url 'courses_single' slug=item.slug %}">{{ item.title|truncate_chars:45 }}</a></h6>
 								</div>
 
 

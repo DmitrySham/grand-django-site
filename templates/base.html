@@ -85,7 +85,8 @@
             .mobile {
                 display: none;
             }
-            .web{
+
+            .web {
                 display: block;
             }
         }
@@ -97,10 +98,11 @@
                 margin-top: 40px;
             }
 
-            .mobile .checkout-button{
+            .mobile .checkout-button {
                 width: 100%;
             }
-            .web{
+
+            .web {
                 display: none;
             }
         }
@@ -140,6 +142,43 @@
             text-shadow: none;
         }
 
+        .call-button {
+            width: 100%;
+            background: #f7c605;
+            padding: 20px 15px;
+            border-radius: 5px;
+        }
+
+        .call-button:hover {
+            background: #111;
+            color: #fff;
+            text-shadow: none;
+        }
+
+        .privacy-policy a {
+            color: #f7c605;
+        }
+
+        .privacy-policy a:link {
+            text-decoration: none;
+        }
+
+        .privacy-policy a:visited {
+            text-decoration: none;
+        }
+
+        .privacy-policy a:hover {
+            text-decoration: underline;
+        }
+
+        .privacy-policy a:active {
+            color: black;
+            text-decoration: underline;
+        }
+
+        .modal:before {
+            display: inline !important;
+        }
     </style>
     {% block extra_css %}{% endblock %}
 
@@ -217,10 +256,10 @@
                     <a href="{% url 'schedule:list' %}">Учебный Центр</a>
                 </li>
                 <li>
-                    <a href="{% url 'production:one_c_list' %}">1С</a>
+                    <a href="{% url 'one_c_list' %}">1С</a>
                 </li>
                 <li>
-                    <a href="{% url 'production:online_cashbox_list' %}">Онлайн-Кассы</a>
+                    <a href="{% url 'online_cashbox_list' %}">Онлайн-Кассы</a>
                 </li>
                 <li>
                     <a href="https://grand75.kontur-partner.ru/ca" target="_blank">Эл.подписи</a>
@@ -317,6 +356,7 @@
                             <div class="footer-recent-post clearfix">
                                 <div class="footer-recent-post-thumb">
                                     <img src="
+
                                             {% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}http://via.placeholder.com/65x65{% endif %}"
                                          alt="img">
                                 </div>

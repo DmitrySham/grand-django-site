@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'ckeditor',
+    'ckeditor_uploader',
 
     # Project Applications
     'account',
@@ -50,6 +52,7 @@ INSTALLED_APPS = [
     'schedule',
     'blog',
     'checkouts',
+    'calls',
 
     # Dependencies
     'adminsortable2',
@@ -164,11 +167,24 @@ SITE_VERSION = '0.2.1'
 EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'grandchita.mailer@gmail.com'
-EMAIL_HOST_PASSWORD = '19979788q'
+EMAIL_HOST_USER = 'Centergrandchita@gmail.com'
+EMAIL_HOST_PASSWORD = 'Redirect32152'
 EMAIL_PORT = 587
 
 SITE_ID = 1
+
+
+CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
+CKEDITOR_JQUERY_URL = 'http://libs.baidu.com/jquery/2.0.3/jquery.min.js'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'language': 'ru',
+        'toolbar': 'full'
+    }
+}
 
 """
 Внимание! Очень важно импортировать параметры с файла parameters.py в последнюю очередь!

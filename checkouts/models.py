@@ -10,11 +10,12 @@ class Checkout(models.Model):
     one_c = models.ForeignKey(to='production.OneC', related_name='checkout', on_delete=models.SET_NULL,
                               null=True, blank=True, verbose_name='1С')
     grand_smeta = models.ForeignKey(to='core.GrandSmeta', related_name='checkout', on_delete=models.SET_NULL,
-                              null=True, blank=True, verbose_name='Гранд Смета')
+                                    null=True, blank=True, verbose_name='Гранд Смета')
     name = models.CharField(max_length=255, verbose_name='Имя')
     email = models.EmailField(verbose_name='E-mail')
-    message = models.TextField(verbose_name='Сообщение')
-
+    message = models.TextField(verbose_name='Сообщение', null=True, blank=True)
+    is_agree = models.BooleanField(verbose_name='Ознокомолен', default=False,
+                                    help_text='Отмечено если с политикой конфидецияальности ознакомлен')
     created_at = models.DateTimeField(verbose_name='Создано', auto_now_add=True, null=True)
     updated_at = models.DateTimeField(verbose_name='Обнавлено', auto_now=True, null=True)
 

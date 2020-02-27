@@ -40,7 +40,7 @@
     <div class="container xleb mt-50">
         <ul>
             <li><a href="{% url 'index' %}">Главная</a></li>
-            <li><a href="{% url 'production:one_c_list' %}">1С</a></li>
+            <li><a href="{% url 'one_c_list' %}">1С</a></li>
             <li><a href="">{{ one_c_object.title }}</a></li>
         </ul>
     </div>
@@ -160,18 +160,19 @@
                 let email = $('#id_email').val();
                 let message = $('#id_message').val();
                 let model_id = '{{ one_c_object.pk }}';
+                let is_agree = $('#is_agree').is(":checked");
+
                 let model_name = 'onec';
 
                 let data = {
                     csrfmiddlewaretoken: getCookie('csrftoken'),
+                    'is_agree': is_agree,
                     'name': name,
                     'email': email,
                     'message': message,
                     'model_id': model_id,
                     'model_name': model_name,
                 };
-
-                $('#checkoutModal').modal("hide");
 
                 $.ajax({
                     url: "{% url 'checkouts:checkout_request' %}",
@@ -180,9 +181,11 @@
                     data: data,
 
                     success: function (response) {
+                        $('#checkoutModal').modal("hide");
                         alert(response.message)
                     },
                     error: function (request, errThrown, errObject) {
+                        $('#checkoutModal').modal("hide");
                         console.error(request, errThrown, errObject);
                     }
                 })

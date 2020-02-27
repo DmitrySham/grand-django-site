@@ -6,6 +6,7 @@ from .models import Checkout
 
 @admin.register(Checkout)
 class CheckoutAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'email', 'get_type', 'created_at', 'is_agree']
 
     def has_add_permission(self, request):
         return False

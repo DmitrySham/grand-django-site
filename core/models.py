@@ -1,5 +1,6 @@
 import json
 
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
 # Create your models here.
@@ -283,3 +284,14 @@ class Seo(models.Model):
 
     def __str__(self):
         return 'Настройки META тегов'
+
+
+class PrivacyPolicy(models.Model):
+    class Meta:
+        verbose_name = 'Политика конфиденциальности'
+        verbose_name_plural = 'Политика конфиденциальности'
+
+    description = RichTextUploadingField(verbose_name='Описание', null=True, blank=True)
+
+    def __str__(self):
+        return 'Политика конфиденциальности'
