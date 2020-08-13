@@ -64,9 +64,8 @@
                             {% for slide in one_c_object.onecimage_set.all %}
                                 <div class="main-img-slider" data-src="{{ slide.image.url }}">
                                     <figure>
-                                        <img src="{{ slide.image.url }}" alt="
-
-                                                {% if slide.image_title %}{{ slide.image_title }}{% else %}{{ slide.image.name }}{% endif %}"/>
+                                        <img src="{{ slide.image.url }}"
+                                             alt="{% if slide.image_title %}{{ slide.image_title }}{% else %}{{ slide.image.name }}{% endif %}"/>
                                     </figure>
                                 </div>
                             {% endfor %}
@@ -147,7 +146,7 @@
 
 
 {% block extra_js %}
-{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>#}
+    {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>#}
     <script src="{% static 'js/lightgallery.min.js' %}"></script>
     <script src="{% static 'slick/slick.min.js' %}"></script>
     <script src="{% static 'js/price-box.js' %}"></script>
@@ -186,6 +185,7 @@
                     },
                     error: function (request, errThrown, errObject) {
                         $('#checkoutModal').modal("hide");
+                        alert('Произошла ошибка просьба обратитесь к администратору.');
                         console.error(request, errThrown, errObject);
                     }
                 })

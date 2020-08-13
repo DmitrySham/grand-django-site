@@ -12,7 +12,9 @@ class Call(models.Model):
     name = models.CharField(max_length=255, verbose_name='Имя')
     phone = models.CharField(verbose_name='Номер телефона', max_length=64)
     message = models.TextField(verbose_name='Сообщение', null=True, blank=True)
-
+    is_agree = models.BooleanField(
+        verbose_name='Ознокомолен', default=False,
+        help_text='Отмечено если с политикой конфидецияальности ознакомлен')
     created_at = models.DateTimeField(verbose_name='Создано', auto_now_add=True, null=True)
     updated_at = models.DateTimeField(verbose_name='Обнавлено', auto_now=True, null=True)
 

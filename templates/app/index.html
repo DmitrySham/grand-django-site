@@ -79,7 +79,9 @@
 <div class="section-block">
   <div class="container">
     <div class="section-heading center-holder">
-        <h1>Учебный центр 1С в Чите</h1>
+        {% if site_settings.index_page_h1_text %}
+            <h1>{{ site_settings.index_page_h1_text }}</h1>
+        {% endif %}
         <div class="section-heading-line"></div>
 
     </div>

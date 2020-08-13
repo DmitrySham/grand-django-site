@@ -24,6 +24,9 @@ def get_model(model_name):
     elif model_name == 'grandsmeta':
         return apps.get_model(app_label='core',
                               model_name=model_name)
+    elif model_name == "onlinecashbox":
+        return apps.get_model(app_label='production',
+                              model_name=model_name)
     return None
 
 
@@ -39,6 +42,7 @@ def checkout_request(request):
     obj = get_object_or_404(model, id=model_id)
 
     form = CheckoutForm(request.POST or None)
+
     if form.is_valid():
         instance = form.save(commit=False)
 
@@ -46,6 +50,8 @@ def checkout_request(request):
             instance.one_c = obj
         elif model_name == 'grandsmeta':
             instance.grand_smeta = obj
+        elif model_name == 'onlinecashbox':
+            instance.online_cashbox = obj
         instance.save()
 
         template = loader.get_template('app/email/checkout.html')

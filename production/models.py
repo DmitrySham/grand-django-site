@@ -2,6 +2,7 @@ import json
 import os
 import uuid
 
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
 # Create your models here.
@@ -18,8 +19,8 @@ class OneC(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название 1С услуги')
     slug = models.CharField(max_length=255, verbose_name='SLUG', unique=True)
 
-    short_description = models.TextField(verbose_name='Краткое описание')
-    full_description = models.TextField(verbose_name='Полное описание')
+    short_description = RichTextUploadingField(verbose_name='Краткое описание')
+    full_description = RichTextUploadingField(verbose_name='Полное описание')
     thumbnail = models.FileField(
         upload_to='production/one-c/',
         verbose_name='Изображение',
@@ -96,8 +97,8 @@ class OnlineCashbox(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название')
     slug = models.CharField(max_length=255, verbose_name='SLUG', unique=True)
 
-    short_description = models.TextField(verbose_name='Короткое описание', null=True, blank=True)
-    full_description = models.TextField(verbose_name='Полное описание', null=True, blank=True)
+    short_description = RichTextUploadingField(verbose_name='Короткое описание', null=True, blank=True)
+    full_description = RichTextUploadingField(verbose_name='Полное описание', null=True, blank=True)
 
     price_box = models.TextField(verbose_name='Расценка', default=json.dumps(list()))
 
@@ -198,8 +199,8 @@ class ElectronicSignature(models.Model):
     thumbnail = models.FileField(upload_to='production/electronic-signature/', verbose_name='Изображение', null=True)
     title = models.CharField(max_length=255, verbose_name='Название')
     slug = models.CharField(max_length=255, verbose_name='SLUG', unique=True)
-    short_description = models.TextField(verbose_name='Краткое описание', null=True, blank=True)
-    full_description = models.TextField(verbose_name='Полное описание')
+    short_description = RichTextUploadingField(verbose_name='Краткое описание', null=True, blank=True)
+    full_description = RichTextUploadingField(verbose_name='Полное описание')
     price_box = models.TextField(verbose_name='Цены', default=json.dumps(list()))
 
     share_links = models.ManyToManyField(to='ShareLinks', blank=True, verbose_name='Share ссылки')

@@ -45,6 +45,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
             # 'index_page_text',
 
             'why_choose_us',
+            'index_page_h1_text',
             # 'schedule',
             # 'schedule_thumbnail',
             # 'schedule_list_items',
@@ -80,11 +81,13 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         )}),
 
         ('Страница: 1С', {'fields': (
+            'one_c_h1_text',
             'one_c_header_image',
             'one_c_text',
         )}),
 
         ('Страница: Онлайн кассы', {'fields': (
+            'online_cash_box_h1_text',
             'online_cash_box_header_image',
             'online_cash_box_text',
         )}),
@@ -234,6 +237,19 @@ class SeoAdmin(admin.ModelAdmin):
 
 @admin.register(PrivacyPolicy)
 class PrivacyPolicyAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Общее', {'fields': (
+            'description',
+        )}),
+        ('SEO', {'fields': (
+            'page_title',
+            'page_meta_keywords',
+            'page_meta_description',
+            'page_meta_og_title',
+            'page_meta_og_description',
+            'page_meta_og_image',
+        )})
+    )
 
     def has_add_permission(self, request):
         return self.model.objects.count() < 1

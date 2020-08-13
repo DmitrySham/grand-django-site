@@ -128,6 +128,7 @@
                     },
                     error: function (request, errThrown, errObject) {
                         $('#checkoutModal').modal("hide");
+                        alert('Произошла ошибка просьба обратитесь к администратору.');
                         console.error(request, errThrown, errObject);
                     }
                 })

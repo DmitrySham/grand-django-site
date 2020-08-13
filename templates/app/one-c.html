@@ -44,7 +44,9 @@
 	<div class="section-block">
 		<div class="container">
 			<div class="section-heading">
-                <h1>Автоматизация учета 1С:Предприятие 8</h1>
+                {% if site_settings.one_c_h1_text %}
+                    <h1>{{ site_settings.one_c_h1_text }}</h1>
+                {% endif %}
                 <div class="section-heading-line-left"></div>
 			</div>
 			<div class="row mt-30">

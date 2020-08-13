@@ -19,7 +19,7 @@
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="id_email" placeholder="E-mail" required>
+                                    <input type="email" class="form-control" id="id_email" placeholder="E-mail" required>
                                 </div>
                             </div>
                         </div>
@@ -27,7 +27,8 @@
 
                     </div>
                     <div class="checkbox checkbox-warning privacy-policy">
-                        <input type="checkbox" value="" id="is_agree" required><label for="is_agree">Ознакомлен с <a href="{% url 'core:privacy_policy' %}" class="">политикой конфидециальности</a></label>
+                        <input type="checkbox" value="" id="is_agree" required >
+                        <label for="is_agree">  Ознакомлен с <a href="{% url 'core:privacy_policy' %}" class="">политикой конфидециальности</a></label>
                     </div>
                     <button type="submit">Отправить</button>
 

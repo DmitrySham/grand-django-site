@@ -68,14 +68,17 @@ class SiteSettings(models.Model):
     news_header_image = models.FileField(verbose_name='Изображение на странице новостей', null=True, blank=True, upload_to='blog/headers/')
     schedule_header_image = models.FileField(verbose_name='Изображение на странице "Учебный центр"', null=True, blank=True, upload_to='schedule/headers/')
     one_c_text = models.TextField(verbose_name='Текст в 1С', null=True, blank=True)
+    one_c_h1_text = models.CharField(verbose_name='<h1> тег на странице  "1C"', max_length=255, null=True, blank=True)
     one_c_header_image = models.FileField(verbose_name='Изображение на странице "1C"', null=True, blank=True, upload_to='1c/headers/')
     online_cash_box_text = models.TextField(verbose_name='Текст в Онлайн-кассах', null=True, blank=True)
+    online_cash_box_h1_text = models.CharField(verbose_name='<h1> тег на странице "Онлайн Кассы"', max_length=255, null=True, blank=True)
     online_cash_box_header_image = models.FileField(verbose_name='Изображение на странице "Онлайн Кассы"', null=True, blank=True, upload_to='online-cahs-box/headers/')
     electronic_signature_header_image = models.FileField(verbose_name='Изображение на странице "Электронные подписи"', null=True, blank=True, upload_to='electronic-signature/headers/')
 
     # home page:
-    index_page_text = models.TextField(verbose_name='Текст на главной странице', null=True, blank=True)
-    why_choose_us = models.TextField(verbose_name='Текст на главной странице', null=True, blank=True)
+    index_page_text = RichTextUploadingField(verbose_name='Текст на главной странице', null=True, blank=True)
+    index_page_h1_text = models.CharField(verbose_name='<h1> тег на главной странице', max_length=255, null=True, blank=True)
+    why_choose_us = RichTextUploadingField(verbose_name='Текст на главной странице', null=True, blank=True)
 
     schedule = models.TextField(verbose_name='Текст учебного центра', null=True, blank=True)
     schedule_thumbnail = models.FileField(verbose_name='Изображение учебного центра', null=True, blank=True)
@@ -292,6 +295,14 @@ class PrivacyPolicy(models.Model):
         verbose_name_plural = 'Политика конфиденциальности'
 
     description = RichTextUploadingField(verbose_name='Описание', null=True, blank=True)
+
+    # Seo
+    page_title = models.TextField(verbose_name='Тег title', null=True, blank=True)
+    page_meta_keywords = models.TextField(verbose_name='Тег meta keywords', null=True, blank=True)
+    page_meta_description = models.TextField(verbose_name='Тег meta description', null=True, blank=True)
+    page_meta_og_title = models.TextField(verbose_name='Тег meta og:title', null=True, blank=True)
+    page_meta_og_description = models.TextField(verbose_name='Тег meta og:description', null=True, blank=True)
+    page_meta_og_image = models.TextField(verbose_name='Тег meta og:image', null=True, blank=True)
 
     def __str__(self):
         return 'Политика конфиденциальности'

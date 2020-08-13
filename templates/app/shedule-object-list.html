@@ -28,6 +28,18 @@
 	{% endif %}
 {% endblock %}
 
+{% block extra_css %}
+    <style>
+        {#.panel-collapse{#}
+        {#    background: red;#}
+        {#    margin-top: -104px;#}
+        {#}#}
+        .classic-shop {
+            height: auto;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <!-- Page Title START -->
 		<div class="container xleb mt-50">
@@ -82,7 +94,8 @@
 												</a>
 											</h4>
 										</div>
-										<div id="ac_col{{ forloop.counter }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="acc{{ forloop.counter }}">
+
+                                        <div id="ac_col{{ forloop.counter }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="acc{{ forloop.counter }}">
 											{% for schedule in item.schedule_set.all %}
 												<div class="panel-body accordion-body text-center">
 													<p>Дата: {{ schedule.start_date|safe }}</p>
@@ -100,6 +113,7 @@
 												</div>
 											{% endfor %}
 										</div>
+
 									</div>
 								</div>
 							</div>

@@ -4,6 +4,29 @@
 
 {% block title %}Политика конфиденцальности{% endblock %}
 
+{% block seo %}
+	{% if privacy_policy.page_meta_keywords %}
+		<meta name="keywords" content="{{ privacy_policy.page_meta_keywords }}" />
+	{% endif %}
+
+	{% if privacy_policy.page_meta_description %}
+		<meta name="description" content="{{ privacy_policy.page_meta_description }}" />
+	{% endif %}
+
+	{% if privacy_policy.page_meta_og_title %}
+		<meta name="og:title" content="{{ privacy_policy.page_meta_og_title }}" />
+	{% endif %}
+
+	{% if privacy_policy.page_meta_og_description %}
+		<meta name="og:description" content="{{ privacy_policy.page_meta_og_description }}" />
+	{% endif %}
+
+	{% if privacy_policy.page_meta_og_image %}
+		<meta name="og:image" content="{{ privacy_policy.page_meta_og_image }}" />
+	{% endif %}
+{% endblock %}
+
+
 {% block content %}
     <!-- Page Title START -->
 		<div class="container xleb mt-50">
