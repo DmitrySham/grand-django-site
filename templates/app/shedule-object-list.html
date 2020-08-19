@@ -30,12 +30,21 @@
 
 {% block extra_css %}
     <style>
-        {#.panel-collapse{#}
-        {#    background: red;#}
-        {#    margin-top: -104px;#}
-        {#}#}
         .classic-shop {
             height: auto;
+        }
+        .classic-shop-text {
+            height: 11vh;
+        }
+        @media (max-width: 991px) {
+            .classic-shop-text {
+                height: 18vh;
+            }
+        }
+        @media (max-width: 767px) {
+            .classic-shop-text {
+                height: 12vh;
+            }
         }
     </style>
 {% endblock %}
@@ -79,7 +88,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="classic-shop-text p-4" style="height: 15vh;">
+								<div class="classic-shop-text p-4">
 									<h6><a href="{% url 'courses_single' slug=item.slug %}">{{ item.title|truncate_chars:45 }}</a></h6>
 								</div>
 

@@ -28,6 +28,20 @@
 	{% endif %}
 {% endblock %}
 
+{% block extra_css %}
+    <style>
+        .classic-shop-text {
+            padding-bottom: 20px;
+        }
+
+        @media (max-width: 767px) {
+            .classic-shop {
+                height: 415px;
+            }
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
 
     <!-- Page Title START -->
@@ -71,7 +85,7 @@
 								</div>
 								<div class="classic-shop-text">
 									<h4><a href="{% url 'one_c_single' slug=item.slug %}">{{ item.title|truncate_chars:50 }}</a></h4>
-									{{ item.short_description|truncate_chars:75|split_lines|safe }}
+									{{ item.short_description|truncate_chars:70|split_lines|safe }}
 									{#<h5>{{ item.price }}</h5>#}
 								</div>
 							</div>
