@@ -11,6 +11,9 @@ __pycache__
 
 static/*
 media/*
+fabfile.py
+push.sh
+server.sh
 
 .denv
 venv
