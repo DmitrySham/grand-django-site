@@ -279,5 +279,7 @@ class PromoFormFieldInline(admin.StackedInline):
 class PromoFormBuilderAdmin(admin.ModelAdmin):
     inlines = (PromoFormFieldInline,)
 
+    exclude = ('captcha',)
+
     def has_add_permission(self, request):
         return self.model.objects.count() < 1
