@@ -465,59 +465,13 @@
 </footer>
 <!-- Footer END -->
 
+{% block modals %}{% endblock %}
+
 
 <!-- Scroll to top button Start -->
 <a href="#" class="scroll-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
 <!-- Scroll to top button End -->
 
-
-{##}
-{#<!-- Jquery -->#}
-{#<script src="{% static 'js/jquery.min.js' %}"></script>#}
-{##}
-{#<!--Popper JS-->#}
-{#<script src="{% static 'js/popper.min.js' %}"></script>#}
-{##}
-{#<!-- Bootstrap JS-->#}
-{#<script src="{% static 'js/bootstrap.min.js' %}"></script>#}
-{##}
-{#<!-- Owl Carousel-->#}
-{#<script src="{% static 'js/owl.carousel.js' %}"></script>#}
-{##}
-{#<!-- Navbar JS -->#}
-{#<script src="{% static 'js/navigation.js' %}"></script>#}
-{#<script src="{% static 'js/navigation.fixed.js' %}"></script>#}
-{##}
-{#<!-- Wow JS -->#}
-{#<script src="{% static 'js/wow.min.js' %}"></script>#}
-{##}
-{#<!-- Countup -->#}
-{#<script src="{% static 'js/jquery.counterup.min.js' %}"></script>#}
-{#<script src="{% static 'js/waypoints.min.js' %}"></script>#}
-{##}
-{#<!-- Tabs -->#}
-{#<script src="{% static 'js/tabs.min.js' %}"></script>#}
-{##}
-{#<!-- Yotube Video Player -->#}
-{#<script src="{% static 'js/jquery.mb.YTPlayer.min.js' %}"></script>#}
-{##}
-{#<!-- Swiper Slider -->#}
-{#<script src="{% static 'js/swiper.min.js' %}"></script>#}
-{##}
-{#<!-- Isotop -->#}
-{#<script src="{% static 'js/isotope.pkgd.min.js' %}"></script>#}
-{##}
-{#<!-- Switcher JS -->#}
-{#<script src="{% static 'js/switcher.js' %}"></script>#}
-{##}
-{#<!-- Modernizr -->#}
-{#<script src="{% static 'js/modernizr.js' %}"></script>#}
-{##}
-{#<!-- Google Map -->#}
-{#<script src="{% static 'js/map.js' %}"></script>#}
-{##}
-{#<!-- Main JS -->#}
-{#<script src="{% static 'js/main.js' %}"></script>#}
 <script>
     var amo_social_button = {
         id: "25737",
@@ -528,19 +482,16 @@
             this.params.push(params);
         }
     };
-</script>
-<script id="amo_social_button_script" async="async" src="https://gso.amocrm.ru/js/button.js"></script>
-<script src="{% static 'dist/app.min.js' %}"></script>
 
-<script>
     const getCookie = name => {
-
         let matches = document.cookie.match(new RegExp(
             "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
         ));
         return matches ? decodeURIComponent(matches[1]) : undefined
     };
 </script>
+<script id="amo_social_button_script" async="async" src="https://gso.amocrm.ru/js/button.js"></script>
+<script src="{% static 'dist/app.min.js' %}"></script>
 
 {% block extra_js %}{% endblock %}
 

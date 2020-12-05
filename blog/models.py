@@ -1,7 +1,7 @@
 from django.db import models
-
-# Create your models here.
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.template.defaultfilters import truncatechars
+# Create your models here.
 
 
 class Post(models.Model):
@@ -18,9 +18,11 @@ class Post(models.Model):
 
     short_description = models.TextField(verbose_name='Краткое описание', null=True, blank=True)
 
-    content = models.TextField(verbose_name='Тело статьи')
+    content = RichTextUploadingField(verbose_name='Тело статьи')
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    is_promo = models.BooleanField(default=False, verbose_name='Включить заполнение данных')
 
     # Seo
     page_title = models.TextField(verbose_name='Тег title', null=True, blank=True)

@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.core.exceptions import ObjectDoesNotExist
 
 from adminsortable2.admin import SortableAdminMixin
+from django.utils.safestring import mark_safe
+
 from .models import *
 
 
@@ -250,6 +252,32 @@ class PrivacyPolicyAdmin(admin.ModelAdmin):
             'page_meta_og_image',
         )})
     )
+
+    def has_add_permission(self, request):
+        return self.model.objects.count() < 1
+
+
+@admin.register(PromoVisitor)
+class PromoVisitorAdmin(admin.ModelAdmin):
+    readonly_fields = ['get_post_display', 'user', 'ip']
+
+    fields = ('form_data', 'get_post_display', 'user', 'ip')
+
+    class Media:
+        js = ('js/admin/promo.form.viewer.js',)
+        css = {
+            'all': ('js/admin/promo.form.viewer.css',)
+        }
+
+
+class PromoFormFieldInline(admin.StackedInline):
+    model = PromoFormField
+    extra = 1
+
+
+@admin.register(PromoFormBuilder)
+class PromoFormBuilderAdmin(admin.ModelAdmin):
+    inlines = (PromoFormFieldInline,)
 
     def has_add_permission(self, request):
         return self.model.objects.count() < 1

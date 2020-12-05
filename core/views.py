@@ -1,3 +1,4 @@
+import json
 import threading
 
 from django.contrib.contenttypes.models import ContentType
@@ -11,7 +12,10 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from blog.models import Post
 from core.forms import FeedbackForm
 from schedule.utils import send_email_notification
-from .models import GrandSmeta, Slider, Contacts, AdminEmails, Feedback, PrivacyPolicy
+
+
+from .models import GrandSmeta, Slider, Contacts, AdminEmails, Feedback, PrivacyPolicy, PromoFormField, PromoVisitor
+from .utils import get_client_ip
 
 
 # Create your views here.
@@ -95,6 +99,46 @@ def handler500(request, *args, **argv):
 
 
 def privacy_policy(request):
-    privacy_policy = PrivacyPolicy.objects.first()
+    _privacy_policy = PrivacyPolicy.objects.first()
 
-    return render(request, 'app/privacy-policy.html', locals())
+    return render(request, 'app/privacy-policy.html', {'privacy_policy': _privacy_policy})
+
+
+def save_promo_user(request):
+    try:
+        data: dict = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({'message': 'Не удалось разпознать данные'}, status=400)
+
+    post_id = data.pop('post')
+
+    try:
+        Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        return JsonResponse({'message': 'Пост не найден или уже удален!'}, status=400)
+
+    values: 'list' = data.pop('values')
+    form_data = {}
+
+    if len(values) == 0:
+        return JsonResponse({'message': 'Проверьте правильность заплненных данных'}, status=400)
+
+    for item in values:
+        try:
+            field = PromoFormField.objects.get(id=item['field_id'])
+        except PromoFormField.DoesNotExist:
+            return JsonResponse({'message': 'Поле [#%s] не найдено!' % item['field_id']}, status=400)
+        form_data[field.field_placeholder] = item['value']
+
+    options = dict(
+        post_id=post_id,
+        form_data=json.dumps(form_data),
+        ip=get_client_ip(request)
+    )
+
+    if not request.user.is_anonymous:
+        options['user_id'] = request.user.id
+
+    visitor = PromoVisitor.objects.create(**options)
+
+    return JsonResponse({})

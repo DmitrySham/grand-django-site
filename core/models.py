@@ -306,3 +306,72 @@ class PrivacyPolicy(models.Model):
 
     def __str__(self):
         return 'Политика конфиденциальности'
+
+
+class PromoVisitor(models.Model):
+    class Meta:
+        verbose_name = 'Заполненные данные с новостей'
+        verbose_name_plural = 'Заполненные данные с новостей'
+
+    post = models.ForeignKey(
+        to='blog.Post',
+        on_delete=models.CASCADE,
+        verbose_name='Пост',
+    )
+    user = models.ForeignKey(
+        to='account.Account',
+        on_delete=models.SET_NULL,
+        null=True, blank=True,
+        verbose_name='Пользователь'
+    )
+    ip = models.CharField(max_length=15, verbose_name='IP пользователя')
+    form_data = models.TextField(verbose_name='Данные формы', default='{}')
+
+    def __str__(self):
+        return self.ip
+
+    def get_post_display(self):
+        return json.dumps({
+            'id': self.post.id,
+            'title': self.post.title,
+            'slug': self.post.slug
+        })
+
+    get_post_display.short_description = 'Пост'
+
+
+class PromoFormBuilder(models.Model):
+    class Meta:
+        verbose_name_plural = 'Форма отображаемая в новостях'
+        verbose_name = 'Форма'
+
+    privacy_policy = models.BooleanField(default=True, verbose_name='Отображать "Политика конфеденциальности"?')
+    captcha = models.BooleanField(default=True, verbose_name='Использовать Google-Captcha?')
+
+    def __str__(self):
+        return 'Форма'
+
+
+class PromoFormField(models.Model):
+    class Meta:
+        verbose_name_plural = 'Поля для формы'
+        verbose_name = 'Поле'
+
+    form = models.ForeignKey(to='PromoFormBuilder', on_delete=models.CASCADE, verbose_name='Форма')
+    field_type = models.CharField(
+        max_length=255,
+        verbose_name='Тип поля',
+        choices=(
+            ('text', 'Текст'),
+            ('email', 'Email'),
+            ('tel', 'Телефон'),
+            ('textarea', 'Большое поле для текста'),
+        )
+    )
+    field_placeholder = models.CharField(max_length=100, verbose_name='Название поля (макс. 100 символов)')
+    required = models.BooleanField(default=False, verbose_name='Обязательное поле?')
+
+    def __str__(self):
+        return f'{self.get_field_type_display()} ({self.field_placeholder})'
+
+
