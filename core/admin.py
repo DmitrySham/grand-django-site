@@ -269,6 +269,9 @@ class PromoVisitorAdmin(admin.ModelAdmin):
             'all': ('js/admin/promo.form.viewer.css',)
         }
 
+    def has_add_permission(self, request):
+        return False
+
 
 class PromoFormFieldInline(admin.StackedInline):
     model = PromoFormField
