@@ -6,7 +6,7 @@ from .models import *
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['get_truncated_title', 'created_at', 'is_active']
+    list_display = ['get_truncated_title', 'created_at', 'is_promo', 'is_active']
 
     list_filter = ['created_at', 'is_active']
     search_fields = ['title', 'short_description', 'full_description', 'slug']
@@ -18,6 +18,7 @@ class PostAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Общее', {'fields': (
             'is_active',
+            'is_promo',
             'thumbnail',
             'atr_alt',
             'title',

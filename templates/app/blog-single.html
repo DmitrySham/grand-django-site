@@ -94,3 +94,248 @@
 	<!-- Blog Post END -->
 
 {% endblock %}
+
+{% block modals %}
+    {% if has_promo %}
+        <div
+            class="modal fade"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="checkoutModalLabel"
+            aria-hidden="true"
+            id="promo-modal"
+        >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Оставайтесь на связи</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="error-wrapper">
+
+                        </div>
+
+                        <form class="checkout-form" method="post" action="{% url 'core:save_promo_user' %}" data-post-id="{{ post.id }}">
+                            {% for field in form.promoformfield_set.all %}
+                                <div class="form-group">
+                                {% if field.field_type != 'textarea' %}
+                                    <input
+                                       type="{{ field.field_type }}"
+                                       class="form-control"
+                                       id="id_promo_field_{{ field.id }}"
+                                       name="promo_field_{{ field.id }}"
+                                       placeholder="{{ field.field_placeholder }}"
+                                       {% if field.required %}required{% endif %}
+                                       data-id="{{ field.id }}"
+                                    />
+                                {% else %}
+                                    <textarea
+                                        class="form-control"
+                                        id="id_promo_field_{{ field.id }}"
+                                        name="promo_field_{{ field.id }}"
+                                        placeholder="{{ field.field_placeholder }}"
+                                        {% if field.required %}required{% endif %}
+                                        data-id="{{ field.id }}"
+                                    ></textarea>
+                                {% endif %}
+                                </div>
+                            {% endfor %}
+
+                            {% if form.privacy_policy %}
+                                <div class="checkbox checkbox-warning privacy-policy">
+                                    <input type="checkbox" value="" name="privacy_policy" id="is_agree_promo" required>
+                                    <label for="is_agree_promo">
+                                        Ознакомлен с <a href="{% url 'core:privacy_policy' %}">политикой конфидециальности</a>
+                                    </label>
+                                </div>
+                            {% endif %}
+
+                            <button type="submit" style="cursor: pointer;">Отправить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+    {% if has_promo %}
+        <script>
+            function Promo(options) {
+                options = options || {};
+                options.modal = options.modal || '#promo-modal';
+                options.formSelector = options.formSelector || '.checkout-form';
+                options.fieldSelector = options.fieldSelector || 'input,textarea,select';
+                options.errorWrapperSelector = options.errorWrapperSelector || '.error-wrapper';
+
+                let successStatus = false;
+
+                const handleRequestSuccess = response => {
+                    this.setLoading(false);
+                    console.log('response =>', response);
+                    successStatus = true;
+                    this.closeModal();
+                };
+
+                const handleRequestFailure = (error, errThrown, errObject) => {
+                    this.setLoading(false);
+                    console.log({ error, errThrown, errObject });
+
+                    const errorTemplate = this.getErrorAlertTemplate(
+                        '<b>Произошла неизвестная ошибка!</b> Пожалуйста попробуйте еще раз или попробуйте позже!<br/>'
+                        + `${errThrown}<br />`
+                        + `${errObject}`
+                    );
+
+                    this.root.find(options.errorWrapperSelector).html(errorTemplate);
+                };
+
+                const modalSettings = {
+                    backdrop: 'static',
+                    keyboard: false,
+                };
+
+                /**
+                 * @type {jQuery|HTMLElement}
+                 */
+                this.root = $(options.modal);
+                this.form = $(this.root.find(options.formSelector));
+                this.modalInstance = this.root.modal;
+
+                /**
+                 * @type {Array}
+                 */
+                this.fields = Array.from(this.form.find(options.fieldSelector));
+
+                this.init = () => {
+                    if (typeof $.fn.hasAttr !== 'function') {
+                        $.fn.hasAttr = function(value) {
+                            return this.attr(value) !== undefined && this.attr(value) !== null;
+                        }
+                    }
+
+                    this.root
+                        .modal(Object.assign({}, modalSettings))
+                        .modal('show');
+
+                    this.form.off('submit');
+                    this.form.on('submit', e => {
+                        e.preventDefault();
+
+                        const { valid, errors } = this.validate();
+
+                        if (!valid) {
+                            this.renderErrorTemplate(errors);
+                            return;
+                        }
+
+                        this.setLoading(true);
+                        this.sendRequest()
+                            .done(handleRequestSuccess)
+                            .fail(handleRequestFailure)
+                    });
+                };
+
+                this.closeModal = () => {
+                    if (!successStatus) return;
+                    this.root.modal('hide');
+                };
+
+                this.validate = () => {
+                    const errors = {};
+                    let valid = true;
+
+                    this.fields.forEach(item => {
+                        item = $(item);
+                        const isCheckbox = item.attr('type') === 'checkbox';
+
+                        const hasValue = isCheckbox ? item.prop('checked') : Boolean(item.val());
+
+                        if (item.hasAttr('required') && !hasValue) {
+                            valid = false;
+                            errors[item.attr('name')] = 'Обязательное поле!'
+                        }
+                    });
+
+                    return { valid, errors };
+                };
+
+                this.getData = () => this.fields
+                    .filter(item => $(item).attr('type') !== 'checkbox')
+                    .map(item => ({
+                        field_id: $(item).attr('data-id'),
+                        value: $(item).val(),
+                    }));
+
+                this.buildSendData = () => ({
+                    post: Number(this.form.attr('data-post-id')),
+                    values: this.getData(),
+                });
+
+                this.getHeaders = () => ({
+                    'Content-Type': 'application/json',
+                    'X-CsrfToken': getCookie('csrftoken'),
+                });
+
+                this.sendRequest = () => $.ajax({
+                    url: this.form.attr('action'),
+                    method: 'POST',
+                    dataType: 'JSON',
+                    headers: this.getHeaders(),
+                    data: JSON.stringify(this.buildSendData())
+                });
+
+                this.getErrorTemplate = error => `<span role="error" style="margin: 0; color: red;">${error}</span>`;
+
+                this.renderErrorTemplate = errors => {
+                    Object.keys(errors).forEach(name => {
+                        const field = this.fields.find(item => $(item).attr('name') === name);
+
+                        if (field) {
+                            const error = this.getErrorTemplate(errors[name]);
+
+                            $(field)
+                                .parent()
+                                .append(error);
+                        }
+                    });
+                };
+
+                this.getErrorAlertTemplate = error => [
+                    '<div class="alert alert-danger d-flex justify-content-between align-items-center">',
+                        `<p class="mb-0">${error}</p>`,
+                        '<span data-dismiss="alert" aria-label="Close" class="close">&times;</span>',
+                    '</div>'
+                ].join('\n');
+
+                this.setLoading = value => {
+                    this.fields.forEach(item => {
+                        if (value) {
+                            $(item).attr('disabled', true);
+                        } else {
+                            $(item).removeAttr('disabled');
+                        }
+                    });
+
+                    const button = $(this.form.find('button[type=submit]'));
+
+                    if (value) {
+                        button.attr('disabled', true);
+                        button.text('Загрузка...');
+                    } else {
+                        button.removeAttr('disabled');
+                        button.text('Отправить');
+                    }
+                };
+
+                return this;
+            }
+
+            $(document).ready(() => {
+                window.promo = new Promo();
+                promo.init();
+            });
+        </script>
+    {% endif %}
+{% endblock %}
