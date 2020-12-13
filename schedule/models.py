@@ -2,6 +2,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.template.defaultfilters import truncatechars
 
+from core.utils import SetUniqueName
+
 
 # # Create your models here.
 
@@ -167,3 +169,19 @@ class Schedule(models.Model):
 
     def __str__(self):
         return self.start_date
+
+
+class License(models.Model):
+    class Meta:
+        verbose_name = 'Лицензия'
+        verbose_name_plural = 'Лицензии'
+        ordering = ('order_index',)
+
+    order_index = models.PositiveIntegerField(default=0, verbose_name='Порядковый номер')
+    title = models.CharField(max_length=255, verbose_name='Название', default='')
+    image = models.ImageField(upload_to=SetUniqueName(), verbose_name='Изображение')
+    is_active = models.BooleanField(default=True, verbose_name='Активно?')
+
+    def __str__(self):
+        return str(self.image)
+

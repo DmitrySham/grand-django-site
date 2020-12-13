@@ -43,6 +43,16 @@ class OneCAdmin(SortableAdminMixin, admin.ModelAdmin):
 
     prepopulated_fields = {'slug': ('title',)}
 
+    class Media:
+        css = {
+            'all': (
+                'js/admin/image.field.css',
+            )
+        }
+        js = (
+            'js/admin/image.field.js',
+        )
+
 
 class OnlineCashboxImageInline(admin.TabularInline):
     model = OnlineCashboxImage
@@ -83,6 +93,16 @@ class OnlineCashboxAdmin(SortableAdminMixin, admin.ModelAdmin):
 
     prepopulated_fields = {'slug': ('title',)}
 
+    class Media:
+        css = {
+            'all': (
+                'js/admin/image.field.css',
+            )
+        }
+        js = (
+            'js/admin/image.field.js',
+        )
+
 
 @admin.register(ElectronicSignature)
 class ElectronicSignatureAdmin(admin.ModelAdmin):
@@ -91,6 +111,16 @@ class ElectronicSignatureAdmin(admin.ModelAdmin):
     search_fields = ['title', 'short_description', 'full_description']
 
     prepopulated_fields = {'slug': ('title',)}
+
+    class Media:
+        css = {
+            'all': (
+                'js/admin/image.field.css',
+            )
+        }
+        js = (
+            'js/admin/image.field.js',
+        )
 
 
 @admin.register(ShareLinks)
@@ -102,6 +132,16 @@ class ShareLinkAdmin(admin.ModelAdmin):
 class CashboxPartner(admin.ModelAdmin):
     list_display = ['title', 'is_active']
     list_filter = ['is_active']
+
+    class Media:
+        css = {
+            'all': (
+                'js/admin/image.field.css',
+            )
+        }
+        js = (
+            'js/admin/image.field.js',
+        )
 
 
 @admin.register(OnlineCashboxCategory)

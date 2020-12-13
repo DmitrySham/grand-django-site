@@ -36,3 +36,13 @@ class PostAdmin(admin.ModelAdmin):
             'page_meta_og_image',
         )})
     )
+
+    class Media:
+        css = {
+            'all': (
+                'js/admin/image.field.css',
+            )
+        }
+        js = (
+            'js/admin/image.field.js',
+        )

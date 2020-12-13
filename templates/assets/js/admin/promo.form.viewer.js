@@ -50,10 +50,8 @@ function FormViewer(props) {
 
     this.getPostTemplate = ({ id, title, slug }) => [
         title && `<b>${title}</b>`,
-        ' | ',
-        id && `<a class="post-link" target="_blank" href="/admin/blog/post/${id}/change/">Посмотреть в админке</a>`,
-        ' | ',
-        slug && `<a class="post-link" target="_blank" href="/news/posts/${slug}/">Посмотреть на сайте</a>`
+        id && ` | <a class="post-link" target="_blank" href="/admin/blog/post/${id}/change/">Посмотреть в админке</a>`,
+        slug && ` | <a class="post-link" target="_blank" href="/news/posts/${slug}/">Посмотреть на сайте</a>`
     ].filter(Boolean).join('\n');
 
     this.getPostData = () => {

@@ -1,0 +1,38 @@
+.image-item {
+    display: inline-block;
+    max-width: 250px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 250px;
+    cursor: pointer;
+}
+
+.image-item img {
+    position: absolute;
+    max-height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.image-item .clear-field {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 2;
+    font-size: 24px;
+
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.image-item .clear-field:hover {
+    transform: rotate(180deg);
+}

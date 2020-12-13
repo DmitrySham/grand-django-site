@@ -1,17 +1,9 @@
-# import threading
-
-# from django.contrib.contenttypes.models import ContentType
+from django.views import generic
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404, JsonResponse
+from django.http import Http404
 from django.shortcuts import render
-# from django.template import loader
-# from django.urls import reverse
 from django.views.decorators.csrf import ensure_csrf_cookie
-
-# from core.models import AdminEmails
-from .models import Course
-# from .forms import ApplyRequestForm
-# from .utils import send_email_notification
+from .models import Course, License
 
 # Create your views here.
 
@@ -87,3 +79,15 @@ def course_single(request, slug):
 def schedule(request):
     courses = Course.objects.filter(is_active=True)
     return render(request, 'app/schedule.html', locals())
+
+
+class LicensesView(generic.TemplateView):
+    template_name = 'app/licenses.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(LicensesView, self).get_context_data(**kwargs)
+        context.update({
+            'licenses': License.objects.filter(is_active=True)
+        })
+        return context
+

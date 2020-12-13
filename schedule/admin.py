@@ -101,3 +101,18 @@ class CourseAdmin(SortableAdminMixin, admin.ModelAdmin):
 # @admin.register(Educations)
 # class EducationAdmin(admin.ModelAdmin):
 #     pass
+
+
+@admin.register(License)
+class LicenseAdmin(SortableAdminMixin, admin.ModelAdmin):
+    list_display = ['title', 'image', 'order_index']
+
+    class Media:
+        css = {
+            'all': (
+                'js/admin/image.field.css',
+            )
+        }
+        js = (
+            'js/admin/image.field.js',
+        )

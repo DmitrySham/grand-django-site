@@ -231,6 +231,14 @@ class SeoAdmin(admin.ModelAdmin):
             'contacts_page_meta_og_description',
             'contacts_page_meta_og_image',
         )}),
+        ('Лицензии', {'fields': (
+            'licenses_page_title',
+            'licenses_page_meta_keywords',
+            'licenses_page_meta_description',
+            'licenses_page_meta_og_title',
+            'licenses_page_meta_og_description',
+            'licenses_page_meta_og_image',
+        )})
     )
 
     def has_add_permission(self, request):
