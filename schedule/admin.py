@@ -70,7 +70,7 @@ class EducatorsAdmin(SortableAdminMixin, admin.ModelAdmin):
             'js/admin/image.field.js',
         )
 
-    list_display = ['order_index', 'name', 'photo_representation', 'short_description', 'is_active']
+    list_display = ['name', 'photo_representation', 'short_description', 'is_active', 'order_index']
     prepopulated_fields = {'slug': ('name',)}
 
     fieldsets = (
