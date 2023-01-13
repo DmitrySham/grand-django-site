@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import render
 from django.views.decorators.csrf import ensure_csrf_cookie
-from .models import Course, License
+from .models import Course, License, Educators
 
 # Create your views here.
 
@@ -91,3 +91,24 @@ class LicensesView(generic.TemplateView):
         })
         return context
 
+
+class EducatorsView(generic.TemplateView):
+    template_name = 'app/educators.html'
+    model = Educators
+
+    def get_queryset(self):
+        return self.model.objects.filter(is_active=True).order_by('order_index')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'educators': self.get_queryset()
+        })
+        return context
+
+
+class EducatorsSingleView(generic.DetailView):
+    template_name = 'app/educators-single.html'
+    model = Educators
+    pk_url_kwarg = 'id'
+    context_object_name = 'educator'

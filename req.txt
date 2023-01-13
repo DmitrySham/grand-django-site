@@ -5,6 +5,6 @@ django-jet==1.0.8
 django-js-asset==1.2.2
 django-widget-tweaks==1.4.3
 Pillow==8.0.1
-psycopg2-binary==2.8.2
+#psycopg2-binary==2.8.2
 pytz==2019.1
 sqlparse==0.3.0

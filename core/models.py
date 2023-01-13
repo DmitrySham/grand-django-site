@@ -67,7 +67,7 @@ class SiteSettings(models.Model):
     grand_smeta_header_image = models.FileField(verbose_name='Изображение на странице "Гранд Смета"', null=True, blank=True, upload_to='grand-smeta/headers/')
     news_header_image = models.FileField(verbose_name='Изображение на странице новостей', null=True, blank=True, upload_to='blog/headers/')
     schedule_header_image = models.FileField(verbose_name='Изображение на странице "Учебный центр"', null=True, blank=True, upload_to='schedule/headers/')
-    one_c_text = models.TextField(verbose_name='Текст в 1С', null=True, blank=True)
+    one_c_text = RichTextUploadingField(verbose_name='Текст в 1С', null=True, blank=True)
     one_c_h1_text = models.CharField(verbose_name='<h1> тег на странице  "1C"', max_length=255, null=True, blank=True)
     one_c_header_image = models.FileField(verbose_name='Изображение на странице "1C"', null=True, blank=True, upload_to='1c/headers/')
     online_cash_box_text = models.TextField(verbose_name='Текст в Онлайн-кассах', null=True, blank=True)
@@ -99,6 +99,9 @@ class SiteSettings(models.Model):
     icon_grand_smeta = models.TextField(verbose_name='Текст для иконки Гранд Смета', null=True, blank=True)
     icon_electronic_sign = models.TextField(verbose_name='Текст для иконки Электронные подписи', null=True, blank=True)
     icon_certificates = models.TextField(verbose_name='текст для иконки Сертификаты', null=True, blank=True)
+
+    educators_h1_text = models.CharField(verbose_name='<h1> тег на странице "Преподаватели"', max_length=255, null=True, blank=True)
+    educators_text = RichTextUploadingField(verbose_name='Текст на странице "Преподаватели"', null=True, blank=True)
 
     def __str__(self):
         return 'Настройки сайта'
@@ -292,6 +295,14 @@ class Seo(models.Model):
     licenses_page_meta_og_title = models.TextField(verbose_name='Тег meta og:title', null=True, blank=True)
     licenses_page_meta_og_description = models.TextField(verbose_name='Тег meta og:description', null=True, blank=True)
     licenses_page_meta_og_image = models.TextField(verbose_name='Тег meta og:image', null=True, blank=True)
+
+    # Educators
+    educators_page_title = models.TextField(verbose_name='Тег title', null=True, blank=True)
+    educators_page_meta_keywords = models.TextField(verbose_name='Тег meta keywords', null=True, blank=True)
+    educators_page_meta_description = models.TextField(verbose_name='Тег meta description', null=True, blank=True)
+    educators_page_meta_og_title = models.TextField(verbose_name='Тег meta og:title', null=True, blank=True)
+    educators_page_meta_og_description = models.TextField(verbose_name='Тег meta og:description', null=True, blank=True)
+    educators_page_meta_og_image = models.TextField(verbose_name='Тег meta og:image', null=True, blank=True)
 
     def __str__(self):
         return 'Настройки META тегов'

@@ -51,12 +51,12 @@
 
 {% block content %}
     <!-- Page Title START -->
-		<div class="container xleb mt-50">
-			<ul>
-				<li><a href="{% url 'index' %}">Главная</a></li>
-                <li><a href="{% url 'schedule:list' %}">Учебный Центр</a></li>
-			</ul>
-		</div>
+    <div class="container xleb mt-50">
+        <ul>
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            <li><a href="{% url 'schedule:list' %}">Учебный Центр</a></li>
+        </ul>
+    </div>
 	<!-- Page Title END -->
 
 
@@ -67,6 +67,7 @@
 				<h4>
                     <a class="primary-button button-md mb-15-xs" style="padding: 0 22px 0 22px;" href="{% url 'licenses' %}">Лицензии</a>
                     <a class="primary-button button-md mb-15-xs" style="padding: 0 22px 0 22px;" href="{% url 'schedule:base_view' %}">Расписание занятий</a>
+                    <a class="primary-button button-md mb-15-xs" style="padding: 0 22px 0 22px;" href="{% url 'schedule:educators_list' %}">Преподаватели</a>
                 </h4>
 {#				<div class="section-heading-line"></div>#}
 			</div>

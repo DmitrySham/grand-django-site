@@ -97,6 +97,11 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         ('Страница: Элек. подписи', {'fields': (
             'electronic_signature_header_image',
         )}),
+
+        ('Страница: Преподователи', {'fields': (
+            'educators_h1_text',
+            'educators_text',
+        )})
     )
 
     inlines = (SocialProfileLinksStackedInline, FooterMenuLinksStackedInline)
@@ -238,6 +243,14 @@ class SeoAdmin(admin.ModelAdmin):
             'licenses_page_meta_og_title',
             'licenses_page_meta_og_description',
             'licenses_page_meta_og_image',
+        )}),
+        ('Преподователи', {'fields': (
+            'educators_page_title',
+            'educators_page_meta_keywords',
+            'educators_page_meta_description',
+            'educators_page_meta_og_title',
+            'educators_page_meta_og_description',
+            'educators_page_meta_og_image',
         )})
     )
 

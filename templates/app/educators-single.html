@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load staticfiles product_template_helper %}
+
+{% block title %}{% if educator.page_title %}{{ educator.page_title }}{% else %}{{ educator.name }}{% endif %}{% endblock %}
+
+{% block seo %}
+	{% if educator.page_meta_keywords %}
+		<meta name="keywords" content="{{ educator.page_meta_keywords }}" />
+	{% endif %}
+
+	{% if educator.page_meta_description %}
+		<meta name="description" content="{{ educator.page_meta_description }}" />
+	{% endif %}
+
+	{% if educator.page_meta_og_title %}
+		<meta name="og:title" content="{{ educator.page_meta_og_title }}" />
+	{% endif %}
+
+	{% if educator.page_meta_og_description %}
+		<meta name="og:description" content="{{ educator.page_meta_og_description }}" />
+	{% endif %}
+
+	{% if educator.page_meta_og_image %}
+		<meta name="og:image" content="{{ educator.page_meta_og_image }}" />
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+    <!-- Page Title START -->
+		<div class="container xleb mt-50">
+			<ul>
+				<li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'schedule:list' %}">Учебный Центр</a></li>
+				<li><a href="{% url 'schedule:educators_list' %}">Преподователи</a></li>
+                <li>{{ educator.name }}</li>
+			</ul>
+		</div>
+	<!-- Page Title END -->
+
+
+	<div class="section-block">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-sm-6 col-12">
+					<div class="pr-30-md">
+						<div class="section-heading">
+							<h1>{{ educator.name }}</h1>
+						</div>
+						<div class="section-heading-line-left"></div>
+						<div class="mt-20">
+							{{ educator.short_description|split_lines|safe }}
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6 col-12">
+					<div class="course-preview-wrapper">
+						<img src="{{ educator.photo.url }}" class="rounded-border shadow-primary" alt="{% if educator.photo_alt %}{{ educator.photo_alt }}{% else %}{{ educator.photo.name }}{% endif %}">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container mt-50">
+			<div class="section-heading-line"></div>
+            <br>
+			{{ educator.full_description|safe }}
+		</div>
+	</div>
+{% endblock %}
