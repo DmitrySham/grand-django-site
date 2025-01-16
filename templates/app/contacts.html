@@ -67,16 +67,13 @@
 								</div>
 
 								<div class="col-md-6 col-sm-6 col-12">
-									{#<input type="text" name="name" placeholder="Имя">#}
 									{% render_field feedback_form.name placeholder='Имя' %}
 								</div>
 								<div class="col-md-6 col-sm-6 col-12">
-									{#<input type="email" name="email" placeholder="E-mail">#}
-									{% render_field feedback_form.email placeholder='E-Mail' %}
+									{% render_field feedback_form.phone id='id_feedback_phone' placeholder='Номер телефона' %}
 								</div>
 
 								<div class="col-md-12">
-									{#<textarea name="message" placeholder="Сообщение"></textarea>#}
 									{% render_field feedback_form.message placeholder='Сообщение' %}
 								</div>
 								<div class="col-md-12 mb-30">
@@ -206,6 +203,7 @@
 {% endblock %}
 
 {% block extra_js %}
+    <script src="{% static 'js/jquery.inputmask.js' %}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 	<script>
 		const _alert = (title, content, status) => {
@@ -219,6 +217,8 @@
 		};
 		$(document).ready(() => {
 		    let form = $('#feedback-form');
+
+            $('#id_feedback_phone').inputmask('+7 (999) 999 99-99');
 
 		    form.on('submit', e => {
 		        e.preventDefault();

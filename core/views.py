@@ -60,6 +60,7 @@ def contacts(request):
             context = dict(
                 name=feedback_form.cleaned_data['name'],
                 email=feedback_form.cleaned_data['email'],
+                phone=feedback_form.cleaned_data['phone'],
                 subject=feedback_form.cleaned_data['subject'],
                 message=feedback_form.cleaned_data['message'],
                 created_at=feedback_object.created_at,

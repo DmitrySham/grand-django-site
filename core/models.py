@@ -209,7 +209,8 @@ class Feedback(models.Model):
     first_name = models.CharField(max_length=255, verbose_name='Имя', null=True, blank=True)
     last_name = models.CharField(max_length=255, verbose_name='Фамилия', null=True, blank=True)
     middle_name = models.CharField(max_length=255, verbose_name='Отчество', null=True, blank=True)
-    email = models.EmailField(verbose_name='Почта')
+    email = models.EmailField(verbose_name='Почта', null=True, blank=True)
+    phone = models.CharField(max_length=255, verbose_name='Телефон')
     subject = models.CharField(max_length=255, verbose_name='Тема')
     message = models.TextField(verbose_name='Сообщение', null=True, blank=True)
 

@@ -148,10 +148,11 @@ class ContactsAdmin(admin.ModelAdmin):
 
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
-    list_display = ['name', 'subject', 'is_read', 'is_reacted', 'created_at']
+    list_display = ['name', 'subject', 'phone', 'is_read', 'is_reacted', 'created_at']
     list_filter = ['is_read', 'is_reacted', 'created_at']
+    search_fields = ['name', 'subject', 'phone']
 
-    readonly_fields = ['is_read', 'created_at', 'name', 'subject', 'email', 'message']
+    readonly_fields = ['is_read', 'created_at', 'name', 'subject', 'phone', 'email', 'message']
 
     def has_add_permission(self, request):
         return False
