@@ -1,0 +1,626 @@
+{% extends 'base.html' %}
+
+{% load staticfiles product_template_helper widget_tweaks %}
+
+{% block title %}{% if course.page_title %}{{ course.page_title }}{% else %}{{ course.title }}{% endif %}{% endblock %}
+
+{% block extra_css %}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+	<link rel="stylesheet" href="{% static 'css/course-layout-new.css' %}">
+<style>
+		.primary-button {
+			cursor: pointer;
+		}
+
+		.primary-button.disabled {
+			background-color: #6c757d;
+			border-color: #6c757d;
+			color: #ffffff;
+			cursor: not-allowed;
+		}
+		.contact-form select {
+			font-weight: 500 !important;
+			border-radius: 5px;
+			font-size: 13px;
+			border: 1px solid #f6f7f8;
+			background: #f6f7f8;
+			color: #777 !important;
+			outline: none;
+			width: 100%;
+			padding: 14px;
+			margin: 10px 0;
+			-webkit-transition-duration: 0.4s;
+			transition-duration: 0.4s;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			cursor: pointer;
+		}
+	</style>
+{% endblock %}
+
+{% block seo %}
+	{% if course.page_meta_keywords %}
+		<meta name="keywords" content="{{ course.page_meta_keywords }}" />
+	{% endif %}
+
+	{% if course.page_meta_description %}
+		<meta name="description" content="{{ course.page_meta_description }}" />
+	{% endif %}
+
+	{% if course.page_meta_og_title %}
+		<meta name="og:title" content="{{ course.page_meta_og_title }}" />
+	{% endif %}
+
+	{% if course.page_meta_og_description %}
+		<meta name="og:description" content="{{ course.page_meta_og_description }}" />
+	{% endif %}
+
+	{% if course.page_meta_og_image %}
+		<meta name="og:image" content="{{ course.page_meta_og_image }}" />
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+{#	<!-- Page Title START -->#}
+{#	<div class="page-title-section" style="background-image: url({% if course.cover_image %}{{ course.cover_image.url }}{% else %}https://via.placeholder.com/1730x300{% endif %});">#}
+{#		<div class="container">#}
+{#			<h1>{{ course.title }}</h1>#}
+{#			<ul>#}
+{#				<li><a href="{% url 'index' %}">Главная</a></li>#}
+{#				<li><a href="{% url 'schedule:list' %}">Образовательные программы</a></li>#}
+{#				<li><a href="{% url 'schedule:single' slug=course.slug %}">{{ course.title }}</a></li>#}
+{#			</ul>#}
+{#		</div>#}
+{#	</div>#}
+{#	<!-- Page Title END -->#}
+    <!-- Page Title START -->
+		<div class="container xleb mt-50">
+			<ul>
+				<li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'schedule:list' %}">Учебный Центр</a></li>
+				<li><a href="{% url 'courses_single' slug=course.slug %}">{{ course.title }}</a></li>
+			</ul>
+		</div>
+	<!-- Page Title END -->
+
+
+
+<!-- MAIN BANNER START -->
+<div class="section-block">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-12">
+				<div class="pr-30-md">
+					<div class="section-heading">
+						<h1 style="font-size: 5rem">EXCEL проф</h1>
+					</div>
+					<div class="section-heading-line-left"></div>
+					<div class="text-content-big mt-20">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+							veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					</div>
+					<div>
+						<a href="#id-tariff-block" class="primary-button button-md anchor-link">Перейти к тарифам</a>
+						<a href="#id-program-block" class="primary-button button-md anchor-link">Программа курса</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-12">
+				<img src="http://via.placeholder.com/540x360" class="rounded-border shadow-primary mt-15-xs" alt="img">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- MAIN BANNER END -->
+
+
+<!-- Boxes with icons START -->
+<div class="section-block">
+	<div class="container">
+		<div class="section-heading center-holder">
+			<h3>First class business solutions since 1995</h3>
+			<div class="section-heading-line"></div>
+		</div>
+		<div class="row mt-60">
+			<div class="col-md-4 col-sm-6 col-12">
+				<div class="feature-flex-square">
+					<div class="clearfix">
+						<div class="feature-flex-square-icon">
+							<i class="icon-target"></i>
+						</div>
+						<div class="feature-flex-square-content">
+							<h4><a href="#">Business Solutions</a></h4>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus bibendum, nunc ut hendrerit tempus.</p>
+							<a href="#" class="feature-flex-square-content-button">Learn More</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-6 col-12">
+				<div class="feature-flex-square">
+					<div class="clearfix">
+						<div class="feature-flex-square-icon">
+							<i class="icon-diamond"></i>
+						</div>
+						<div class="feature-flex-square-content">
+							<h4><a href="#">Development Manager</a></h4>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus bibendum, nunc ut hendrerit tempus.</p>
+							<a href="#" class="feature-flex-square-content-button">Learn More</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-6 col-12">
+				<div class="feature-flex-square">
+					<div class="clearfix">
+						<div class="feature-flex-square-icon">
+							<i class="icon-networking"></i>
+						</div>
+						<div class="feature-flex-square-content">
+							<h4><a href="#">Global Consumer insights</a></h4>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus bibendum, nunc ut hendrerit tempus.</p>
+							<a href="#" class="feature-flex-square-content-button">Learn More</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-6 col-12">
+				<div class="feature-flex-square">
+					<div class="clearfix">
+						<div class="feature-flex-square-icon">
+							<i class="icon-hourglass"></i>
+						</div>
+						<div class="feature-flex-square-content">
+							<h4><a href="#">Professional Approach</a></h4>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus bibendum, nunc ut hendrerit tempus.</p>
+							<a href="#" class="feature-flex-square-content-button">Learn More</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-6 col-12">
+				<div class="feature-flex-square">
+					<div class="clearfix">
+						<div class="feature-flex-square-icon">
+							<i class="icon-bank"></i>
+						</div>
+						<div class="feature-flex-square-content">
+							<h4><a href="#">Finance Advisor</a></h4>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus bibendum, nunc ut hendrerit tempus.</p>
+							<a href="#" class="feature-flex-square-content-button">Learn More</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-6 col-12">
+				<div class="feature-flex-square">
+					<div class="clearfix">
+						<div class="feature-flex-square-icon">
+							<i class="icon-document"></i>
+						</div>
+						<div class="feature-flex-square-content">
+							<h4><a href="#">Thought Leadership</a></h4>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus bibendum, nunc ut hendrerit tempus.</p>
+							<a href="#" class="feature-flex-square-content-button">Learn More</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Boxes with icons END -->
+
+
+<!-- Программа курса START -->
+<div id="id-program-block" class="section-block-grey program-block_wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-sm-12">
+				<div class="pr-30-md">
+					<div class="section-heading">
+						<h2>Программа курса</h2>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12 d-flex flex-column justify-content-center">
+				<div class="d-flex mb-3 align-items-center justify-content-between">
+					<button class="center call-button">Подробное описание</button>
+					<h3 class="text-right">6 модулей</h3>
+				</div>
+				<div class="d-flex align-items-center justify-content-between">
+					<a href="#" class="center call-button">Учебный план</a>
+					<h3 class="text-right">123 курса</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Программа курса END -->
+
+
+<!-- ознакомительное видео START -->
+<div class="section-block video-block_wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-sm-12">
+				<div class="pr-30-md">
+					<div class="section-heading">
+						<h3 style="font-weight: 400 ">Посмотрите ознакомительное видео, чтобы убедиться, что курс будет вам полезен</h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<iframe width="100%" height="315"
+						src="https://www.youtube.com/embed/QDxY2T7j_y8"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen>
+				</iframe>
+<!--				<div class="video-video-box full-width mt-15-xs">-->
+<!--					<img src="http://via.placeholder.com/540x360" class="rounded-border shadow-primary mb-10" alt="img">-->
+<!--					<div class="video-video-box-overlay">-->
+<!--						<div class="video-video-box-button">-->
+<!--							<button class="video-video-play-icon" data-toggle="modal" data-target=".video-modal">-->
+<!--								<i class="fa fa-play"></i>-->
+<!--							</button>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				&lt;!&ndash; Modal Start &ndash;&gt;-->
+<!--				<div class="modal fade video-modal" id="videomodal1" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">-->
+<!--					<div class="modal-dialog modal-lg" role="document">-->
+<!--						<iframe height="415" src="https://www.youtube.com/embed/EWzsJG07vHY" class="full-width round-frame image-shadow" allowfullscreen=""></iframe>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				&lt;!&ndash; Modal End &ndash;&gt;-->
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ознакомительное видео END -->
+
+<!-- FAQ -->
+<div class="section-block-grey">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-12">
+				<div class="section-heading">
+					<h5>FAQ</h5>
+					<div class="section-heading-line-left"></div>
+				</div>
+				<!-- Accordions START -->
+				<div class="panel-group mt-40" id="accordion" role="tablist" aria-multiselectable="true">
+
+					<div class="panel panel-default accordion">
+						<div class="panel-heading accordion-heading" role="tab" id="headingOne">
+							<h4 class="panel-title accordion-title">
+								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+									Where can I get access to Capital IQ?
+								</a>
+							</h4>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+							<div class="panel-body accordion-body">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+								consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+								cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+								proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+								<!-- Lists Start -->
+								<div class="row">
+									<div class="col-md-6 col-sm-12 col-12">
+										<div class="mt-25">
+											<ul class="primary-list">
+												<li><i class="fa fa-check-square"></i>Immigration consultant, Information technology consulting.</li>
+												<li><i class="fa fa-check-square"></i>Consultant pharmacist Creative consultant.</li>
+												<li><i class="fa fa-check-square"></i>Employment consultant Environmental consultant.</li>
+												<li><i class="fa fa-check-square"></i>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-md-6 col-sm-12 col-12">
+										<div class="mt-25">
+											<ul class="primary-list">
+												<li><i class="fa fa-check-square"></i>Immigration consultant, Information technology consulting.</li>
+												<li><i class="fa fa-check-square"></i>Consultant pharmacist Creative consultant.</li>
+												<li><i class="fa fa-check-square"></i>Employment consultant Environmental consultant.</li>
+												<li><i class="fa fa-check-square"></i>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<!-- Lists End -->
+							</div>
+						</div>
+					</div>
+
+					<div class="panel panel-default accordion">
+						<div class="panel-heading accordion-heading" role="tab" id="headingTwo">
+							<h4 class="panel-title accordion-title">
+								<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+									Where can I find market research reports?
+								</a>
+							</h4>
+						</div>
+						<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+							<div class="panel-body accordion-body">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+								consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+								cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+								proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</div>
+						</div>
+					</div>
+
+					<div class="panel panel-default accordion">
+						<div class="panel-heading accordion-heading" role="tab" id="headingThree">
+							<h4 class="panel-title accordion-title">
+								<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+									How do I get access to case studies?
+								</a>
+							</h4>
+						</div>
+						<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+							<div class="panel-body accordion-body">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+								consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+								cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+								proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Accordions END -->
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FAQ END -->
+
+<div class="section-block border-top border-bottom">
+	<div class="container">
+		<div class="section-heading center-holder">
+			<h2>Остались вопросы?</h2>
+			<div class="section-heading-line"></div>
+			<p>Наши специалисты всегда на связи и готовы помочь</p>
+		</div>
+		<div class="mt-30 center-holder">
+			<button class="primary-button button-lg">Записаться на бесплатную консультацию</button>
+		</div>
+	</div>
+</div>
+
+<!-- С этим курсом приобретают START -->
+<div class="section-block-grey">
+	<div class="container">
+		<div class="section-heading center-holder">
+			<h3>С этим курсом приобретают</h3>
+			<div class="section-heading-line"></div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor <br>incididunt ut labore et dolore magna aliqua.</p>
+		</div>
+		<div class="row mt-50">
+			<div class="col-md-4 col-sm-6 col-12">
+				<div class="team-member">
+					<div class="team-member-img">
+						<img src="http://via.placeholder.com/350x290" alt="img">
+					</div>
+					<div class="team-member-text">
+						<h4><a href="#">Jack Semper</a></h4>
+						<span>Majority Owner</span>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua.</p>
+
+						<ul>
+							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="#"><i class="fa fa-skype"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-6 col-12">
+				<div class="team-member">
+					<div class="team-member-img">
+						<img src="http://via.placeholder.com/350x290" alt="img">
+					</div>
+					<div class="team-member-text">
+						<h4><a href="#">Ann Smith</a></h4>
+						<span>Finance Lead</span>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua.</p>
+
+						<ul>
+							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="#"><i class="fa fa-skype"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-6 col-12">
+				<div class="team-member">
+					<div class="team-member-img">
+						<img src="http://via.placeholder.com/350x290" alt="img">
+					</div>
+					<div class="team-member-text">
+						<h4><a href="#">Philip Wilson</a></h4>
+						<span>Networking Lead</span>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua.</p>
+
+						<ul>
+							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="#"><i class="fa fa-skype"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- С этим курсом приобретают END -->
+
+
+<!-- Тарифы START -->
+<div class="section-block" id="id-tariff-block">
+	<div class="container">
+		<div class="section-heading center-holder">
+			<h3>Тарифы</h3>
+			<div class="section-heading-line"></div>
+		</div>
+
+		<div class="row mt-60 justify-content-center">
+			<div class="col-lg-4 col-md-6 col-sm-12 tariff-card_wrapper">
+				<div class="pricing-list-2">
+					<div class="pricing-list-2-top">
+						<i class="fa fa-group"></i>
+					</div>
+					<h4>С сопровождением преподавателя</h4>
+					<ul class="pricing-list-2-prod">
+						<li>Доступ к записям курса на 3 месяца. Доступ к записям курса на 3 месяца.</li>
+						<li>Видеоуроки</li>
+						<li>Практические занятия</li>
+						<li>Дополнительный материал </li>
+						<li>Тесты</li>
+						<li>Проверка домашних заданий</li>
+						<li>Выдача документа об образовании</li>
+					</ul>
+					<button class="center call-button">Записаться</button>
+				</div>
+			</div>
+
+
+
+			<div class="col-lg-4 col-md-6 col-sm-12 tariff-card_wrapper">
+				<div class="pricing-list-2">
+					<div class="pricing-list-2-top">
+						<i class="fa fa-user"></i>
+					</div>
+					<h4>Самостоятельное изучение</h4>
+					<ul class="pricing-list-2-prod">
+						<li>Доступ к записям курса на 3 месяца.</li>
+						<li>Видеоуроки</li>
+						<li>Практические занятия</li>
+						<li>Дополнительный материал </li>
+						<li>Тесты</li>
+						<li class="is-minus">Проверка домашних заданий</li>
+						<li class="is-minus">Выдача документа об образовании</li>
+					</ul>
+					<a href="#" class="center call-button" style="width: 100%; display: block">Оплатить</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Тарифы END -->
+
+<!-- Отзывы START -->
+<div class="section-block-grey" style="background-image: url(http://via.placeholder.com/1730x630);">
+	<div class="container">
+		<div class="section-heading center-holder">
+			<h3>Отзывы учеников</h3>
+			<div class="section-heading-line"></div>
+		</div>
+		<div class="owl-carousel owl-theme owl-loaded owl-drag" id="testmonials-carousel">
+			<div class="testmonial-single">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				<h4>John Doe</h4>
+				<h6>Consultant</h6>
+			</div>
+			<div class="testmonial-single">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				<h4>John Doe</h4>
+				<h6>Consultant</h6>
+			</div>
+			<div class="testmonial-single">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				<h4>John Doe</h4>
+				<h6>Consultant</h6>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Отзывы END -->
+
+
+{% include 'modals/call-modal.html' %}
+{% endblock %}
+
+{% block extra_js %}
+     <script>
+        $(document).ready(() => {
+            $('#callForm').on('submit', function (e) {
+                e.preventDefault();
+
+                let name = $('#id_name').val();
+                let phone = $('#id_phone').val();
+                let message = $('#id_message').val();
+                let model_id = '{{ course.pk }}';
+                let is_agree = $('#is_agree').is(":checked");
+
+                let data = {
+                    csrfmiddlewaretoken: getCookie('csrftoken'),
+                    'name': name,
+                    'phone': phone,
+                    'message': message,
+                    'course': model_id,
+                    'is_agree': is_agree,
+                };
+
+                $('#callModal').modal("hide");
+
+                $.ajax({
+                    url: "{% url 'calls:calls_request' %}",
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: data,
+
+                    success: function (response) {
+                        alert(response.message)
+                    },
+                    error: function (request, errThrown, errObject) {
+                        alert('Произошла ошибка просьба обратитесь к администратору.');
+                        console.error(request, errThrown, errObject);
+                    }
+                })
+            })
+
+			$("a[href^='#'].anchor-link").on("click", function (event) {
+				event.preventDefault();
+
+				var target = $(this.getAttribute("href"));
+				if (target.length) {
+					$("html, body").animate(
+							{
+								scrollTop: target.offset().top - 80,
+							},
+							500,
+					);
+				}
+			});
+        });
+
+    </script>
+{% endblock %}

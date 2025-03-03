@@ -1,0 +1,76 @@
+.program-block_wrapper{
+
+    h2{
+        font-size: 5em;
+        @media (max-width: 576px) {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+        @media (max-width: 992px) {
+            font-size: 4em;
+
+        }
+    }
+
+    a, button{
+        display: block;
+        text-align: center;
+        width: auto;
+        max-width: 260px;
+    }
+
+    h3{
+        padding-left: 10px;
+        flex: 0 0 auto;
+    }
+
+}
+
+.video-block_wrapper{
+    h3{
+        @media (max-width: 768px) {
+            margin-bottom: 2rem;
+        }
+    }
+}
+
+
+.tariff-card_wrapper{
+    .pricing-list-2-prod{
+        padding-left: 0;
+        text-align: left;
+        margin-bottom: 20px;
+    }
+    li{
+        list-style-type: none;
+        position: relative;
+        font-size: 16px;
+        line-height: 1;
+        padding: 12px 32px 12px 0;
+        &:not(:last-child){
+            border-bottom: 1px solid #eee;
+        }
+        &:before{
+            position:absolute;
+            content:"\f00c";
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #f7c605;
+            font-size: 18px;
+            font-family: FontAwesome;
+            line-height: 1;
+        }
+        &:after{
+            content: none !important;
+            display: none;
+        }
+        &.is-minus{
+            &:before{
+                font-size: 16px;
+                content: "\f068";
+                color: gray;
+            }
+        }
+    }
+}

@@ -6,7 +6,8 @@
 
 {% block extra_css %}
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-	<style>
+	<link rel="stylesheet" href="{% static 'css/course-layout-new.css' %}">
+<style>
 		.primary-button {
 			cursor: pointer;
 		}
@@ -97,22 +98,6 @@
 						<div class="section-heading-line-left"></div>
 						<div class="mt-20">
 							{{ course.short_description|split_lines|safe }}
-{#							<!-- Подставляется из основного расписание  shedule.html-->#}
-{##}
-{#							{% for schedule in course.schedule_set.all %}#}
-{#								<div class="border p-3 mb-3">#}
-{#									<h5 class="mb-3">Курс #{{ forloop.counter }}</h5>#}
-{##}
-{#									<p>Дата: {{ schedule.start_date|safe }}</p>#}
-{#									<p>Время: {{ schedule.start_hour|time }} - {{ schedule.finish_hour|time }} ({{ schedule.days }})</p>#}
-{#									<p>Продолжительность: {{ schedule.duration }}</p>#}
-{#									{% if schedule.have_own_cost %}#}
-{#										<p>Оплата: {% if schedule.cost %}{{ schedule.cost }}{% else %}-{% endif %}</p>#}
-{#									{% else %}#}
-{#										<p>Оплата: {{ course.cost }}</p>#}
-{#									{% endif %}#}
-{#								</div>#}
-{#							{% endfor %}#}
 						</div>
 					</div>
 				</div>
@@ -180,61 +165,6 @@
         </div>
 	</div>
     {% include 'modals/call-modal.html' %}
-
-
-{#	<!-- Modal -->#}
-{#	<div class="modal fade" id="apply-to-course-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">#}
-{#		<div class="modal-dialog" role="document">#}
-{#			<div class="modal-content">#}
-{#				<div class="modal-header">#}
-{#					<h5 class="modal-title" id="exampleModalLongTitle">Запись на курс "{{ course.title }}"</h5>#}
-{#					<button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
-{#						<span aria-hidden="true">&times;</span>#}
-{#					</button>#}
-{#				</div>#}
-{#				<div class="modal-body">#}
-{#					<!-- Form Start -->#}
-{#					<form class="contact-form row" id="apply-form">#}
-{#						{% render_field apply_form.course %}#}
-{#						<div class="col-md-12 col-sm-12 col-12">#}
-{#							{% render_field apply_form.last_name placeholder='Ваше Фамилия' %}#}
-{#						</div>#}
-{##}
-{#						<div class="col-md-12 col-sm-12 col-12">#}
-{#							{% render_field apply_form.first_name placeholder='Ваше Имя' %}#}
-{#						</div>#}
-{##}
-{#						<div class="col-md-12 col-sm-12 col-12">#}
-{#							{% render_field apply_form.middle_name placeholder='Ваше Отчество' %}#}
-{#						</div>#}
-{##}
-{#						<div class="col-md-12">#}
-{#							{% render_field apply_form.email placeholder='Электронная почта' %}#}
-{#						</div>#}
-{##}
-{#						<div class="col-md-12">#}
-{#							{% render_field apply_form.phone placeholder='Телефон' %}#}
-{#						</div>#}
-{##}
-{#						<div class="col-md-12 col-sm-12 col-12">#}
-							{#<input type="text" name="education" placeholder="Ваше образование">#}
-{#							{% render_field apply_form.education placeholder='Образование' %}#}
-{#						</div>#}
-{##}
-{#						<div class="col-md-12">#}
-							{#<textarea name="message" placeholder="Сообщение"></textarea>#}
-{#							{% render_field apply_form.message placeholder='Сообщение' %}#}
-{#						</div>#}
-{#					</form>#}
-{#					<!-- Form End -->#}
-{#				</div>#}
-{#				<div class="modal-footer">#}
-{#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
-{#					<button type="button" class="btn btn-primary" id="submit-apply-form-button">Записаться</button>#}
-{#				</div>#}
-{#			</div>#}
-{#		</div>#}
-{#	</div>#}
 {% endblock %}
 
 {% block extra_js %}
@@ -278,123 +208,4 @@
         });
 
     </script>
-
-
-{#	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>#}
-{#	<script>#}
-{#		let isRequesting = false;#}
-{##}
-{#		const _alert = (title, content, status) => {#}
-{#		    $.alert({#}
-{#				title: `<h4>${title}</h4>`,#}
-{#				content: content,#}
-{#				type: status,#}
-{#				columnClass: 'col-md-6 col-md-offset-3 col-lg-3 col-lg-offset-3 col-sm-12',#}
-{#				theme: 'material'#}
-{#			});#}
-{#		};#}
-{##}
-{#        $(document).ready(() => {#}
-{#            let openApplyModalButton = $('#open-apply-form-button');#}
-{#            let applyModal = $('#apply-to-course-modal');#}
-{#            let form = $('#apply-form');#}
-{#            let submitButton = $('#submit-apply-form-button');#}
-{##}
-{#            openApplyModalButton.on('click', e => {#}
-{#                e.preventDefault();#}
-{##}
-{#                if (!openApplyModalButton.hasClass('disabled')) {#}
-{#                    applyModal.modal('show');#}
-{#                }#}
-{#            });#}
-{##}
-{#            const submitApplyForm = () => {#}
-{#                isRequesting = true;#}
-{##}
-{#                let data = {#}
-{#                    csrfmiddlewaretoken: getCookie('csrftoken')#}
-{#                };#}
-{##}
-{#                let fields = form.find('input, textarea, select');#}
-{##}
-{#                const enableAllFieldsAndSubmitButton = () => {#}
-{#                    for (let i = 0; i < fields.length; ++i) {#}
-{#						let _field = $(fields[i]);#}
-{##}
-{#						_field.removeClass('disabled');#}
-{#					}#}
-{#					submitButton.removeClass('disabled');#}
-{#				};#}
-{##}
-{#                for (let i = 0; i < fields.length; ++i) {#}
-{#                    let _field = $(fields[i]);#}
-{##}
-{#                    data[_field.attr('name')] = _field.val();#}
-{#                    _field.addClass('disabled', true);#}
-{#				}#}
-{#				submitButton.addClass('disabled', true);#}
-{##}
-{#                const cleanForm = () => {#}
-{#					for (let i = 0; i < fields.length; ++i) {#}
-{#						let _field = $(fields[i]);#}
-{##}
-{#						_field.val('');#}
-{#					}#}
-{#				};#}
-{##}
-{#                $.ajax({#}
-{#					url: document.location.href,#}
-{#					method: 'POST',#}
-{#					dataType: 'JSON',#}
-{#					data: data,#}
-{#					success: response => {#}
-{#					    isRequesting = false;#}
-{#					    enableAllFieldsAndSubmitButton();#}
-{##}
-{#					    if (response.success) {#}
-{#					        $.confirm({#}
-{#								title: '<h4>Успех!</h4>',#}
-{#								content: `<p>${response.message}</p>`,#}
-{#								type: 'green',#}
-{#								columnClass: 'col-md-6 col-md-offset-3 col-lg-6 col-md-offset-3 col-sm-12',#}
-{#								buttons: {#}
-{#								    ok: {#}
-{#								        text: 'Хорошо',#}
-{#										btnClass: 'btn-primary',#}
-{#										action: () => {#}
-{#								            applyModal.modal('hide');#}
-{#								            cleanForm();#}
-{#										}#}
-{#									}#}
-{#								}#}
-{#							});#}
-{#						} else {#}
-{#					        _alert(#}
-{#					            '<h4>Ошибка!</h4>',#}
-{#								`<p>${response.message}</p>`,#}
-{#								'red'#}
-{#							);#}
-{#						}#}
-{#					},#}
-{#					error: (request, errThrown, errObject) => {#}
-{#					    isRequesting = false;#}
-{#					    enableAllFieldsAndSubmitButton();#}
-{#					    _alert('Неизвестная ошибка!', '<p>Произошла неизвестная ошибка! Пожалуйста попробуйте еще раз.</p><p>Если проблема не исчезла попробуйте попытку позже. Просим прощения за доставленные неудобства!</p>', 'red')#}
-{#					}#}
-{#				});#}
-{#            };#}
-{##}
-{#            form.on('submit', e => {#}
-{#                e.preventDefault();#}
-{##}
-{#                if (!isRequesting) submitApplyForm();#}
-{#            });#}
-{##}
-{#            submitButton.on('click', e => {#}
-{#                e.preventDefault();#}
-{##}
-{#                if (!isRequesting) submitApplyForm();#}
-{#            });#}
-{#        });#}
-{#	</script>#}
 {% endblock %}

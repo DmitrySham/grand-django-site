@@ -73,7 +73,7 @@ def course_single(request, slug):
     #
     #     return JsonResponse(dict(success=False, message=str(apply_form.errors)))
 
-    return render(request, 'app/schedule-object-single.html', locals())
+    return render(request, 'app/schedule-object-single-new.html', locals())
 
 
 def schedule(request):
