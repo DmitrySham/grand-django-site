@@ -74,15 +74,22 @@
 {#		</div>#}
 {#	</div>#}
 {#	<!-- Page Title END -->#}
-    <!-- Page Title START -->
-		<div class="container xleb mt-50">
-			<ul>
-				<li><a href="{% url 'index' %}">Главная</a></li>
-                <li><a href="{% url 'schedule:list' %}">Учебный Центр</a></li>
-				<li><a href="{% url 'courses_single' slug=course.slug %}">{{ course.title }}</a></li>
-			</ul>
-		</div>
-	<!-- Page Title END -->
+
+<!-- Page Title START -->
+<div class="container xleb mt-40 d-flex justify-content-between align-items-center flex-wrap">
+	<ul>
+		<li><a href="{% url 'index' %}">Главная</a></li>
+		<li><a href="{% url 'schedule:list' %}">Учебный Центр</a></li>
+		<li><a href="{% url 'courses_single' slug=course.slug %}">{{ course.title }}</a></li>
+	</ul>
+	<div class="product-share ml-auto mt-3 mt-md-0">
+		<span>Поделиться: </span>
+		{% for item in course.share_links.all %}
+		<a href="{% normalize_social_link item.url request title=course.title description=course.short_description image=course.thumbnail %}" target="_blank"><i class="fa fa-{{ item.icon }}"></i></a>
+		{% endfor %}
+	</div>
+</div>
+<!-- Page Title END -->
 
 
 
@@ -97,8 +104,7 @@
 					</div>
 					<div class="section-heading-line-left"></div>
 					<div class="text-content-big mt-20">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-							veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+						<p>{{ course.short_description|safe }}</p>
 					</div>
 					<div class="d-flex" style="gap: 15px">
 						<a href="#id-tariff-block" class="primary-button button-md anchor-link text-center">Перейти к тарифам</a>
@@ -107,7 +113,7 @@
 				</div>
 			</div>
 			<div class="col-md-6 col-12">
-				<img src="https://picsum.photos/id/10/300/200" class="rounded-border shadow-primary mt-15-xs" alt="EXCEL проф баннер">
+				<img src="{{ course.thumbnail.url }}" class="rounded-border shadow-primary mt-15-xs" alt="{{ course.atr_alt }}">
 			</div>
 		</div>
 	</div>
@@ -118,8 +124,12 @@
 <!-- Banner START -->
 <div class="section-block-grey sale-banner_wrapper">
 	<div class="container">
-		<div class="sale-banner_inner-wrapper" style="background-image: url('https://picsum.photos/id/11/1000/300');">
-			<img src="https://picsum.photos/id/100/200/200" style="border-radius: 50%" alt="img">
+		<div class="sale-banner_inner-wrapper" style="background-image: url('{% if course.banner_background %}{{ course.banner_background.url }}{% else %}https://picsum.photos/id/11/1000/300{% endif %}');">
+			{% if course.logo %}
+				<div class="sale-banner_image-wrapper">
+					<img src="{{ course.logo.url }}" alt="logo">
+				</div>
+			{% endif %}
 		</div>
 	</div>
 </div>
@@ -128,35 +138,16 @@
 <!-- Boxes with icons START -->
 <div class="section-block">
 	<div class="container">
-		<div class="row">
-			<div class="col-lg-3 col-sm-6 col-12">
-				<div class="number-box">
-					<h3><i class="icon-trophy"></i></h3>
-					<div class="number-box-line"></div>
-					<h4>Возможность получить документ об окончании</h4>
+		<div class="row justify-content-center">
+			{% for item in advantages %}
+				<div class="col-lg-3 col-sm-6 col-12">
+					<div class="number-box">
+						<h3><i class="{{ item.icon }}"></i></h3>
+						<div class="number-box-line"></div>
+						<h4>{{ item.text }}</h4>
+					</div>
 				</div>
-			</div>
-			<div class="col-lg-3 col-sm-6 col-12">
-				<div class="number-box">
-					<h3><i class="icon-time"></i></h3>
-					<div class="number-box-line"></div>
-					<h4>Длительность обучения - 1 месяц</h4>
-				</div>
-			</div>
-			<div class="col-lg-3 col-sm-6 col-12">
-				<div class="number-box">
-					<h3><i class="icon-worker"></i></h3>
-					<div class="number-box-line"></div>
-					<h4>Формат - видеоуроки, практические задания, тесты</h4>
-				</div>
-			</div>
-			<div class="col-lg-3 col-sm-6 col-12">
-				<div class="number-box">
-					<h3><i class="icon-money-1"></i></h3>
-					<div class="number-box-line"></div>
-					<h4>Возможность оплаты в рассрочку</h4>
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 </div>
@@ -171,19 +162,14 @@
 			<div class="section-heading-line"></div>
 		</div>
 		<div class="row mt-60 justify-content-center">
-			<div class="col-md-4 col-6">
-				<h3>6 модулей</h3>
-			</div>
-			<div class="col-md-4 col-6">
-				<h3>123 курса</h3>
-			</div>
+			<h3>{{ course.course_roadmap_description }}</h3>
 		</div>
 		<div class="row mt-60 justify-content-center" style="gap: 15px">
 			<div class="col-lg-4 col-md-5 col-12">
-				<button class="center call-button">Подробное описание</button>
+				<a href="{% url 'courses_full_description' slug=course.slug %}" class="center call-button">Подробное описание</a>
 			</div>
 			<div class="col-lg-4 col-md-5 col-12">
-				<a href="#" class="center call-button">Учебный план</a>
+				<a href="{% url 'courses_roadmap' slug=course.slug %}" class="center call-button">Учебный план</a>
 			</div>
 		</div>
 	</div>
@@ -196,37 +182,13 @@
 <div class="section-block video-block_wrapper">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-sm-12">
-				<div class="pr-30-md">
-					<div class="section-heading">
-						<h3 style="font-weight: 400 ">Посмотрите ознакомительное видео, чтобы убедиться, что курс будет вам полезен</h3>
-					</div>
+			<div class="col-md-6 col-sm-12 pr-30-md d-flex align-items-center">
+				<div class="section-heading">
+					<h3 style="font-weight: 400 ">Посмотрите ознакомительное видео, чтобы убедиться, что курс будет вам полезен</h3>
 				</div>
 			</div>
-			<div class="col-md-6 col-sm-12">
-				<iframe width="100%" height="315"
-						src="https://www.youtube.com/embed/QDxY2T7j_y8"
-						frameborder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen>
-				</iframe>
-<!--				<div class="video-video-box full-width mt-15-xs">-->
-<!--					<img src="http://via.placeholder.com/540x360" class="rounded-border shadow-primary mb-10" alt="img">-->
-<!--					<div class="video-video-box-overlay">-->
-<!--						<div class="video-video-box-button">-->
-<!--							<button class="video-video-play-icon" data-toggle="modal" data-target=".video-modal">-->
-<!--								<i class="fa fa-play"></i>-->
-<!--							</button>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				&lt;!&ndash; Modal Start &ndash;&gt;-->
-<!--				<div class="modal fade video-modal" id="videomodal1" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">-->
-<!--					<div class="modal-dialog modal-lg" role="document">-->
-<!--						<iframe height="415" src="https://www.youtube.com/embed/EWzsJG07vHY" class="full-width round-frame image-shadow" allowfullscreen=""></iframe>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				&lt;!&ndash; Modal End &ndash;&gt;-->
+			<div class="col-md-6 col-sm-12 overflow-hidden">
+				{{ course.video_iframe|safe }}
 			</div>
 		</div>
 	</div>
@@ -243,45 +205,27 @@
 		</div>
 
 		<div class="row mt-60 justify-content-center">
-			<div class="col-lg-4 col-md-6 col-sm-12 tariff-card_wrapper">
-				<div class="pricing-list-2">
-					<div class="pricing-list-2-top">
-						<i class="fa fa-group"></i>
+			{% for item in subscription_plans %}
+
+				<div class="col-lg-4 col-md-6 col-sm-12 tariff-card_wrapper">
+					<div class="pricing-list-2">
+						<div class="pricing-list-2-top">
+							<i class="{{item.icon}}"></i>
+						</div>
+						<h4>{{ item.name }}</h4>
+						<ul class="pricing-list-2-prod">
+							{% for char in item.characteristic.all %}
+								<li class="{% if not char.enabled %}is-minus{% endif %}">
+									{{ char.text }}
+								</li>
+							{% endfor %}
+						</ul>
+						<button class="center call-button">{{ item.action_name }}</button>
 					</div>
-					<h4>С сопровождением преподавателя</h4>
-					<ul class="pricing-list-2-prod">
-						<li>Доступ к записям курса на 3 месяца. Доступ к записям курса на 3 месяца.</li>
-						<li>Видеоуроки</li>
-						<li>Практические занятия</li>
-						<li>Дополнительный материал </li>
-						<li>Тесты</li>
-						<li>Проверка домашних заданий</li>
-						<li>Выдача документа об образовании</li>
-					</ul>
-					<button class="center call-button">Записаться</button>
 				</div>
-			</div>
 
+			{% endfor %}
 
-
-			<div class="col-lg-4 col-md-6 col-sm-12 tariff-card_wrapper">
-				<div class="pricing-list-2">
-					<div class="pricing-list-2-top">
-						<i class="fa fa-user"></i>
-					</div>
-					<h4>Самостоятельное изучение</h4>
-					<ul class="pricing-list-2-prod">
-						<li>Доступ к записям курса на 3 месяца.</li>
-						<li>Видеоуроки</li>
-						<li>Практические занятия</li>
-						<li>Дополнительный материал </li>
-						<li>Тесты</li>
-						<li class="is-minus">Проверка домашних заданий</li>
-						<li class="is-minus">Выдача документа об образовании</li>
-					</ul>
-					<a href="#" class="center call-button" style="width: 100%; display: block">Оплатить</a>
-				</div>
-			</div>
 		</div>
 	</div>
 </div>
@@ -295,25 +239,13 @@
 			<h3>Отзывы учеников</h3>
 			<div class="section-heading-line"></div>
 		</div>
-		<div class="owl-carousel owl-theme owl-loaded owl-drag" id="testmonials-carousel">
-			<div class="testmonial-single">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-				<h4>John Doe</h4>
-				<h6>Consultant</h6>
-			</div>
-			<div class="testmonial-single">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-				<h4>John Doe</h4>
-				<h6>Consultant</h6>
-			</div>
-			<div class="testmonial-single">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-				<h4>John Doe</h4>
-				<h6>Consultant</h6>
-			</div>
+		<div class="owl-carousel owl-theme" id="testmonials-carousel">
+			{% for item in reviews %}
+				<div class="testmonial-single">
+					<p>{{ item.review_text }}</p>
+					<h4>{{ item.author }}</h4>
+				</div>
+			{% endfor %}
 		</div>
 	</div>
 </div>
@@ -332,90 +264,25 @@
 				<!-- Accordions START -->
 				<div class="panel-group mt-40" id="accordion" role="tablist" aria-multiselectable="true">
 
-					<div class="panel panel-default accordion">
-						<div class="panel-heading accordion-heading" role="tab" id="headingOne">
-							<h4 class="panel-title accordion-title">
-								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-									Where can I get access to Capital IQ?
-								</a>
-							</h4>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-							<div class="panel-body accordion-body">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-								consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-								cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-								proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-								<!-- Lists Start -->
-								<div class="row">
-									<div class="col-md-6 col-sm-12 col-12">
-										<div class="mt-25">
-											<ul class="primary-list">
-												<li><i class="fa fa-check-square"></i>Immigration consultant, Information technology consulting.</li>
-												<li><i class="fa fa-check-square"></i>Consultant pharmacist Creative consultant.</li>
-												<li><i class="fa fa-check-square"></i>Employment consultant Environmental consultant.</li>
-												<li><i class="fa fa-check-square"></i>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-											</ul>
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-12 col-12">
-										<div class="mt-25">
-											<ul class="primary-list">
-												<li><i class="fa fa-check-square"></i>Immigration consultant, Information technology consulting.</li>
-												<li><i class="fa fa-check-square"></i>Consultant pharmacist Creative consultant.</li>
-												<li><i class="fa fa-check-square"></i>Employment consultant Environmental consultant.</li>
-												<li><i class="fa fa-check-square"></i>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-											</ul>
-										</div>
-									</div>
+					{% for item in faq_items %}
+						<div class="panel panel-default accordion">
+							<div class="panel-heading accordion-heading" role="tab" id="heading{{ forloop.counter }}">
+								<h4 class="panel-title accordion-title">
+									<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ forloop.counter }}"
+									   aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+										{{ item.question }}
+									</a>
+								</h4>
+							</div>
+							<div id="collapse{{ forloop.counter }}" class="panel-collapse collapse" role="tabpanel"
+								 aria-labelledby="heading{{ forloop.counter }}">
+								<div class="panel-body accordion-body">
+									{{ item.answer }}
 								</div>
-								<!-- Lists End -->
 							</div>
 						</div>
-					</div>
+					{% endfor %}
 
-					<div class="panel panel-default accordion">
-						<div class="panel-heading accordion-heading" role="tab" id="headingTwo">
-							<h4 class="panel-title accordion-title">
-								<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-									Where can I find market research reports?
-								</a>
-							</h4>
-						</div>
-						<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-							<div class="panel-body accordion-body">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-								consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-								cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-								proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-							</div>
-						</div>
-					</div>
-
-					<div class="panel panel-default accordion">
-						<div class="panel-heading accordion-heading" role="tab" id="headingThree">
-							<h4 class="panel-title accordion-title">
-								<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-									How do I get access to case studies?
-								</a>
-							</h4>
-						</div>
-						<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-							<div class="panel-body accordion-body">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-								consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-								cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-								proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-							</div>
-						</div>
-					</div>
 				</div>
 				<!-- Accordions END -->
 			</div>
@@ -434,31 +301,34 @@
 				<p>Наши специалисты всегда на связи и готовы помочь</p>
 			</div>
 			<div class="col-md-6 col-12">
-				<form class="contact-form" method="POST" id="consultation-form">
+				<form class="contact-form" method="POST" id="callForm">
 					<div>
-						<input type="email" placeholder="Имя" required>
+						<input type="text" id="id_name" placeholder="Имя" required>
+					</div>
+<!--					<div>-->
+<!--						<input type="email" id="id_phone" placeholder="E-mail" required>-->
+<!--					</div>-->
+					<div>
+						<input type="tel" id="id_phone" placeholder="Номер телефона" required>
 					</div>
 					<div>
-						<input type="email" placeholder="E-mail" required>
-					</div>
-					<div>
-						<input type="text" placeholder="Номер телефона" required>
+						<textarea type="textarea" class="form-control" id="id_message" placeholder="Сообщение"></textarea>
 					</div>
 					<div class="d-flex privacy-policy">
 						<span style="margin-right: 15px;">
-							<input type="checkbox" value="" id="is_privacy_agree" required >
+							<input type="checkbox" value="" id="is_agree" required >
 						</span>
-						<label for="is_privacy_agree"> Я согласен на обработку моих персональных данных в соответствии с
-							<a href="#">Политикой конфидециальности</a>
-							и принимаю условия <a href="#">Договора оферты</a></label>
+						<label for="is_agree"> Я согласен на обработку моих персональных данных в соответствии с
+							<a href="{% url 'core:privacy_policy' %}">Политикой конфидециальности</a>
+							и принимаю условия договора оферты</label>
 					</div>
-					<div class="d-flex privacy-policy">
-						<span style="margin-right: 15px;">
-							<input type="checkbox" value="" id="is_mail_agree" required >
-						</span>
-						<label for="is_mail_agree"> Даю согласие на получение информационных и маркетинговых рассылок (вы в любой момент можете
-							отказаться от получения писем в личном набинете)</label>
-					</div>
+<!--					<div class="d-flex privacy-policy">-->
+<!--						<span style="margin-right: 15px;">-->
+<!--							<input type="checkbox" value="" id="is_mail_agree" required >-->
+<!--						</span>-->
+<!--						<label for="is_mail_agree"> Даю согласие на получение информационных и маркетинговых рассылок (вы в любой момент можете-->
+<!--							отказаться от получения писем в личном набинете)</label>-->
+<!--					</div>-->
 					<div class="center-holder">
 						<button class="primary-button button-lg" type="submit">Записаться на бесплатную консультацию</button>
 					</div>
@@ -477,68 +347,68 @@
 			<div class="section-heading-line"></div>
 		</div>
 		<div class="row mt-50">
-			<div class="col-md-3 col-sm-6 col-12">
-				<div class="team-member">
-					<div class="team-member-img">
-						<img src="http://via.placeholder.com/350x290" alt="img">
-					</div>
-					<div class="team-member-text">
-						<h4><a href="#">Jack Semper</a></h4>
-						<span>Majority Owner</span>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.</p>
+			{% for item in siblings %}
+			<!-- Product Start -->
+			<a href="{% url 'courses_single' slug=item.slug %}">
+				<div class="col-md-3 col-sm-6 col-12">
+					<div class="classic-shop">
+						<div class="classic-shop-img">
+							<img src="{{ item.thumbnail.url }}" alt="{% if item.atr_alt %}{{ item.atr_alt }}{% else %}{{ item.image.name }}{% endif %}">
+							<div class="shop-box-overlay">
+								<div class="row">
+									<div class="col-md-12 col-sm-12 col-12">
+										<a href="{% url 'courses_single' slug=item.slug %}">
+											<div class="shop-to-card">
+												<h4><span class="fa fa-eye"></span>Подробнее</h4>
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="classic-shop-text p-4">
+							<h6><a href="{% url 'courses_single' slug=item.slug %}">{{ item.title|truncate_chars:45 }}</a></h6>
+						</div>
 
-						<ul>
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-							<li><a href="#"><i class="fa fa-skype"></i></a></li>
-						</ul>
+
+						<div class="panel-group text-center" id="accordion{{ forloop.counter }}" role="tablist" aria-multiselectable="true">
+
+							<div class="panel panel-grey accordion">
+								<div class="panel-heading accordion-heading" role="tab" id="acc{{ forloop.counter }}">
+									<h4 class="panel-title accordion-title">
+										<a role="button" data-toggle="collapse" data-parent="#accordion{{ forloop.counter }}" href="#ac_col{{ forloop.counter }}" aria-expanded="true" aria-controls="ac_col1">
+											Расписание
+										</a>
+									</h4>
+								</div>
+
+								<div id="ac_col{{ forloop.counter }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="acc{{ forloop.counter }}">
+									{% for schedule in item.schedule_set.all %}
+									<div class="panel-body accordion-body text-center">
+										<p>Дата: {{ schedule.start_date|safe }}</p>
+										<p>Время: {{ schedule.start_hour|time }} - {{ schedule.finish_hour|time }} ({{ schedule.days }})</p>
+										<p>Продолжительность: {{ schedule.duration }}</p>
+										{% if schedule.have_own_cost %}
+										{% if schedule.cost %}
+										<p>Оплата: {{ schedule.cost }}</p>
+										{% else %}
+										<p>Оплата: -</p>
+										{% endif %}
+										{% else %}
+										<p>Оплата: {{ item.cost }}</p>
+										{% endif %}
+									</div>
+									{% endfor %}
+								</div>
+
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
+			</a>
+			<!-- Product End -->
+			{% endfor %}
 
-			<div class="col-md-3 col-sm-6 col-12">
-				<div class="team-member">
-					<div class="team-member-img">
-						<img src="http://via.placeholder.com/350x290" alt="img">
-					</div>
-					<div class="team-member-text">
-						<h4><a href="#">Ann Smith</a></h4>
-						<span>Finance Lead</span>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.</p>
-
-						<ul>
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-							<li><a href="#"><i class="fa fa-skype"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3 col-sm-6 col-12">
-				<div class="team-member">
-					<div class="team-member-img">
-						<img src="http://via.placeholder.com/350x290" alt="img">
-					</div>
-					<div class="team-member-text">
-						<h4><a href="#">Philip Wilson</a></h4>
-						<span>Networking Lead</span>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.</p>
-
-						<ul>
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-							<li><a href="#"><i class="fa fa-skype"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 </div>
@@ -578,6 +448,10 @@
                     data: data,
 
                     success: function (response) {
+						$('#id_name').val('');
+						$('#id_phone').val('');
+						$('#id_message').val('');
+						$('#is_agree').prop('checked', false);
                         alert(response.message)
                     },
                     error: function (request, errThrown, errObject) {

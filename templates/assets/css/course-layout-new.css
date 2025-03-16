@@ -39,8 +39,16 @@
     background-color: rgba(0, 0, 0, 0.3);
 }
 
-.sale-banner_inner-wrapper img{
+.sale-banner_image-wrapper{
+    width: 200px;
+    height: 200px;
     z-index: 1;
+}
+
+.sale-banner_image-wrapper img{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
 }
 
 .program-block_wrapper{
@@ -70,6 +78,10 @@
     @media (max-width: 768px) {
         margin-bottom: 2rem;
     }
+}
+
+.video-block_wrapper iframe{
+    width: 100%;
 }
 
 

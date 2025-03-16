@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% load staticfiles product_template_helper widget_tweaks %}
+
+{% block title %}Учебный план | {% if course.page_title %}{{ course.page_title }}{% else %}{{ course.title }}{% endif %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<link rel="stylesheet" href="{% static 'css/course-layout-new.css' %}">
+<style>
+    .primary-button {
+        cursor: pointer;
+    }
+
+    .primary-button.disabled {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #ffffff;
+        cursor: not-allowed;
+    }
+    .contact-form select {
+        font-weight: 500 !important;
+        border-radius: 5px;
+        font-size: 13px;
+        border: 1px solid #f6f7f8;
+        background: #f6f7f8;
+        color: #777 !important;
+        outline: none;
+        width: 100%;
+        padding: 14px;
+        margin: 10px 0;
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+
+{% block seo %}
+{% if course.page_meta_keywords %}
+<meta name="keywords" content="{{ course.page_meta_keywords }}" />
+{% endif %}
+
+{% if course.page_meta_description %}
+<meta name="description" content="{{ course.page_meta_description }}" />
+{% endif %}
+
+{% if course.page_meta_og_title %}
+<meta name="og:title" content="{{ course.page_meta_og_title }}" />
+{% endif %}
+
+{% if course.page_meta_og_description %}
+<meta name="og:description" content="{{ course.page_meta_og_description }}" />
+{% endif %}
+
+{% if course.page_meta_og_image %}
+<meta name="og:image" content="{{ course.page_meta_og_image }}" />
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="section-block border-top" style="min-height: calc(80vh - 100px);">
+    <div class="container">
+        {{ course.course_roadmap_content|safe }}
+    </div>
+</div>
+
+{% endblock %}

@@ -41,6 +41,20 @@ class Course(models.Model):
     page_meta_og_description = models.TextField(verbose_name='Тег meta og:description', null=True, blank=True)
     page_meta_og_image = models.TextField(verbose_name='Тег meta og:image', null=True, blank=True)
 
+    student_reviews = models.ManyToManyField(to='core.StudentsReviews', blank=True)
+
+    video_iframe = models.TextField(null=True, blank=True)
+    course_roadmap_description = models.CharField(max_length=255, verbose_name='Описание под "Программа кураса"', null=True, blank=True)
+    advantages = models.ManyToManyField(to='CourseAdvantages', blank=True)
+
+    logo = models.FileField(upload_to=SetUniqueName('courses/logos'), null=True, blank=True)
+    banner_background = models.FileField(upload_to=SetUniqueName('courses/banners'), null=True, blank=True)
+
+    course_roadmap_content = RichTextUploadingField(null=True, blank=True)
+    available_subscription_plans = models.ManyToManyField(to='SubscriptionPlans', blank=True)
+
+    siblings = models.ManyToManyField(to='Course', blank=True)
+
     # def get_actual_date_action(self):
     #     return self.courseactiondateobject_set.filter(is_active=True, is_actual=True).first()
 
@@ -125,3 +139,46 @@ class Educators(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class CourseAdvantages(models.Model):
+    class Meta:
+        verbose_name = 'Приемущества курса'
+        verbose_name_plural = 'Приемущества курса'
+
+    is_active = models.BooleanField(default=True)
+    icon = models.CharField(max_length=255, verbose_name='Название CSS класса для иконки')
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text
+
+
+class SubscriptionPlans(models.Model):
+    class Meta:
+        verbose_name = 'Тариф'
+        verbose_name_plural = 'Тарифы'
+
+    name = models.CharField(max_length=255)
+    icon = models.CharField(max_length=255, verbose_name='CSS класс для иконки')
+    action_name = models.CharField(max_length=255, verbose_name='Текст на кнопке')
+
+    def __str__(self):
+        return self.name
+
+
+class SubscriptionPlanCharacteristics(models.Model):
+    class Meta:
+        verbose_name = 'Характеристика тарифа'
+        verbose_name_plural = 'Характеристики тарифов'
+
+    is_active = models.BooleanField(default=True)
+    text = models.TextField()
+    enabled = models.BooleanField(default=True)
+    plan = models.ForeignKey(to='SubscriptionPlans', related_name='characteristic', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.text
+
+
+
