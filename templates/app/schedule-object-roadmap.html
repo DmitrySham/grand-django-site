@@ -65,7 +65,13 @@
 
 <div class="section-block border-top" style="min-height: calc(80vh - 100px);">
     <div class="container">
-        {{ course.course_roadmap_content|safe }}
+        <div class="section-heading">
+            <h2>Учебный план</h2>
+            <div class="section-heading-line-left"></div>
+        </div>
+        <div class="mt-50">
+            {{ course.course_roadmap_content|safe }}
+        </div>
     </div>
 </div>
 

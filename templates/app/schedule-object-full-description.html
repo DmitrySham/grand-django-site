@@ -65,7 +65,13 @@
 
 <div class="section-block border-top" style="min-height: calc(60vh - 100px);">
     <div class="container">
-        {{ course.full_description|safe }}
+        <div class="section-heading">
+            <h2>Подробное описание</h2>
+            <div class="section-heading-line-left"></div>
+        </div>
+        <div class="mt-50">
+            {{ course.full_description|safe }}
+        </div>
     </div>
 </div>
 
