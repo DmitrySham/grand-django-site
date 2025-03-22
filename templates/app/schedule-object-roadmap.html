@@ -63,7 +63,19 @@
 
 {% block content %}
 
-<div class="section-block border-top" style="min-height: calc(80vh - 100px);">
+<!-- Page Title START -->
+<div class="container xleb mt-50">
+    <ul>
+        <li><a href="{% url 'index' %}">Главная</a></li>
+        <li><a href="{% url 'schedule:list' %}">Учебный Центр</a></li>
+        <li><a href="{% url 'courses_single' slug=course.slug %}">{{ course.title }}</a></li>
+        <li>Учебный план</li>
+    </ul>
+</div>
+<!-- Page Title END -->
+
+<div class="section-block" style="min-height: calc(80vh - 100px);">
+
     <div class="container">
         <div class="section-heading">
             <h2>Учебный план</h2>

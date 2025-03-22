@@ -62,25 +62,14 @@
 {% endblock %}
 
 {% block content %}
-{#	<!-- Page Title START -->#}
-{#	<div class="page-title-section" style="background-image: url({% if course.cover_image %}{{ course.cover_image.url }}{% else %}https://via.placeholder.com/1730x300{% endif %});">#}
-{#		<div class="container">#}
-{#			<h1>{{ course.title }}</h1>#}
-{#			<ul>#}
-{#				<li><a href="{% url 'index' %}">Главная</a></li>#}
-{#				<li><a href="{% url 'schedule:list' %}">Образовательные программы</a></li>#}
-{#				<li><a href="{% url 'schedule:single' slug=course.slug %}">{{ course.title }}</a></li>#}
-{#			</ul>#}
-{#		</div>#}
-{#	</div>#}
-{#	<!-- Page Title END -->#}
 
 <!-- Page Title START -->
-<div class="container xleb mt-40 d-flex justify-content-between align-items-center flex-wrap">
+<div class="container xleb mt-50 d-flex justify-content-between align-items-center flex-wrap">
 	<ul>
 		<li><a href="{% url 'index' %}">Главная</a></li>
 		<li><a href="{% url 'schedule:list' %}">Учебный Центр</a></li>
-		<li><a href="{% url 'courses_single' slug=course.slug %}">{{ course.title }}</a></li>
+		<li>{{ course.title }}</li>
+<!--		<li><a href="{% url 'courses_single' slug=course.slug %}">{{ course.title }}</a></li>-->
 	</ul>
 	<div class="product-share ml-auto mt-3 mt-md-0">
 		<span>Поделиться: </span>
@@ -155,7 +144,7 @@
 
 
 <!-- Программа курса START -->
-<div id="id-program-block" class="section-block-grey program-block_wrapper">
+<div id="id-program-block" class="section-block program-block_wrapper">
 	<div class="container">
 		<div class="section-heading center-holder">
 			<h3>Программа курса</h3>
@@ -178,6 +167,7 @@
 <!-- Программа курса END -->
 
 
+{% if course.video_iframe %}
 <!-- ознакомительное видео START -->
 <div class="section-block video-block_wrapper">
 	<div class="container">
@@ -194,10 +184,11 @@
 	</div>
 </div>
 <!-- ознакомительное видео END -->
+{% endif %}
 
 
 <!-- Тарифы START -->
-<div class="section-block-grey" id="id-tariff-block">
+<div class="section-block" id="id-tariff-block">
 	<div class="container">
 		<div class="section-heading center-holder">
 			<h3>Тарифы</h3>
@@ -210,7 +201,7 @@
 				<div class="col-lg-4 col-md-6 col-sm-12 tariff-card_wrapper">
 					<div class="pricing-list-2">
 						<div class="pricing-list-2-top">
-							<i class="{{item.icon}}"></i>
+							<i class="{{ item.icon }}"></i>
 						</div>
 						<h4>{{ item.name }}</h4>
 						<ul class="pricing-list-2-prod">
@@ -220,7 +211,9 @@
 								</li>
 							{% endfor %}
 						</ul>
-						<button class="center call-button">{{ item.action_name }}</button>
+						<a class="center call-button{% if item.has_mentor %} anchor-link{% endif %}" href="{% if item.has_mentor %}#id-feedback-block{% else %}{{ course.payment_url }}{% endif %}"{% if not item.has_mentor %} target="_blank"{% endif %}>
+							{{ item.action_name }}
+						</a>
 					</div>
 				</div>
 
@@ -253,7 +246,7 @@
 
 
 <!-- FAQ -->
-<div class="section-block-grey">
+<div class="section-block">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-12">
@@ -292,11 +285,11 @@
 <!-- FAQ END -->
 
 <!-- Консультация START -->
-<div class="section-block border-top border-bottom consultation-block_wrapper">
+<div id="id-feedback-block" class="section-block border-top border-bottom consultation-block_wrapper">
 	<div class="container">
 		<div class="row">
 			<div class="section-heading col-md-6 col-12">
-				<h3>Остались вопросы?</h3>
+				<h3>Записаться на курс</h3>
 				<div class="section-heading-line-left"></div>
 				<p>Наши специалисты всегда на связи и готовы помочь</p>
 			</div>
@@ -305,9 +298,9 @@
 					<div>
 						<input type="text" id="id_name" placeholder="Имя" required>
 					</div>
-<!--					<div>-->
-<!--						<input type="email" id="id_phone" placeholder="E-mail" required>-->
-<!--					</div>-->
+					<div>
+						<input type="email" id="id_email" placeholder="E-mail" required>
+					</div>
 					<div>
 						<input type="tel" id="id_phone" placeholder="Номер телефона" required>
 					</div>
@@ -322,13 +315,13 @@
 							<a href="{% url 'core:privacy_policy' %}">Политикой конфидециальности</a>
 							и принимаю условия договора оферты</label>
 					</div>
-<!--					<div class="d-flex privacy-policy">-->
-<!--						<span style="margin-right: 15px;">-->
-<!--							<input type="checkbox" value="" id="is_mail_agree" required >-->
-<!--						</span>-->
-<!--						<label for="is_mail_agree"> Даю согласие на получение информационных и маркетинговых рассылок (вы в любой момент можете-->
-<!--							отказаться от получения писем в личном набинете)</label>-->
-<!--					</div>-->
+					<div class="d-flex privacy-policy">
+						<span style="margin-right: 15px;">
+							<input type="checkbox" value="" id="is_mail_agree" required >
+						</span>
+						<label for="is_mail_agree"> Даю согласие на получение информационных и маркетинговых рассылок (вы в любой момент можете
+							отказаться от получения писем в личном набинете)</label>
+					</div>
 					<div class="center-holder">
 						<button class="primary-button button-lg" type="submit">Записаться на бесплатную консультацию</button>
 					</div>
@@ -340,7 +333,7 @@
 <!-- Консультация END -->
 
 <!-- С этим курсом приобретают START -->
-<div class="section-block-grey">
+<div class="section-block">
 	<div class="container">
 		<div class="section-heading center-holder">
 			<h3>С этим курсом приобретают</h3>
@@ -415,28 +408,35 @@
 <!-- С этим курсом приобретают END -->
 
 
-{% include 'modals/call-modal.html' %}
+<!--{% include 'modals/call-modal.html' %}-->
 {% endblock %}
 
 {% block extra_js %}
+	<script src="{% static 'js/jquery.inputmask.js' %}"></script>
      <script>
         $(document).ready(() => {
+			$('#id_phone').inputmask('+7 (999) 999 99-99');
+
             $('#callForm').on('submit', function (e) {
                 e.preventDefault();
 
                 let name = $('#id_name').val();
                 let phone = $('#id_phone').val();
+                let email = $('#id_email').val();
                 let message = $('#id_message').val();
                 let model_id = '{{ course.pk }}';
                 let is_agree = $('#is_agree').is(":checked");
+                let is_mail_agree = $('#is_mail_agree').is(":checked");
 
                 let data = {
                     csrfmiddlewaretoken: getCookie('csrftoken'),
                     'name': name,
                     'phone': phone,
+                    'email': email,
                     'message': message,
                     'course': model_id,
                     'is_agree': is_agree,
+                    'is_mail_agree': is_mail_agree,
                 };
 
                 $('#callModal').modal("hide");
@@ -450,8 +450,10 @@
                     success: function (response) {
 						$('#id_name').val('');
 						$('#id_phone').val('');
+						$('#id_email').val('');
 						$('#id_message').val('');
 						$('#is_agree').prop('checked', false);
+						$('#is_mail_agree').prop('checked', false);
                         alert(response.message)
                     },
                     error: function (request, errThrown, errObject) {

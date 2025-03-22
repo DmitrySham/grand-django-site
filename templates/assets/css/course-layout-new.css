@@ -1,3 +1,13 @@
+body .section-block{
+    &:nth-child(odd){
+        background-color: #f9f9f9;
+    }
+}
+
+.classic-shop{
+    height: auto;
+}
+
 .main-banner_wrapper img{
     width: 100%;
 }

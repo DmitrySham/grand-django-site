@@ -31,7 +31,6 @@ class CourseAdmin(SortableAdminMixin, admin.ModelAdmin):
             'full_description',
             'cost',
             'share_links',
-            'student_reviews',
             'advantages',
         )}),
         ('SEO', {'fields': (
@@ -56,8 +55,8 @@ class CourseAdmin(SortableAdminMixin, admin.ModelAdmin):
             'banner_background',
         )}),
         ('Дополнительно', {'fields': (
-            'available_subscription_plans',
             'siblings',
+            'payment_url',
         )})
     )
 

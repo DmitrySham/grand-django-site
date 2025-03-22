@@ -3,8 +3,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import render
 from django.views.decorators.csrf import ensure_csrf_cookie
-from .models import Course, License, Educators
-from core.models import FAQ
+from core.models import FAQ, StudentsReviews
+from .models import Course, License, Educators, SubscriptionPlans
 
 # Create your views here.
 
@@ -22,8 +22,8 @@ def course_single(request, slug):
         raise Http404
 
     advantages = course.advantages.filter(is_active=True)
-    subscription_plans = course.available_subscription_plans.all()
-    reviews = course.student_reviews.filter(is_active=True)
+    subscription_plans = SubscriptionPlans.objects.filter(is_active=True)
+    reviews = StudentsReviews.objects.filter(is_active=True)
     faq_items = FAQ.objects.filter(is_active=True)
     siblings = course.siblings.all()[:8]
 
