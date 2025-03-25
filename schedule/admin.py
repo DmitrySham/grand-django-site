@@ -1,4 +1,4 @@
-from adminsortable2.admin import SortableAdminMixin
+from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 
 from django.contrib import admin
 from django.utils.safestring import mark_safe
@@ -127,7 +127,7 @@ class CourseAdvantagesAdmin(admin.ModelAdmin):
     list_display = ['id', 'icon', 'text', 'is_active']
 
 
-class SubscriptionPlanCharacteristicsInlineAdmin(admin.TabularInline):
+class SubscriptionPlanCharacteristicsInlineAdmin(SortableInlineAdminMixin, admin.TabularInline):
     model = SubscriptionPlanCharacteristics
     extra = 1
 

@@ -173,11 +173,13 @@ class SubscriptionPlanCharacteristics(models.Model):
     class Meta:
         verbose_name = 'Характеристика тарифа'
         verbose_name_plural = 'Характеристики тарифов'
+        ordering = ('order_index',)
 
     is_active = models.BooleanField(default=True)
     text = models.CharField(max_length=255)
     enabled = models.BooleanField(default=True)
     plan = models.ForeignKey(to='SubscriptionPlans', related_name='characteristic', on_delete=models.CASCADE)
+    order_index = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.text
