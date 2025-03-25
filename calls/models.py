@@ -10,6 +10,7 @@ class Call(models.Model):
 
     course = models.ForeignKey(Course, verbose_name='Курс', on_delete=models.CASCADE)
     name = models.CharField(max_length=255, verbose_name='Имя')
+    email = models.EmailField(null=True, blank=True, verbose_name='Email')
     phone = models.CharField(verbose_name='Номер телефона', max_length=64)
     message = models.TextField(verbose_name='Сообщение', null=True, blank=True)
     is_agree = models.BooleanField(
