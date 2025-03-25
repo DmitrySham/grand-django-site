@@ -71,12 +71,6 @@
 		<li>{{ course.title }}</li>
 <!--		<li><a href="{% url 'courses_single' slug=course.slug %}">{{ course.title }}</a></li>-->
 	</ul>
-	<div class="product-share ml-auto mt-3 mt-md-0">
-		<span>Поделиться: </span>
-		{% for item in course.share_links.all %}
-		<a href="{% normalize_social_link item.url request title=course.title description=course.short_description image=course.thumbnail %}" target="_blank"><i class="fa fa-{{ item.icon }}"></i></a>
-		{% endfor %}
-	</div>
 </div>
 <!-- Page Title END -->
 
@@ -102,7 +96,15 @@
 				</div>
 			</div>
 			<div class="col-md-6 col-12">
-				<img src="{{ course.thumbnail.url }}" class="shadow-primary mt-15-xs" alt="{{ course.atr_alt }}">
+				<div class="course-preview-wrapper mt-15-xs">
+					<img src="{{ course.thumbnail.url }}" class="shadow-primary" alt="{{ course.atr_alt }}">
+				</div>
+				<div class="product-share ml-auto mt-3">
+					<span>Поделиться: </span>
+					{% for item in course.share_links.all %}
+					<a href="{% normalize_social_link item.url request title=course.title description=course.short_description image=course.thumbnail %}" target="_blank"><i class="fa fa-{{ item.icon }}"></i></a>
+					{% endfor %}
+				</div>
 			</div>
 		</div>
 	</div>
