@@ -25,11 +25,11 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'FAQ',
             },
         ),
-        migrations.AddField(
-            model_name='feedback',
-            name='phone',
-            field=models.CharField(max_length=255, null=True, verbose_name='Телефон'),
-        ),
+#        migrations.AddField(
+#            model_name='feedback',
+#            name='phone',
+#            field=models.CharField(max_length=255, null=True, verbose_name='Телефон'),
+#        ),
         migrations.AlterField(
             model_name='feedback',
             name='email',

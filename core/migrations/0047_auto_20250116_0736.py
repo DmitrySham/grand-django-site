@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
+        migrations.AlterField(
             model_name='feedback',
             name='phone',
             field=models.CharField(default='', max_length=255, verbose_name='Телефон'),
