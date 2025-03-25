@@ -21,7 +21,7 @@ from django.views.generic import TemplateView
 from Grand import settings
 
 from production.views import online_cashbox_list, one_c_single, one_c_list
-from schedule.views import course_single, LicensesView
+from schedule.views import course_single, LicensesView, course_full_description, course_roadmap
 from .sitemaps import *
 
 sitemaps = {
@@ -55,6 +55,8 @@ urlpatterns = [
     path('1c/predpriyatie/', one_c_list, name='one_c_list'),
     path('1c/<str:slug>/', one_c_single, name='one_c_single'),
     path('courses/<str:slug>/', course_single, name='courses_single'),
+    path('courses/<str:slug>/full-description/', course_full_description, name='courses_full_description'),
+    path('courses/<str:slug>/roadmap/', course_roadmap, name='courses_roadmap'),
     path('online-kassa/', online_cashbox_list, name='online_cashbox_list'),
     path('licenses/', LicensesView.as_view(), name='licenses'),
     path('', core_views.index, name='index'),

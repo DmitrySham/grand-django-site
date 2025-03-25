@@ -210,7 +210,7 @@ class Feedback(models.Model):
     last_name = models.CharField(max_length=255, verbose_name='Фамилия', null=True, blank=True)
     middle_name = models.CharField(max_length=255, verbose_name='Отчество', null=True, blank=True)
     email = models.EmailField(verbose_name='Почта', null=True, blank=True)
-    phone = models.CharField(max_length=255, verbose_name='Телефон')
+    phone = models.CharField(max_length=255, verbose_name='Телефон', null=True)
     subject = models.CharField(max_length=255, verbose_name='Тема')
     message = models.TextField(verbose_name='Сообщение', null=True, blank=True)
 
@@ -394,4 +394,34 @@ class PromoFormField(models.Model):
     def __str__(self):
         return f'{self.get_field_type_display()} ({self.field_placeholder})'
 
+
+class FAQ(models.Model):
+    class Meta:
+        verbose_name = 'FAQ'
+        verbose_name_plural = 'FAQ'
+
+    is_active = models.BooleanField(default=True)
+    question = models.TextField()
+    answer = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.question
+
+
+class StudentsReviews(models.Model):
+    class Meta:
+        verbose_name = 'Отзыв ученика'
+        verbose_name_plural = 'Отзывы учеников'
+
+    is_active = models.BooleanField(default=True)
+    author = models.TextField()
+    review_text = models.TextField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.author
 

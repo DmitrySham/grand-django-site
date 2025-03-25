@@ -3,7 +3,7 @@ from adminsortable2.admin import SortableAdminMixin
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import Course, License, Schedule, Educators
+from .models import Course, License, Schedule, Educators, CourseAdvantages, SubscriptionPlans, SubscriptionPlanCharacteristics
 
 
 class ScheduleAdminInline(admin.StackedInline):
@@ -24,8 +24,6 @@ class CourseAdmin(SortableAdminMixin, admin.ModelAdmin):
     fieldsets = (
         ('Общее', {'fields': (
             'is_active',
-            'thumbnail',
-            'atr_alt',
             #'cover_image',
             'title',
             'slug',
@@ -33,6 +31,7 @@ class CourseAdmin(SortableAdminMixin, admin.ModelAdmin):
             'full_description',
             'cost',
             'share_links',
+            'advantages',
         )}),
         ('SEO', {'fields': (
             'page_title',
@@ -41,6 +40,23 @@ class CourseAdmin(SortableAdminMixin, admin.ModelAdmin):
             'page_meta_og_title',
             'page_meta_og_description',
             'page_meta_og_image',
+        )}),
+        ('Учебный план', {'fields': (
+            'course_roadmap_description',
+            'course_roadmap_content',
+        )}),
+        ('Видео', {'fields': (
+            'video_iframe',
+        )}),
+        ('Изображения', {'fields': (
+            'logo',
+            'thumbnail',
+            'atr_alt',
+            'banner_background',
+        )}),
+        ('Дополнительно', {'fields': (
+            'siblings',
+            'payment_url',
         )})
     )
 
@@ -104,3 +120,19 @@ class EducatorsAdmin(SortableAdminMixin, admin.ModelAdmin):
         }
         return mark_safe(html)
     photo_representation.short_description = 'Фотография'
+
+
+@admin.register(CourseAdvantages)
+class CourseAdvantagesAdmin(admin.ModelAdmin):
+    list_display = ['id', 'icon', 'text', 'is_active']
+
+
+class SubscriptionPlanCharacteristicsInlineAdmin(admin.TabularInline):
+    model = SubscriptionPlanCharacteristics
+    extra = 1
+
+
+@admin.register(SubscriptionPlans)
+class SubscriptionPlansAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'icon']
+    inlines = (SubscriptionPlanCharacteristicsInlineAdmin,)

@@ -3,7 +3,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import render
 from django.views.decorators.csrf import ensure_csrf_cookie
-from .models import Course, License, Educators
+from core.models import FAQ, StudentsReviews
+from .models import Course, License, Educators, SubscriptionPlans
 
 # Create your views here.
 
@@ -19,6 +20,12 @@ def course_single(request, slug):
         course = Course.objects.get(slug=slug)
     except ObjectDoesNotExist:
         raise Http404
+
+    advantages = course.advantages.filter(is_active=True)
+    subscription_plans = SubscriptionPlans.objects.filter(is_active=True)
+    reviews = StudentsReviews.objects.filter(is_active=True)
+    faq_items = FAQ.objects.filter(is_active=True)
+    siblings = course.siblings.all()[:8]
 
     # apply_form = ApplyRequestForm(initial={'course': course.get_actual_date_action()})
 
@@ -73,7 +80,27 @@ def course_single(request, slug):
     #
     #     return JsonResponse(dict(success=False, message=str(apply_form.errors)))
 
-    return render(request, 'app/schedule-object-single.html', locals())
+    return render(request, 'app/schedule-object-single-new.html', locals())
+
+
+@ensure_csrf_cookie
+def course_full_description(request, slug):
+    try:
+        course = Course.objects.get(slug=slug)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    return render(request, 'app/schedule-object-full-description.html', locals())
+
+
+@ensure_csrf_cookie
+def course_roadmap(request, slug):
+    try:
+        course = Course.objects.get(slug=slug)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    return render(request, 'app/schedule-object-roadmap.html', locals())
 
 
 def schedule(request):

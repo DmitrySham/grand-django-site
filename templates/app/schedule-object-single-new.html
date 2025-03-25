@@ -1,0 +1,482 @@
+{% extends 'base.html' %}
+
+{% load staticfiles product_template_helper widget_tweaks %}
+
+{% block title %}{% if course.page_title %}{{ course.page_title }}{% else %}{{ course.title }}{% endif %}{% endblock %}
+
+{% block extra_css %}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+	<link rel="stylesheet" href="{% static 'css/course-layout-new.css' %}">
+<style>
+		.primary-button {
+			cursor: pointer;
+		}
+
+		.primary-button.disabled {
+			background-color: #6c757d;
+			border-color: #6c757d;
+			color: #ffffff;
+			cursor: not-allowed;
+		}
+		.contact-form select {
+			font-weight: 500 !important;
+			border-radius: 5px;
+			font-size: 13px;
+			border: 1px solid #f6f7f8;
+			background: #f6f7f8;
+			color: #777 !important;
+			outline: none;
+			width: 100%;
+			padding: 14px;
+			margin: 10px 0;
+			-webkit-transition-duration: 0.4s;
+			transition-duration: 0.4s;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			cursor: pointer;
+		}
+	</style>
+{% endblock %}
+
+{% block seo %}
+	{% if course.page_meta_keywords %}
+		<meta name="keywords" content="{{ course.page_meta_keywords }}" />
+	{% endif %}
+
+	{% if course.page_meta_description %}
+		<meta name="description" content="{{ course.page_meta_description }}" />
+	{% endif %}
+
+	{% if course.page_meta_og_title %}
+		<meta name="og:title" content="{{ course.page_meta_og_title }}" />
+	{% endif %}
+
+	{% if course.page_meta_og_description %}
+		<meta name="og:description" content="{{ course.page_meta_og_description }}" />
+	{% endif %}
+
+	{% if course.page_meta_og_image %}
+		<meta name="og:image" content="{{ course.page_meta_og_image }}" />
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<!-- Page Title START -->
+<div class="container xleb mt-50 d-flex justify-content-between align-items-center flex-wrap">
+	<ul>
+		<li><a href="{% url 'index' %}">Главная</a></li>
+		<li><a href="{% url 'schedule:list' %}">Учебный Центр</a></li>
+		<li>{{ course.title }}</li>
+<!--		<li><a href="{% url 'courses_single' slug=course.slug %}">{{ course.title }}</a></li>-->
+	</ul>
+	<div class="product-share ml-auto mt-3 mt-md-0">
+		<span>Поделиться: </span>
+		{% for item in course.share_links.all %}
+		<a href="{% normalize_social_link item.url request title=course.title description=course.short_description image=course.thumbnail %}" target="_blank"><i class="fa fa-{{ item.icon }}"></i></a>
+		{% endfor %}
+	</div>
+</div>
+<!-- Page Title END -->
+
+
+
+<!-- MAIN BANNER START -->
+<div class="section-block main-banner_wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-12">
+				<div class="pr-30-md">
+					<div class="section-heading">
+						<h1>EXCEL проф</h1>
+					</div>
+					<div class="section-heading-line-left"></div>
+					<div class="text-content-big mt-20">
+						<p>{{ course.short_description|safe }}</p>
+					</div>
+					<div class="d-flex" style="gap: 15px">
+						<a href="#id-tariff-block" class="primary-button button-md anchor-link text-center">Перейти к тарифам</a>
+						<a href="#id-program-block" class="primary-button button-md anchor-link text-center">Программа курса</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-12">
+				<img src="{{ course.thumbnail.url }}" class="rounded-border shadow-primary mt-15-xs" alt="{{ course.atr_alt }}">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- MAIN BANNER END -->
+
+
+<!-- Banner START -->
+<div class="section-block-grey sale-banner_wrapper">
+	<div class="container">
+		<div class="sale-banner_inner-wrapper" style="background-image: url('{% if course.banner_background %}{{ course.banner_background.url }}{% else %}https://picsum.photos/id/11/1000/300{% endif %}');">
+			{% if course.logo %}
+				<div class="sale-banner_image-wrapper">
+					<img src="{{ course.logo.url }}" alt="logo">
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+<!-- Banner END -->
+
+<!-- Boxes with icons START -->
+<div class="section-block">
+	<div class="container">
+		<div class="row justify-content-center">
+			{% for item in advantages %}
+				<div class="col-lg-3 col-sm-6 col-12">
+					<div class="number-box">
+						<h3><i class="{{ item.icon }}"></i></h3>
+						<div class="number-box-line"></div>
+						<h4>{{ item.text }}</h4>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+<!-- Boxes with icons END -->
+
+
+<!-- Программа курса START -->
+<div id="id-program-block" class="section-block program-block_wrapper">
+	<div class="container">
+		<div class="section-heading center-holder">
+			<h3>Программа курса</h3>
+			<div class="section-heading-line"></div>
+		</div>
+		<div class="row mt-60 justify-content-center">
+			<h3>{{ course.course_roadmap_description }}</h3>
+		</div>
+		<div class="row mt-60 justify-content-center" style="gap: 15px">
+			<div class="col-lg-4 col-md-5 col-12">
+				<a href="{% url 'courses_full_description' slug=course.slug %}" class="center call-button">Подробное описание</a>
+			</div>
+			<div class="col-lg-4 col-md-5 col-12">
+				<a href="{% url 'courses_roadmap' slug=course.slug %}" class="center call-button">Учебный план</a>
+			</div>
+		</div>
+	</div>
+
+</div>
+<!-- Программа курса END -->
+
+
+{% if course.video_iframe %}
+<!-- ознакомительное видео START -->
+<div class="section-block video-block_wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-sm-12 pr-30-md d-flex align-items-center">
+				<div class="section-heading">
+					<h3 style="font-weight: 400 ">Посмотрите ознакомительное видео, чтобы убедиться, что курс будет вам полезен</h3>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12 overflow-hidden">
+				{{ course.video_iframe|safe }}
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ознакомительное видео END -->
+{% endif %}
+
+
+<!-- Тарифы START -->
+<div class="section-block" id="id-tariff-block">
+	<div class="container">
+		<div class="section-heading center-holder">
+			<h3>Тарифы</h3>
+			<div class="section-heading-line"></div>
+		</div>
+
+		<div class="row mt-60 justify-content-center">
+			{% for item in subscription_plans %}
+
+				<div class="col-lg-4 col-md-6 col-sm-12 tariff-card_wrapper">
+					<div class="pricing-list-2">
+						<div class="pricing-list-2-top">
+							<i class="{{ item.icon }}"></i>
+						</div>
+						<h4>{{ item.name }}</h4>
+						<ul class="pricing-list-2-prod">
+							{% for char in item.characteristic.all %}
+								<li class="{% if not char.enabled %}is-minus{% endif %}">
+									{{ char.text }}
+								</li>
+							{% endfor %}
+						</ul>
+						<a class="center call-button{% if item.has_mentor %} anchor-link{% endif %}" href="{% if item.has_mentor %}#id-feedback-block{% else %}{{ course.payment_url }}{% endif %}"{% if not item.has_mentor %} target="_blank"{% endif %}>
+							{{ item.action_name }}
+						</a>
+					</div>
+				</div>
+
+			{% endfor %}
+
+		</div>
+	</div>
+</div>
+<!-- Тарифы END -->
+
+
+<!-- Отзывы START -->
+<div class="section-block" style="background-image: url(http://via.placeholder.com/1730x630);">
+	<div class="container">
+		<div class="section-heading center-holder">
+			<h3>Отзывы учеников</h3>
+			<div class="section-heading-line"></div>
+		</div>
+		<div class="owl-carousel owl-theme" id="testmonials-carousel">
+			{% for item in reviews %}
+				<div class="testmonial-single">
+					<p>{{ item.review_text }}</p>
+					<h4>{{ item.author }}</h4>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+<!-- Отзывы END -->
+
+
+<!-- FAQ -->
+<div class="section-block">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-12">
+				<div class="section-heading">
+					<h3>Часто задаваемые вопросы</h3>
+					<div class="section-heading-line-left"></div>
+				</div>
+				<!-- Accordions START -->
+				<div class="panel-group mt-40" id="accordion" role="tablist" aria-multiselectable="true">
+
+					{% for item in faq_items %}
+						<div class="panel panel-default accordion">
+							<div class="panel-heading accordion-heading" role="tab" id="heading{{ forloop.counter }}">
+								<h4 class="panel-title accordion-title">
+									<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ forloop.counter }}"
+									   aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+										{{ item.question }}
+									</a>
+								</h4>
+							</div>
+							<div id="collapse{{ forloop.counter }}" class="panel-collapse collapse" role="tabpanel"
+								 aria-labelledby="heading{{ forloop.counter }}">
+								<div class="panel-body accordion-body">
+									{{ item.answer }}
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+
+				</div>
+				<!-- Accordions END -->
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FAQ END -->
+
+<!-- Консультация START -->
+<div id="id-feedback-block" class="section-block border-top border-bottom consultation-block_wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="section-heading col-md-6 col-12">
+				<h3>Записаться на курс</h3>
+				<div class="section-heading-line-left"></div>
+				<p>Наши специалисты всегда на связи и готовы помочь</p>
+			</div>
+			<div class="col-md-6 col-12">
+				<form class="contact-form" method="POST" id="callForm">
+					<div>
+						<input type="text" id="id_name" placeholder="Имя" required>
+					</div>
+					<div>
+						<input type="email" id="id_email" placeholder="E-mail" required>
+					</div>
+					<div>
+						<input type="tel" id="id_phone" placeholder="Номер телефона" required>
+					</div>
+					<div>
+						<textarea type="textarea" class="form-control" id="id_message" placeholder="Сообщение"></textarea>
+					</div>
+					<div class="d-flex privacy-policy">
+						<span style="margin-right: 15px;">
+							<input type="checkbox" value="" id="is_agree" required >
+						</span>
+						<label for="is_agree"> Я согласен на обработку моих персональных данных в соответствии с
+							<a href="{% url 'core:privacy_policy' %}">Политикой конфидециальности</a>
+							и принимаю условия договора оферты</label>
+					</div>
+					<div class="d-flex privacy-policy">
+						<span style="margin-right: 15px;">
+							<input type="checkbox" value="" id="is_mail_agree" required >
+						</span>
+						<label for="is_mail_agree"> Даю согласие на получение информационных и маркетинговых рассылок (вы в любой момент можете
+							отказаться от получения писем в личном набинете)</label>
+					</div>
+					<div class="center-holder">
+						<button class="primary-button button-lg" type="submit">Записаться на бесплатную консультацию</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Консультация END -->
+
+<!-- С этим курсом приобретают START -->
+<div class="section-block">
+	<div class="container">
+		<div class="section-heading center-holder">
+			<h3>С этим курсом приобретают</h3>
+			<div class="section-heading-line"></div>
+		</div>
+		<div class="row mt-50">
+			{% for item in siblings %}
+			<!-- Product Start -->
+			<a href="{% url 'courses_single' slug=item.slug %}">
+				<div class="col-md-3 col-sm-6 col-12">
+					<div class="classic-shop">
+						<div class="classic-shop-img">
+							<img src="{{ item.thumbnail.url }}" alt="{% if item.atr_alt %}{{ item.atr_alt }}{% else %}{{ item.image.name }}{% endif %}">
+							<div class="shop-box-overlay">
+								<div class="row">
+									<div class="col-md-12 col-sm-12 col-12">
+										<a href="{% url 'courses_single' slug=item.slug %}">
+											<div class="shop-to-card">
+												<h4><span class="fa fa-eye"></span>Подробнее</h4>
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="classic-shop-text p-4">
+							<h6><a href="{% url 'courses_single' slug=item.slug %}">{{ item.title|truncate_chars:45 }}</a></h6>
+						</div>
+
+
+						<div class="panel-group text-center" id="accordion{{ forloop.counter }}" role="tablist" aria-multiselectable="true">
+
+							<div class="panel panel-grey accordion">
+								<div class="panel-heading accordion-heading" role="tab" id="acc{{ forloop.counter }}">
+									<h4 class="panel-title accordion-title">
+										<a role="button" data-toggle="collapse" data-parent="#accordion{{ forloop.counter }}" href="#ac_col{{ forloop.counter }}" aria-expanded="true" aria-controls="ac_col1">
+											Расписание
+										</a>
+									</h4>
+								</div>
+
+								<div id="ac_col{{ forloop.counter }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="acc{{ forloop.counter }}">
+									{% for schedule in item.schedule_set.all %}
+									<div class="panel-body accordion-body text-center">
+										<p>Дата: {{ schedule.start_date|safe }}</p>
+										<p>Время: {{ schedule.start_hour|time }} - {{ schedule.finish_hour|time }} ({{ schedule.days }})</p>
+										<p>Продолжительность: {{ schedule.duration }}</p>
+										{% if schedule.have_own_cost %}
+										{% if schedule.cost %}
+										<p>Оплата: {{ schedule.cost }}</p>
+										{% else %}
+										<p>Оплата: -</p>
+										{% endif %}
+										{% else %}
+										<p>Оплата: {{ item.cost }}</p>
+										{% endif %}
+									</div>
+									{% endfor %}
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+			<!-- Product End -->
+			{% endfor %}
+
+		</div>
+	</div>
+</div>
+<!-- С этим курсом приобретают END -->
+
+
+<!--{% include 'modals/call-modal.html' %}-->
+{% endblock %}
+
+{% block extra_js %}
+	<script src="{% static 'js/jquery.inputmask.js' %}"></script>
+     <script>
+        $(document).ready(() => {
+			$('#id_phone').inputmask('+7 (999) 999 99-99');
+
+            $('#callForm').on('submit', function (e) {
+                e.preventDefault();
+
+                let name = $('#id_name').val();
+                let phone = $('#id_phone').val();
+                let email = $('#id_email').val();
+                let message = $('#id_message').val();
+                let model_id = '{{ course.pk }}';
+                let is_agree = $('#is_agree').is(":checked");
+                let is_mail_agree = $('#is_mail_agree').is(":checked");
+
+                let data = {
+                    csrfmiddlewaretoken: getCookie('csrftoken'),
+                    'name': name,
+                    'phone': phone,
+                    'email': email,
+                    'message': message,
+                    'course': model_id,
+                    'is_agree': is_agree,
+                    'is_mail_agree': is_mail_agree,
+                };
+
+                $('#callModal').modal("hide");
+
+                $.ajax({
+                    url: "{% url 'calls:calls_request' %}",
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: data,
+
+                    success: function (response) {
+						$('#id_name').val('');
+						$('#id_phone').val('');
+						$('#id_email').val('');
+						$('#id_message').val('');
+						$('#is_agree').prop('checked', false);
+						$('#is_mail_agree').prop('checked', false);
+                        alert(response.message)
+                    },
+                    error: function (request, errThrown, errObject) {
+                        alert('Произошла ошибка просьба обратитесь к администратору.');
+                        console.error(request, errThrown, errObject);
+                    }
+                })
+            })
+
+			$("a[href^='#'].anchor-link").on("click", function (event) {
+				event.preventDefault();
+
+				var target = $(this.getAttribute("href"));
+				if (target.length) {
+					$("html, body").animate(
+							{
+								scrollTop: target.offset().top - 80,
+							},
+							500,
+					);
+				}
+			});
+        });
+
+    </script>
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% load staticfiles product_template_helper widget_tweaks %}
+
+{% block title %}Подробное описание | {% if course.page_title %}{{ course.page_title }}{% else %}{{ course.title }}{% endif %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<link rel="stylesheet" href="{% static 'css/course-layout-new.css' %}">
+<style>
+    .primary-button {
+        cursor: pointer;
+    }
+
+    .primary-button.disabled {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #ffffff;
+        cursor: not-allowed;
+    }
+    .contact-form select {
+        font-weight: 500 !important;
+        border-radius: 5px;
+        font-size: 13px;
+        border: 1px solid #f6f7f8;
+        background: #f6f7f8;
+        color: #777 !important;
+        outline: none;
+        width: 100%;
+        padding: 14px;
+        margin: 10px 0;
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+
+{% block seo %}
+{% if course.page_meta_keywords %}
+<meta name="keywords" content="{{ course.page_meta_keywords }}" />
+{% endif %}
+
+{% if course.page_meta_description %}
+<meta name="description" content="{{ course.page_meta_description }}" />
+{% endif %}
+
+{% if course.page_meta_og_title %}
+<meta name="og:title" content="{{ course.page_meta_og_title }}" />
+{% endif %}
+
+{% if course.page_meta_og_description %}
+<meta name="og:description" content="{{ course.page_meta_og_description }}" />
+{% endif %}
+
+{% if course.page_meta_og_image %}
+<meta name="og:image" content="{{ course.page_meta_og_image }}" />
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+
+<!-- Page Title START -->
+<div class="container xleb mt-50">
+    <ul>
+        <li><a href="{% url 'index' %}">Главная</a></li>
+        <li><a href="{% url 'schedule:list' %}">Учебный Центр</a></li>
+        <li><a href="{% url 'courses_single' slug=course.slug %}">{{ course.title }}</a></li>
+        <li>Подробное описание</li>
+    </ul>
+</div>
+<!-- Page Title END -->
+
+<div class="section-block" style="min-height: calc(60vh - 100px);">
+    <div class="container">
+        <div class="section-heading">
+            <h2>Подробное описание</h2>
+            <div class="section-heading-line-left"></div>
+        </div>
+        <div class="mt-50">
+            {{ course.full_description|safe }}
+        </div>
+    </div>
+</div>
+
+<div class="section-block-grey border-top">
+    <div class="container">
+        <div class="section-heading center-holder">
+            <h3>Расписание</h3>
+            <div class="section-heading-line"></div>
+        </div>
+        <div class="row">
+            <!-- Подставляется из основного расписание  shedule.html-->
+            {% for schedule in course.schedule_set.all %}
+            <div class="col-md-4 col-sm-4 col-12">
+                <div class="border p-3 mb-3 team-member">
+                    <h5 class="mb-3">Группа {{ forloop.counter }}</h5>
+
+                    <p>Дата: {{ schedule.start_date|safe }}</p>
+                    <p>Время: {{ schedule.start_hour|time }} - {{ schedule.finish_hour|time }} ({{ schedule.days }})</p>
+                    <p>Продолжительность: {{ schedule.duration }}</p>
+                    {% if schedule.have_own_cost %}
+                    <p>Оплата: {% if schedule.cost %}{{ schedule.cost }}{% else %}-{% endif %}</p>
+                    {% else %}
+                    <p>Оплата: {{ course.cost }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
