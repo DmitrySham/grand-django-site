@@ -3,7 +3,7 @@ from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import Course, License, Schedule, Educators, CourseAdvantages, SubscriptionPlans, SubscriptionPlanCharacteristics
+from .models import Course, License, Schedule, Educators, CourseAdvantages, SubscriptionPlans, SubscriptionPlanCharacteristics, SubscriptionPlanCharacteristicsDict
 
 
 class ScheduleAdminInline(admin.StackedInline):
@@ -49,14 +49,15 @@ class CourseAdmin(SortableAdminMixin, admin.ModelAdmin):
             'video_iframe',
         )}),
         ('Изображения', {'fields': (
-            'logo',
             'thumbnail',
             'atr_alt',
+            'show_banner',
+            'logo',
             'banner_background',
         )}),
         ('Дополнительно', {'fields': (
             'siblings',
-            'payment_url',
+            'subscription_plans',
         )})
     )
 
@@ -134,5 +135,13 @@ class SubscriptionPlanCharacteristicsInlineAdmin(SortableInlineAdminMixin, admin
 
 @admin.register(SubscriptionPlans)
 class SubscriptionPlansAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'icon']
+    class Media:
+        js = ('js/admin/subscription-plan.js',)
+
+    list_display = ['id', 'name', 'icon', 'action']
     inlines = (SubscriptionPlanCharacteristicsInlineAdmin,)
+
+
+@admin.register(SubscriptionPlanCharacteristicsDict)
+class SubscriptionPlanCharacteristicsDictAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name']

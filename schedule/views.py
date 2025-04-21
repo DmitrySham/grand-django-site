@@ -22,7 +22,7 @@ def course_single(request, slug):
         raise Http404
 
     advantages = course.advantages.filter(is_active=True)
-    subscription_plans = SubscriptionPlans.objects.filter(is_active=True)
+    subscription_plans = course.subscription_plans.filter(is_active=True)
     reviews = StudentsReviews.objects.filter(is_active=True)
     faq_items = FAQ.objects.filter(is_active=True)
     siblings = course.siblings.all()[:8]

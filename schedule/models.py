@@ -45,11 +45,12 @@ class Course(models.Model):
     course_roadmap_description = models.CharField(max_length=255, verbose_name='Описание под "Программа кураса"', null=True, blank=True)
     advantages = models.ManyToManyField(to='CourseAdvantages', blank=True)
 
+    show_banner = models.BooleanField(default=True)
     logo = models.FileField(upload_to=SetUniqueName('courses/logos'), null=True, blank=True)
     banner_background = models.FileField(upload_to=SetUniqueName('courses/banners'), null=True, blank=True)
 
     course_roadmap_content = RichTextUploadingField(null=True, blank=True)
-    payment_url = models.URLField(null=True, blank=True)
+    subscription_plans = models.ManyToManyField(to='SubscriptionPlans', blank=True)
 
     siblings = models.ManyToManyField(to='Course', blank=True)
 
@@ -156,14 +157,32 @@ class SubscriptionPlans(models.Model):
     class Meta:
         verbose_name = 'Тариф'
         verbose_name_plural = 'Тарифы'
+        ordering = ('sort_index',)
 
     is_active = models.BooleanField(default=True)
     name = models.CharField(max_length=255)
-    icon = models.CharField(max_length=255, verbose_name='CSS класс для иконки')
+    icon = models.CharField(max_length=255, verbose_name='CSS класс для иконки', help_text='Сюда вписывается название класса иконки из <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank">Font Awesome</a>. Предосмотр: <i class="fa id_icon_preview" data-syntax="full"></i>')
     action_name = models.CharField(max_length=255, verbose_name='Текст на кнопке')
+    sort_index = models.PositiveIntegerField(default=0, verbose_name='Номер для сортировки.')
+    action = models.CharField(max_length=255, verbose_name='Действие на клик', choices=(
+        ('redirect', 'Перенаправить на другую страницу'),
+        ('feedback', 'Показать форму обратной связи'),
+    ), default='anchor')
+    payment_url = models.URLField(null=True, blank=True)
 
     def has_mentor(self):
         return self.icon == 'fa fa-group'
+
+    def __str__(self):
+        return self.name
+
+
+class SubscriptionPlanCharacteristicsDict(models.Model):
+    class Meta:
+        verbose_name = 'Словарь характеристик тарифов'
+        verbose_name_plural = 'Словарь характеристик тарифов'
+
+    name = models.CharField(max_length=255, verbose_name='Название')
 
     def __str__(self):
         return self.name
@@ -176,13 +195,13 @@ class SubscriptionPlanCharacteristics(models.Model):
         ordering = ('order_index',)
 
     is_active = models.BooleanField(default=True)
-    text = models.CharField(max_length=255)
+    name = models.ForeignKey(to='SubscriptionPlanCharacteristicsDict', on_delete=models.CASCADE, null=True)
     enabled = models.BooleanField(default=True)
     plan = models.ForeignKey(to='SubscriptionPlans', related_name='characteristic', on_delete=models.CASCADE)
     order_index = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return self.text
-
-
+        if not self.name:
+            return str(self.id)
+        return self.name.name
 

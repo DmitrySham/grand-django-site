@@ -110,6 +110,7 @@
 <!-- MAIN BANNER END -->
 
 
+{% if course.show_banner %}
 <!-- Banner START -->
 <div class="section-block-grey sale-banner_wrapper">
 	<div class="container">
@@ -123,6 +124,7 @@
 	</div>
 </div>
 <!-- Banner END -->
+{% endif %}
 
 <!-- Boxes with icons START -->
 <div class="section-block">
@@ -206,12 +208,18 @@
 						<h4>{{ item.name }}</h4>
 						<ul class="pricing-list-2-prod">
 							{% for char in item.characteristic.all %}
-								<li class="{% if not char.enabled %}is-minus{% endif %}">
-									{{ char.text }}
-								</li>
+								{% if char.name %}
+									<li class="{% if not char.enabled %}is-minus{% endif %}">
+										{{ char.name.name }}
+									</li>
+								{% endif %}
 							{% endfor %}
 						</ul>
-						<a class="center call-button{% if item.has_mentor %} anchor-link{% endif %}" href="{% if item.has_mentor %}#id-feedback-block{% else %}{{ course.payment_url }}{% endif %}"{% if not item.has_mentor %} target="_blank"{% endif %}>
+						<a
+						  class="center call-button{% if item.action == 'feedback' %} anchor-link{% endif %}"
+						  href="{% if item.action == 'feedback' %}#id-feedback-block{% else %}{{ item.payment_url }}{% endif %}"
+						  {% if item.action == 'redirect' %} target="_blank"{% endif %}
+						>
 							{{ item.action_name }}
 						</a>
 					</div>

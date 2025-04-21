@@ -237,10 +237,11 @@
 			    this.elements.each((i, obj) => {
 			        $(obj).attr('style', 'font-size: 24px;');
 			        let input = $($($(obj).parent().parent()).find('input'));
+					const syntax = $(obj).attr('data-syntax');
 
 			        input.on('input', e => {
-
-			            $(obj).attr('class', `${this.classes.join(' ')} fa-${e.target.value}`);
+						const targetClassName = syntax === 'full' ? e.target.value : `fa-${e.target.value}`;
+			            $(obj).attr('class', `${this.classes.join(' ')} ${targetClassName}`);
 					});
 				});
 			};
