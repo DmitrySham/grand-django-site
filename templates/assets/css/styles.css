@@ -1253,6 +1253,7 @@ i) Animations
     margin: 15px 0px;
     background: #fff;
     border-radius: 3px;
+    min-height: 96%;
 }
 
 .number-box h3 {
